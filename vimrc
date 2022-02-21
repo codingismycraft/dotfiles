@@ -1,26 +1,6 @@
-" Some change..
-"              **                                                             
-"             /**   ******                                                    
-"             /**  /**///**                                                   
-"             /**  /**  /**                                                   
-"             /**  /******                                                    
-"         **  /**  /**///                                                     
-"        //*****   /**                                                        
-"         /////    //                                                         
-"                                    **                                       
-"                                   //                                        
-"                         **    **   **   **********    ******    *****       
-"                        /**   /**  /**  //**//**//**  //**//*   **///**      
-"                        //** /**   /**   /** /** /**   /** /   /**  //       
-"                         //****    /**   /** /** /**   /**     /**   **      
-"                          //**     /**   *** /** /**  /***     //*****       
-"                           //      //   ///  //  //   ///       /////        "            
-
-
+" Customized version of vimrc.
 
 set nocompatible
-
-" Dummy change...
 
 " Allow backspace to work as expected..
 map! <C-h> <BS>
@@ -29,7 +9,6 @@ set bs=indent,eol,start
 filetype plugin on
 
 colorscheme onehalfdark
-
 
 " Bind cliboard to unnamed register.
 set clipboard=unnamed
@@ -53,7 +32,6 @@ fixdel
 " Allows the backspace to behave <normally>.
 imap<Del> <C-H>
 
-
 " Save file using <Ctrl S>
 map <C-s> <ESC>:write<CR>
 imap <C-s> <ESC>:write<CR>
@@ -73,11 +51,9 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 augroup END
 
-
 set shiftwidth=4
 vmap <TAB> >
 vmap <S-TAB> <
-
 
 map <F9> <ESC>:write<CR>
 
@@ -357,4 +333,3 @@ else
   let paste#paste_cmd['v'] = '"-c<Esc>gix<Esc>' . paste#paste_cmd['n'] . '"_x'
   let paste#paste_cmd['i'] = 'x<Esc>' . paste#paste_cmd['n'] . '"_s'
 endi
-
