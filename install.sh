@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Creates the soft links for the dotfile and the any other script needed.
+
 echo -n "Continue create the links under your home directory? (y/n)"
 read -r user_selection
 
