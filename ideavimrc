@@ -1,0 +1,94 @@
+" My ideavimrc settings
+
+set nocompatible
+set number
+filetype plugin on
+syntax on
+set cursorline
+
+" Set the Space key as the leader
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+
+" Allow to change buffer even if current buffer has unsaved changes.
+set hidden
+set NERDTree
+
+" Map the Nerd tree.
+map <leader>nn :NERDTree<CR>
+
+" Jump to the current file in file tree.
+map <leader>nf :NERDTreeFind<CR>
+
+" Map the <l> T to open the terminal window.
+nmap <leader>T :action ActivateTerminalToolWindow<cr>
+
+" Fix the del key.
+set t_kb=^H
+fixdel
+
+" Copy to system clipboard as well
+set clipboard+=unnamed
+
+" Maps Ctrl+a to select the whole file.
+map <C-a> GVgg
+
+" Maps Ctrl+z to undo.
+map <C-z> u
+inoremap <C-z> <esc>u
+
+" Line number shortcuts.
+map<C-;> :set relativenumber!<CR>
+
+" Use Tab / Shift Tab to move code (use . after the first move.)
+vmap <TAB> >
+vmap <S-TAB> <
+
+" Save file using <Ctrl S>
+map <C-s> <ESC>:write<CR>
+imap <C-s> <ESC>:write<CR>
+
+" Maps CTRL-j and CTRL-k to move by 10 lines.
+map <C-j> 10j
+map <C-k> 10k
+map <C-h> 10h
+map <C-l> 10l
+
+" Map the movement keys while in insert mode.
+" https://vi.stackexchange.com/questions/10296/navigation-in-insert-mode
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+
+" Map the movement keys while in command mode.
+cnoremap <C-h> <Left>
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+cnoremap <C-l> <Right>
+
+" Use indentation of the first line.
+set autoindent
+
+set tabstop=4
+set list
+set expandtab
+au BufReadPost * retab
+set nowrap
+
+set laststatus=2
+
+set nobackup
+set noswapfile
+
+set nofoldenable
+set laststatus=2
+
+function! AddToDo()
+    r ~/.vim/mytemplates/todo-template
+endfunction
+
+" Mappings to select text using Ins and End keys.
+nmap <S-End> v$
+nmap <C-Ins> "+y
+nmap <S-Ins> "+P
