@@ -23,6 +23,9 @@ let mapleader=" "
 " Working directory is always the same as the file you are editing.
 set autochdir
 
+" Map the escape key in insert mode.
+inoremap jj <Esc>
+
 " Allow to change buffer even if current buffer has unsaved changes.
 set hidden
 

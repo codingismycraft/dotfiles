@@ -10,10 +10,13 @@ set cursorline
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
+" Map the escape key to jj. 
+inoremap jj <Esc>
+
 " Allow to change buffer even if current buffer has unsaved changes.
 set hidden
 set NERDTree
-
+  
 " Map the Nerd tree.
 map <leader>nn :NERDTree<CR>
 
