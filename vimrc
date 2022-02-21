@@ -1,3 +1,4 @@
+" Some change..
 "              **                                                             
 "             /**   ******                                                    
 "             /**  /**///**                                                   
@@ -15,7 +16,11 @@
 "                          //**     /**   *** /** /**  /***     //*****       
 "                           //      //   ///  //  //   ///       /////        "            
 
+
+
 set nocompatible
+
+" Dummy change...
 
 " Allow backspace to work as expected..
 map! <C-h> <BS>

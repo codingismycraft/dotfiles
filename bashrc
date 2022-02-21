@@ -143,12 +143,6 @@ export DEVELOPMENT_ROOT
 PP_ROOT=$DEVELOPMENT_ROOT/horse-racing//Documents/PastPerformances/BrisFiles
 export PP_ROOT
 
-#export PYTHONPATH=$PYTHONPATH:/home/john/development/alogatas/horse-racing:/
-
-export PYTHONPATH=$PYTHONPATH:/home/john/development/alogatas/horse-racing:/home/john/development/alogatas/horse-racing/race_info/handicapping_factors:/home/john/projects
-
 PS1='>'
-
-
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
