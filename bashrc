@@ -139,10 +139,6 @@ alias p='psql -U postgres'
 DEVELOPMENT_ROOT=~/development
 export DEVELOPMENT_ROOT
 
-#past performances root
-PP_ROOT=$DEVELOPMENT_ROOT/horse-racing//Documents/PastPerformances/BrisFiles
-export PP_ROOT
-
 PS1='>'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
