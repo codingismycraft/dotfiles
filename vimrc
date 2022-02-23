@@ -92,10 +92,14 @@ map <leader>c ciw<C-r>+<esc>
 "Replace selection with yanked text when in virtual mode.
 vmap <leader>c "+p
 
+" Open the active document in the browser.
 map <F8> :!google-chrome %:p<CR><CR>
+
+" F2 sources the vimcrc,
 map <F2> :source $MYVIMRC<CR>
-map <F3> :r !grep -r TODO ~/myprojects<CR>
-map <F4> :r !grep -r DONE ~/myprojects<CR>
+
+" F3 To load all to Todo items.
+map <F3> : call FindMatches("TODO")<CR>
 
 " Maps leader - d to replace the underlined word to DONE.
 map <leader>d cawDONE <esc>
@@ -103,13 +107,10 @@ map <leader>d cawDONE <esc>
 " Maps leader - t to replace the underlined word to TODO .
 map <leader>t cawTODO <esc>
 
-" Maps leader 1 to show the Todo items. 
-map <leader>1 :call F("TODO") <CR>
-
 " The name of the buffer where search results are printed.
 let g:SEARCH_BUFF_NAME = "_search_buffer"
     
-function! F(text_to_find)
+function! FindMatches(text_to_find)
     " Finds all the matches for the passed in text.
     " 
     " Checks recursively the directories in path and stores
@@ -166,11 +167,21 @@ function! ClearRegisters()
     endfor
 endfunction
 
-" Short moves when in insert mode should use <Ctrl> hjkl
-imap <C-J> <Down>
-imap <C-K> <Up>
-imap <C-H> <Left>
-imap <C-L> <Right> 
+" While in insert mode it is awkward to move the cursor
+" and the most common way is to get in normal mode and
+" use the movement keys and then press i again to rerurn
+" to input mode. 
+"
+" An alternative way to move the cursor while in insert 
+" mode would be to use the arrow keys but this would move
+" our fingers from the home row. 
+
+" To address this issue I am adding the followin shortcut
+" moves when in insert mode using <Ctrl> hjkl.
+inoremap <C-J> <Down>
+inoremap <C-K> <Up>
+inoremap <C-H> <Left>
+inoremap <C-L> <Right>
 
 " Hide the menu and the scroll bars.
 set guioptions-=m  "menu bar
@@ -185,7 +196,10 @@ set autoindent
 
 set tabstop=4
 set guioptions-=T
-set list
+
+" Verifies that trailing spaces not show up as $ (Toggle to make visible).
+set nolist
+
 set expandtab
 au BufReadPost * retab
 set nowrap
