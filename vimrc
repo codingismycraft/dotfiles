@@ -10,7 +10,6 @@ filetype plugin on
 
 colorscheme onehalfdark
 
-" Bind cliboard to unnamed register.
 set clipboard=unnamed
 
 " Set the Space key as the leader
@@ -25,6 +24,9 @@ set autochdir
 
 " Map the escape key in insert mode.
 inoremap jj <Esc>
+
+" Map the ss to save when in normal mode. 
+nnoremap <leader>s <Esc>:write<CR>
 
 " Allow to change buffer even if current buffer has unsaved changes.
 set hidden
@@ -48,11 +50,11 @@ inoremap <C-z> <esc>u
 
 set number
 
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
-augroup END
+" Ignore case in searches.
+set ignorecase
+
+" Toggle relative line number.
+noremap <leader>a :set rnu!<CR>
 
 set shiftwidth=4
 vmap <TAB> >
@@ -76,7 +78,19 @@ map <C-S-TAB> :bp<CR>
 " cleaner behavior.
 
 " Allow to select using arrows + home + end.
-behave mswin 
+behave mswin
+
+noremap y "+y
+noremap yy "+yy
+noremap dd "+dd
+noremap d "+d
+noremap p "+p
+
+" Replace word with yanked text when in normal mode.
+map <leader>c ciw<C-r>+<esc>
+
+"Replace selection with yanked text when in virtual mode.
+vmap <leader>c "+p
 
 map <F8> :!google-chrome %:p<CR><CR>
 map <F2> :source $MYVIMRC<CR>
@@ -88,6 +102,9 @@ map <leader>d cawDONE <esc>
 
 " Maps leader - t to replace the underlined word to TODO .
 map <leader>t cawTODO <esc>
+
+" Maps leader 1 to show the Todo items. 
+map <leader>1 :call F("TODO") <CR>
 
 " The name of the buffer where search results are printed.
 let g:SEARCH_BUFF_NAME = "_search_buffer"
@@ -109,12 +126,9 @@ function! F(text_to_find)
     "    2.1 There is no window for the buffer
     "
     "    2.2 There is an open window for the buffer.
-
     if buflisted(g:SEARCH_BUFF_NAME)
         " The buffer exists. Let's see if it is visible in a window.
-
         let window_index =  bufwinnr(g:SEARCH_BUFF_NAME)
-        
         if window_index > 0
             " The buffer is open in a window, let's activate it.
             execute window_index 'wincmd w'
@@ -123,8 +137,6 @@ function! F(text_to_find)
             new
             execute "buffer ". g:SEARCH_BUFF_NAME 
         endif
-
-        
     else
         " The buffer does not exist, go ahead and create it!
         new
@@ -132,16 +144,12 @@ function! F(text_to_find)
         setlocal buftype=nofile
         setlocal bufhidden=hide
     endif
-
     " Clear the screen.
     normal! ggdG
-
     " Add a header.
     call append(0, "Search results for ". a:text_to_find)
-
     " Run the search.
     execute 'read !grep -r ' . a:text_to_find . " ~/myprojects"
-
     " Update the customized color highlights.
     call UpdateHighlights()
 
@@ -158,21 +166,17 @@ function! ClearRegisters()
     endfor
 endfunction
 
-
-" Maps CTRL-j and CTRL-k to move by 10 lines.
-map <C-j> 10j
-map <C-k> 10k
-map <C-h> 10h
-map <C-l> 10l
+" Short moves when in insert mode should use <Ctrl> hjkl
+imap <C-J> <Down>
+imap <C-K> <Up>
+imap <C-H> <Left>
+imap <C-L> <Right> 
 
 " Hide the menu and the scroll bars.
 set guioptions-=m  "menu bar
 set guioptions-=T  "toolbar
 set guioptions-=r  "scrollbar
 set guioptions-=L  "remove left-hand scroll bar
-
-" Sets the line numbering to be current line related.
-" set relativenumber
 
 " Sets the autoindent so when pressing enter the cursor is indended.
 set autoindent
@@ -185,12 +189,9 @@ set list
 set expandtab
 au BufReadPost * retab
 set nowrap
-
 set laststatus=2
-
 set nobackup
 set noswapfile
-
 set nofoldenable
 set laststatus=2
 
@@ -225,26 +226,6 @@ endfunction
 
 call UpdateHighlights()
 
-
-" hi DONE_COLOR ctermbg=205 guibg=green guifg=black ctermfg=black
-" call matchadd('DONE_COLOR', 'DONE')
-
-" Highlight the TODO and DONE words (usefull in TODO lists)..
-" hi TODO_COLOR ctermbg=205 guibg=hotpink guifg=black ctermfg=black
-" call matchadd('TODO_COLOR', 'TODO')
-
-" syn match   cCustomMember "CODING.*$"
-" hi def link cCustomMember Number
-
-" Highlight the task header.
-" hi HEADER_COLOR ctermbg=205 guibg=blue guifg=cyan ctermfg=black
-"
-" hi HEADER_COLOR ctermbg=205 guifg=cyan ctermfg=black
-" call matchadd('HEADER_COLOR', '^`.*$')
-
-" hi HOW_TO_COLOR ctermbg=205 guifg=green ctermfg=black
-" call matchadd('HOW_TO_COLOR', '^HOWTO.*$')
-
 set path+=~/myprojects/**
 
 let g:currentmode={
@@ -267,72 +248,12 @@ set statusline=%{g:currentmode[mode()]}%#StatusLine#\ %n\ %F\ %l:%c
 "set statusline+=%{g:currentmode[mode()]}
 hi StatusLine cterm=bold ctermbg=21 guibg=LightYellow
 
-"Enable fsz.
+" Enable fsz for quick file discovery.
 set rtp+=~/.fzf 
 nnoremap <C-p> :<C-u>FZF<CR> 
 
-" See also https://superuser.com/questions/61226/configure-vim-for-copy-and-paste-keyboard-shortcuts-from-system-buffer-in-ubuntu
-"" CTRL-X and SHIFT-Del are Cut
-vnoremap <C-X> "+x
-vnoremap <S-Del> "+x
+function! Com_out()
+    execute 'normal! ^\<C-v>10j\<S-i>#<esc>'
+    echo "here ...."
+endfunction
 
-" CTRL-C and CTRL-Insert are Copy
-vnoremap <C-C> "+y
-vnoremap <C-Insert> "+y
-
-" CTRL-V and SHIFT-Insert are Paste
-map <C-V>       "+gP
-map <S-Insert>      "+gP
-
-cmap <C-V>      <C-R>+
-cmap <S-Insert>     <C-R>+
-
-" Pasting blockwise and linewise selections is not possible in Insert and
-" Visual mode without the +virtualedit feature.  They are pasted as if they
-" were characterwise instead.
-" Uses the paste.vim autoload script.
-
-exe 'inoremap <script> <C-V>' paste#paste_cmd['i']
-exe 'vnoremap <script> <C-V>' paste#paste_cmd['v']
-
-imap <S-Insert>     <C-V>
-vmap <S-Insert>     <C-V>
-
-" Use CTRL-Q to do what CTRL-V used to do
-noremap <C-Q>       <C-V>
-
-" Vim support file to help with paste mappings and menus
-" Maintainer:   Bram Moolenaar <Bram@vim.org>
-" Last Change:  2006 Jun 23
-
-" Define the string to use for items that are present both in Edit, Popup and
-" Toolbar menu.  Also used in mswin.vim and macmap.vim.
-
-" Pasting blockwise and linewise selections is not possible in Insert and
-" Visual mode without the +virtualedit feature.  They are pasted as if they
-" were characterwise instead.  Add to that some tricks to leave the cursor in
-" the right position, also for "gi".
-if has("virtualedit")
-  let paste#paste_cmd = {'n': ":call paste#Paste()<CR>"}
-  let paste#paste_cmd['v'] = '"-c<Esc>' . paste#paste_cmd['n']
-  let paste#paste_cmd['i'] = 'x<BS><Esc>' . paste#paste_cmd['n'] . 'gi'
-
-  func! paste#Paste()
-    let ove = &ve
-    set ve=all
-    normal! `^
-    if @+ != ''
-      normal! "+gP
-    endif
-    let c = col(".")
-    normal! i
-    if col(".") < c " compensate for i<ESC> moving the cursor left
-      normal! l
-    endif
-    let &ve = ove
-  endfunc
-else
-  let paste#paste_cmd = {'n': "\"=@+.'xy'<CR>gPFx\"_2x"}
-  let paste#paste_cmd['v'] = '"-c<Esc>gix<Esc>' . paste#paste_cmd['n'] . '"_x'
-  let paste#paste_cmd['i'] = 'x<Esc>' . paste#paste_cmd['n'] . '"_s'
-endi
