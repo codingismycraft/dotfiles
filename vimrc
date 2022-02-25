@@ -74,23 +74,12 @@ cmap <C-j> <Down>
 cmap <C-l> <Right>
 cmap <C-h> <Left>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                      Copy - Paste shortcuts 
-"
-" Yes, I do not care about multiple registers when it comes
-" to copy/ paste; instead I prefer to use only one clipboard
-" to simplify the related processes and allow a simpler and
-" cleaner behavior.
+" Maps CTRL-j and CTRL-k to move by 10 lines.
+noremap <C-j> 10j
+noremap <C-k> 10k
+noremap <C-h> 10h
+noremap <C-l> 10l
 
-" Allow to select using arrows + home + end.
-" behave mswin
-" 
-" noremap y "+y
-" noremap yy "+yy
-" noremap dd "+dd
-" noremap d "+d
-" noremap p "+p
-" 
 " Replace word with yanked text when in normal mode.
 map <leader>c ciw<C-r>0<esc>
 
