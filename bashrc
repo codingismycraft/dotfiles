@@ -142,3 +142,5 @@ export DEVELOPMENT_ROOT
 PS1='>'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+stty -ixon

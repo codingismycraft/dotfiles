@@ -68,6 +68,11 @@ map <F9> <ESC>:write<CR>
 map <C-TAB> :bn<CR>
 map <C-S-TAB> :bp<CR>
 
+" Mimic the arrow keys when in command mode.
+cmap <C-k> <Up>
+cmap <C-j> <Down>
+cmap <C-l> <Right>
+cmap <C-h> <Left>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                      Copy - Paste shortcuts 

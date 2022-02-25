@@ -26,6 +26,17 @@ map <leader>nf :NERDTreeFind<CR>
 " Map the <l> T to open the terminal window.
 nmap <leader>T :action ActivateTerminalToolWindow<cr>
 
+" Jump to declaration of variable.
+nmap <C-]>:action GotoImplementation<CR>
+
+" To be able to navigate using CTRL hjkl like arrow keys in normal mode.
+" In pycharm menu use File|Settings|KeyMap and map the Ctrl + hjkl to
+" the corresponding moves so when you will be interacting with pycharm
+" popup menus you will be able to use the home row keys.
+" See also: https://lincolndalgado.com/home/programming_tools_pycharm_intellij_idea_shortcuts/
+"
+
+
 " Fix the del key.
 set t_kb=^H
 fixdel
