@@ -1,4 +1,4 @@
-" Customized version of vimrc.
+ " Customized version of vimrc.
 
 set nocompatible
 
@@ -42,7 +42,7 @@ map <C-s> <ESC>:write<CR>
 imap <C-s> <ESC>:write<CR>
 
 " Maps Ctrl+a to select the whole file.
-map <C-a> GVgg
+" map <C-a> GVgg
 
 " Maps Ctrl+z to undo.
 map <C-z> u
@@ -78,19 +78,16 @@ map <C-S-TAB> :bp<CR>
 " cleaner behavior.
 
 " Allow to select using arrows + home + end.
-behave mswin
-
-noremap y "+y
-noremap yy "+yy
-noremap dd "+dd
-noremap d "+d
-noremap p "+p
-
+" behave mswin
+" 
+" noremap y "+y
+" noremap yy "+yy
+" noremap dd "+dd
+" noremap d "+d
+" noremap p "+p
+" 
 " Replace word with yanked text when in normal mode.
-map <leader>c ciw<C-r>+<esc>
-
-"Replace selection with yanked text when in virtual mode.
-vmap <leader>c "+p
+map <leader>c ciw<C-r>0<esc>
 
 " Open the active document in the browser.
 map <F8> :!google-chrome %:p<CR><CR>
@@ -202,6 +199,10 @@ set nolist
 
 set expandtab
 au BufReadPost * retab
+
+
+set tw=79
+
 set nowrap
 set laststatus=2
 set nobackup
@@ -260,7 +261,7 @@ let g:currentmode={
 " Set Status line.
 set statusline=%{g:currentmode[mode()]}%#StatusLine#\ %n\ %F\ %l:%c
 "set statusline+=%{g:currentmode[mode()]}
-hi StatusLine cterm=bold ctermbg=21 guibg=LightYellow
+hi StatusLine cterm=bold ctermbg=21 guibg=blue guifg=cyan
 
 " Enable fsz for quick file discovery.
 set rtp+=~/.fzf 
