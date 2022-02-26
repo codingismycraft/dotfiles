@@ -33,3 +33,7 @@ local history of pycharm does not work as expected.
 
 A new file must be added in the project namespace and the corresponding soft 
 link must also be added in the `install.sh`.
+
+## Vim Screenshot
+
+![Vim-Screenshot](my-vim-screenshot.png?raw=true "Vim screenshot.")

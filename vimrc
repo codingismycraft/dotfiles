@@ -216,7 +216,7 @@ set tabstop=4
 " Verifies that trailing spaces not show up as $ (Toggle to make visible).
 set nolist
 
-# Expands tabs to spaces when opening a file.
+" Expands tabs to spaces when opening a file.
 set expandtab
 au BufReadPost * retab
 
