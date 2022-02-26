@@ -25,6 +25,9 @@
 
 set nocompatible
 
+" Used gnome-tweaks to map Caps to Esc.
+" Follow this: Additional Layout Options -> Caps Lock behavior 
+
 " Allow backspace to work as expected..
 map! <C-h> <BS>
 set bs=indent,eol,start
@@ -125,6 +128,9 @@ map <leader>t cawTODO <esc>
 " Maps leader - w to count words.
 map <leader>w :echo "Total number of words:" wordcount().words<CR>
 
+" Maps the leader - n to cancel search highlight,
+map <leader>n :execute "noh"<cr>
+
 " The name of the buffer where search results are printed.
 let g:SEARCH_BUFF_NAME = "_search_buffer"
     
@@ -171,8 +177,9 @@ function! FindMatches(text_to_find)
     execute 'read !grep -r ' . a:text_to_find . " ~/myprojects"
     " Update the customized color highlights.
     call UpdateHighlights()
-
 endfunction
+
+command! -nargs=1 Match :call FindMatches(<args>)
 
 
 function! ClearRegisters()
