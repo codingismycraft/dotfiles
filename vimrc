@@ -1,12 +1,12 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" John Pazarzis
+"                               John Pazarzis
 "
-" My customized version of vimrc; a moving target as I keep on changing it
-" often to meet my needs.  Trying to keep things as simple as possible, avoid
-" the use of plugins as much as possible and rely mostly on standard settings
-" without having to result to many gimmicks. 
-"
+"        My customized version of vimrc; a moving target as I keep on
+"        changing it often to meet my needs.  Trying to keep things
+"        as simple as possible, avoid the use of plugins as much as
+"        possible and rely mostly on standard settings without having
+"        to result to many gimmicks.
 "
 "        ,---,---,---,---,---,---,---,---,---,---,---,---,---,-------,
 "        | ~ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | [ | ] | <-    |
