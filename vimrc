@@ -1,4 +1,27 @@
- " Customized version of vimrc.
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" John Pazarzis
+"
+" My customized version of vimrc; a moving target as I keep on changing it
+" often to meet my needs.  Trying to keep things as simple as possible, avoid
+" the use of plugins as much as possible and rely mostly on standard settings
+" without having to result to many gimmicks. 
+"
+"
+"        ,---,---,---,---,---,---,---,---,---,---,---,---,---,-------,
+"        | ~ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | [ | ] | <-    |
+"        |---'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-----|
+"        | ->| | " | , | . | P | Y | F | G | C | R | L | / | = |  \  |
+"        |-----',--',--',--',--',--',--',--',--',--',--',--',--'-----|
+"        | Caps | A | O | E | U | I | D | H | T | N | S | - |  Enter |
+"        |------'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'--------|
+"        |        | ; | Q | J | K | X | B | M | W | V | Z |          |
+"        |------,-',--'--,'---'---'---'---'---'---'-,-'---',--,------|
+"        | ctrl |  | alt |                          | alt  |  | ctrl |
+"        '------'  '-----'--------------------------'------'  '------'
+"
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set nocompatible
 
@@ -41,9 +64,6 @@ imap<Del> <C-H>
 map <C-s> <ESC>:write<CR>
 imap <C-s> <ESC>:write<CR>
 
-" Maps Ctrl+a to select the whole file.
-" map <C-a> GVgg
-
 " Maps Ctrl+z to undo.
 map <C-z> u
 inoremap <C-z> <esc>u
@@ -57,9 +77,12 @@ set ignorecase
 noremap <leader>a :set rnu!<CR>
 
 set shiftwidth=4
+
+" Use tab / shift tab when in visual mode to indent code.
 vmap <TAB> >
 vmap <S-TAB> <
 
+" F9 will save the doc.
 map <F9> <ESC>:write<CR>
 
 " Map Control Tab and Control Shift Tab to buffer next and
@@ -75,6 +98,7 @@ cmap <C-l> <Right>
 cmap <C-h> <Left>
 
 " Maps CTRL-j and CTRL-k to move by 10 lines.
+" Yes, could be controversial to a vim purist but makes my life easier!
 noremap <C-j> 10j
 noremap <C-k> 10k
 noremap <C-h> 10h
@@ -97,6 +121,9 @@ map <leader>d cawDONE <esc>
 
 " Maps leader - t to replace the underlined word to TODO .
 map <leader>t cawTODO <esc>
+
+" Maps leader - w to count words.
+map <leader>w :echo "Total number of words:" wordcount().words<CR>
 
 " The name of the buffer where search results are printed.
 let g:SEARCH_BUFF_NAME = "_search_buffer"
@@ -179,22 +206,21 @@ set guioptions-=m  "menu bar
 set guioptions-=T  "toolbar
 set guioptions-=r  "scrollbar
 set guioptions-=L  "remove left-hand scroll bar
+set guioptions-=T
 
 " Sets the autoindent so when pressing enter the cursor is indended.
 set autoindent
 
-" map bb :!gcc -g expand('%:p') -o expand('%:p:h')/a.out <CR>
-
 set tabstop=4
-set guioptions-=T
 
 " Verifies that trailing spaces not show up as $ (Toggle to make visible).
 set nolist
 
+# Expands tabs to spaces when opening a file.
 set expandtab
 au BufReadPost * retab
 
-
+" Sets the default text width.
 set tw=79
 
 set nowrap
@@ -234,8 +260,10 @@ endfunction
 
 call UpdateHighlights()
 
+" Sets the search path to use with find.
 set path+=~/myprojects/**
 
+" Map to mode name.
 let g:currentmode={
     \ 'n'  : 'NORMAL',
     \ 'v'  : 'VISUAL',
@@ -250,31 +278,24 @@ let g:currentmode={
     \ 'c'  : 'COMMAND',
     \}
 
-
-"set statusline=%{g:currentmode[mode()]}%#StatusLine#\ %n\ %F\ %l:%c
-"set statusline+=%3*\ %{wordcount().words}\ words
-
+" Pretty simple status line, purposely I am dodging the use of fancy plugins.
 set statusline=
-set statusline+=%-20t
-set statusline+=%-3n
-set statusline+=%3*%-3m%*
-set statusline+=%-10{g:currentmode[mode()]}
-set statusline+=\ %5l:%-4c%8L%4p%%
+set statusline+=%-20t  " File name (tail) of file in the buffer.
+set statusline+=%-3n   " The buffer number.
+set statusline+=%3*%-3m%* " [+] if the buffer has unsaved changes.
+set statusline+=%-10{g:currentmode[mode()]} " The current mode.
+set statusline+=\ %5l:%-4c%8L%4p%% " Row - column, total rows, location as %.
 
-"hi User1 ctermfg=007 ctermbg=239 guibg=blue guifg=#adadad
-"hi User2 ctermfg=007 ctermbg=236 guibg=cyan guifg=blue
+" Highlights a changed file in the status line.
 hi User3 ctermfg=007 ctermbg=236 guibg=red guifg=black
 
+" The color scheme to use for the active buffer.
 hi StatusLine cterm=bold ctermbg=21 guibg=blue guifg=cyan
-hi StatusLineNC cterm=bold ctermbg=21 guibg=black guifg=Gray
 
+" The color scheme to use for all the active buffers.
+hi StatusLineNC cterm=bold ctermbg=21 guibg=black guifg=Gray
 
 " Enable fsz for quick file discovery.
 set rtp+=~/.fzf 
 nnoremap <C-p> :<C-u>FZF<CR> 
-
-function! Com_out()
-    execute 'normal! ^\<C-v>10j\<S-i>#<esc>'
-    echo "here ...."
-endfunction
 
