@@ -198,11 +198,10 @@ au BufReadPost * retab
 set tw=79
 
 set nowrap
-set laststatus=2
+set laststatus=2 " Show status line always.
 set nobackup
 set noswapfile
 set nofoldenable
-set laststatus=2
 
 function! AddToDo()
     r ~/.vim/mytemplates/todo-template
@@ -252,10 +251,23 @@ let g:currentmode={
     \}
 
 
-" Set Status line.
-set statusline=%{g:currentmode[mode()]}%#StatusLine#\ %n\ %F\ %l:%c
-"set statusline+=%{g:currentmode[mode()]}
+"set statusline=%{g:currentmode[mode()]}%#StatusLine#\ %n\ %F\ %l:%c
+"set statusline+=%3*\ %{wordcount().words}\ words
+
+set statusline=
+set statusline+=%-20t
+set statusline+=%-3n
+set statusline+=%3*%-3m%*
+set statusline+=%-10{g:currentmode[mode()]}
+set statusline+=\ %5l:%-4c%8L%4p%%
+
+"hi User1 ctermfg=007 ctermbg=239 guibg=blue guifg=#adadad
+"hi User2 ctermfg=007 ctermbg=236 guibg=cyan guifg=blue
+hi User3 ctermfg=007 ctermbg=236 guibg=red guifg=black
+
 hi StatusLine cterm=bold ctermbg=21 guibg=blue guifg=cyan
+hi StatusLineNC cterm=bold ctermbg=21 guibg=black guifg=Gray
+
 
 " Enable fsz for quick file discovery.
 set rtp+=~/.fzf 
