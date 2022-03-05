@@ -8,6 +8,10 @@
 "        possible and rely mostly on standard settings without having
 "        to result to many gimmicks.
 "
+"        This vimrc is using python's vim module to extrend Vimscript
+"        so you should be sure that the vim's version used is compiled
+"        with the python option on (you should see the +python from 
+"
 "        ,---,---,---,---,---,---,---,---,---,---,---,---,---,-------,
 "        |1/2| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | + | ' | <-    |
 "        |---'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-----|
@@ -57,12 +61,12 @@ nnoremap <leader>s <Esc>:write<CR>
 " Allow to change buffer even if current buffer has unsaved changes.
 set hidden
 
-set t_kb=^H
-fixdel
-
-" Allows the backspace to behave <normally>.
-imap<Del> <C-H>
-
+" set t_kb=^H
+" fixdel
+" 
+" " Allows the backspace to behave <normally>.
+" imap<Del> <C-H>
+" 
 " Save file using <Ctrl S>
 map <C-s> <ESC>:write<CR>
 imap <C-s> <ESC>:write<CR>
@@ -94,18 +98,23 @@ map <F9> <ESC>:write<CR>
 map <C-TAB> :bn<CR>
 map <C-S-TAB> :bp<CR>
 
+" The above olution only works for gVim, in console use 
+" the tab, shift tab to change buffers.
+map <tab> :bn<CR>
+map <S-tab> :bp<CR>  
+
 " Mimic the arrow keys when in command mode.
 cmap <C-k> <Up>
 cmap <C-j> <Down>
 cmap <C-l> <Right>
 cmap <C-h> <Left>
 
-" Maps CTRL-j and CTRL-k to move by 10 lines.
+" Maps CTRL-j and CTRL-k to move by 20 lines.
 " Yes, could be controversial to a vim purist but makes my life easier!
-noremap <C-j> 10j
-noremap <C-k> 10k
-noremap <C-h> 10h
-noremap <C-l> 10l
+noremap <C-j> 20j
+noremap <C-k> 20k
+noremap <C-h> 20h
+noremap <C-l> 20l
 
 " Replace word with yanked text when in normal mode.
 map <leader>c ciw<C-r>0<esc>
@@ -247,6 +256,7 @@ endfunction
 syntax on
 set t_Co=256
 set cursorline
+set tags+=$HOME/repos/pinta/tags
 
 " Update the custom highlights.
 function! UpdateHighlights()
@@ -305,4 +315,75 @@ hi StatusLineNC cterm=bold ctermbg=21 guibg=black guifg=Gray
 " Enable fsz for quick file discovery.
 set rtp+=~/.fzf 
 nnoremap <C-p> :<C-u>FZF<CR> 
+
+
+python3 << endpython
+
+
+def LinesToTable(lines):
+    """Converts the passed in array of lines to a table.
+
+    :param list[str] lines: The list of lines to convert to a table.
+
+    yields: The lines of the generated table.
+    """
+    import re
+
+    pipe = "|"
+    dash = "-"
+    space = " "
+    comma = ","
+
+    lines = [
+        l.replace(pipe, comma)
+        for l in lines if re.search(r"[^|^-]", l)
+    ]
+
+    wl = []
+    words = []
+    for line_index, line in enumerate(lines):
+        if not line:
+            continue
+        if line and line[0] == comma:
+            line = line[1:]
+        if line and line[-1] == comma:
+            line = line[:-1]
+        words.append([])
+        for i, word in enumerate(line.split(",")):
+            word = word.strip()
+            if i >= len(wl):
+                wl.append(0)
+            wl[i] = max(wl[i], len(word) + 1)
+            words[line_index].append(word)
+    for line_index, w in enumerate(words):
+        line = pipe
+        underline = pipe
+        for i in range(len(wl)):
+            underline += dash * (wl[i] + 1) + pipe
+            if i >= len(w):
+                line += space * (wl[i] + 1) + pipe
+            else:
+                line += space + w[i] + space * (wl[i] - len(w[i])) + pipe
+        yield line
+        if line_index == 0:
+            yield underline
+
+
+endpython
+
+function! Tablerize()
+python3 << endpython
+import vim
+start = int(vim.eval("""line("'<")""")) -1 
+end = int(vim.eval("""line("'>")"""))
+selection = vim.current.buffer
+lines = selection[start: end]
+new_lines = list(LinesToTable(lines))
+selection[start:end] = new_lines
+endpython
+endfunction
+
+" Use TT from the command line to create a table 
+" based on the visual selection.
+command! TT call Tablerize()
 
