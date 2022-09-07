@@ -387,3 +387,7 @@ endfunction
 " based on the visual selection.
 command! TT call Tablerize()
 
+nnoremap <leader>b <Esc>:TT<CR>
+inoremap <leader>b <Esc>:TT<CR>
+inoremap <leader>b <Esc>:TT<CR>
+map <leader>b <Esc>:TT<CR>

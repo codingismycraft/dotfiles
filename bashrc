@@ -144,3 +144,7 @@ PS1='>'
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 stty -ixon
+
+export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+
