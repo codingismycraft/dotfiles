@@ -89,8 +89,6 @@ set shiftwidth=4
 vmap <TAB> >
 vmap <S-TAB> <
 
-" F9 will save the doc.
-map <F9> <ESC>:write<CR>
 
 " Map Control Tab and Control Shift Tab to buffer next and
 " previous to mimic the way Visual Studio or pycharm is
@@ -121,6 +119,8 @@ map <leader>c ciw<C-r>0<esc>
 
 " Open the active document in the browser.
 map <F8> :!google-chrome %:p<CR><CR>
+
+map <F9> :!pandoc -V colorlinks=true -V linkcolor=blue -V urlcolor=blue -V toccolor=gray % -o junk.pdf && evince junk.pdf<CR><CR>
 
 " F2 sources the vimcrc,
 map <F2> :source $MYVIMRC<CR>
@@ -387,7 +387,3 @@ endfunction
 " based on the visual selection.
 command! TT call Tablerize()
 
-nnoremap <leader>b <Esc>:TT<CR>
-inoremap <leader>b <Esc>:TT<CR>
-inoremap <leader>b <Esc>:TT<CR>
-map <leader>b <Esc>:TT<CR>
