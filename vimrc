@@ -38,6 +38,8 @@ set bs=indent,eol,start
 
 filetype plugin on
 
+behave mswin
+
 colorscheme onehalfdark
 
 set clipboard=unnamed
@@ -51,6 +53,9 @@ let mapleader=" "
 
 " Working directory is always the same as the file you are editing.
 set autochdir
+
+" All yanking/deleting operations copy to the system clipboard. 
+set clipboard=unnamedplus
 
 " Map the escape key in insert mode.
 inoremap jj <Esc>
