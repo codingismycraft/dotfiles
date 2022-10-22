@@ -1,5 +1,5 @@
-" My ideavimrc settings
-
+" " My ideavimrc settings
+" 
 set nocompatible
 set number
 filetype plugin on
@@ -11,7 +11,7 @@ nnoremap <SPACE> <Nop>
 let mapleader=" "
 
 " Map the escape key to jj. 
-inoremap jj <Esc>
+" inoremap jj <Esc>
 
 " Allow to change buffer even if current buffer has unsaved changes.
 set hidden
@@ -62,11 +62,6 @@ vmap <S-TAB> <
 map <C-s> <ESC>:write<CR>
 imap <C-s> <ESC>:write<CR>
 
-" Maps CTRL-j and CTRL-k to move by 10 lines.
-map <C-j> 10j
-map <C-k> 10k
-map <C-h> 10h
-map <C-l> 10l
 
 " Map the movement keys while in insert mode.
 " https://vi.stackexchange.com/questions/10296/navigation-in-insert-mode
@@ -106,3 +101,21 @@ endfunction
 nmap <S-End> v$
 nmap <C-Ins> "+y
 nmap <S-Ins> "+P
+"
+"
+" See also https://stackoverflow.com/questions/21711551/using-phpstorm-ideavim-i-cant-use-shiftarrow-keys-to-select-words
+
+
+nmap <S-Up> v<Up>
+nmap <S-Down> v<Down>
+nmap <S-Left> v<Left>
+nmap <S-Right> v<Right>
+vmap <S-Up> <Up>
+vmap <S-Down> <Down>
+vmap <S-Left> <Left>
+vmap <S-Right> <Right>
+imap <S-Up> <Esc>v<Up>
+imap <S-Down> <Esc>v<Down>
+imap <S-Left> <Esc>v<Left>
+imap <S-Right> <Esc>v<Right>
+
