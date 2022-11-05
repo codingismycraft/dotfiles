@@ -28,7 +28,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set nocompatible
-
+filetype off
 " Used gnome-tweaks to map Caps to Esc.
 " Follow this: Additional Layout Options -> Caps Lock behavior 
 
@@ -36,13 +36,11 @@ set nocompatible
 map! <C-h> <BS>
 set bs=indent,eol,start
 
-filetype plugin on
-
-behave mswin
-
 colorscheme onehalfdark
 
-set clipboard=unnamed
+" set clipboard=unnamed
+set clipboard^=unnamed,unnamedplus
+
 
 " Set the Space key as the leader
 nnoremap <SPACE> <Nop>
@@ -55,7 +53,6 @@ let mapleader=" "
 set autochdir
 
 " All yanking/deleting operations copy to the system clipboard. 
-set clipboard=unnamedplus
 
 " Map the escape key in insert mode.
 inoremap jj <Esc>
@@ -319,8 +316,34 @@ hi StatusLineNC cterm=bold ctermbg=21 guibg=black guifg=Gray
 
 " Enable fsz for quick file discovery.
 set rtp+=~/.fzf 
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" add all your plugins here (note older versions of Vundle
+" used Bundle instead of Plugin)
+"
+Plugin 'Valloric/YouCompleteMe'
+
+" ...
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
 nnoremap <C-p> :<C-u>FZF<CR> 
 
+
+" YouCompleteMe
+let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf=0
+let g:ycm_python_binary_path='/usr/bin/python3'
 
 python3 << endpython
 
@@ -391,4 +414,7 @@ endfunction
 " Use TT from the command line to create a table 
 " based on the visual selection.
 command! TT call Tablerize()
+
+
+source $HOME/.vim/mswin.vim
 
