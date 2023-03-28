@@ -21,5 +21,6 @@ fi
 mkdir ${dirname}
 cd ${dirname}
 cp -R ~/repos/sayhello/* .
+cp -a ~/repos/sayhello/.vscode .
 make clean
 
