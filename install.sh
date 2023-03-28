@@ -42,4 +42,5 @@ create_soft_link $SCRIPT_DIR/ideavimrc $HOME_DIR/.ideavimrc
 create_soft_link $SCRIPT_DIR/gl.sh $HOME_DIR/gl.sh
 create_soft_link $SCRIPT_DIR/git-log-personal.sh $HOME_DIR/git-log-personal.sh
 create_soft_link $SCRIPT_DIR/conkyrc $HOME_DIR/.conkyrc
+create_soft_link $SCRIPT_DIR/cppsample.sh $HOME_DIR/cppsample.sh
 
