@@ -36,7 +36,12 @@ filetype off
 map! <C-h> <BS>
 set bs=indent,eol,start
 
-colorscheme onehalfdark
+" ctags optimization
+" see also https://stackoverflow.com/questions/5542675/how-to-get-ctags-working-inside-vim
+set autochdir
+set tags=tags;
+
+colorscheme glacier
 
 " set clipboard=unnamed
 set clipboard^=unnamed,unnamedplus
@@ -53,9 +58,10 @@ let mapleader=" "
 set autochdir
 
 " All yanking/deleting operations copy to the system clipboard. 
-
 " Map the escape key in insert mode.
+
 inoremap jj <Esc>
+
 
 " Map the ss to save when in normal mode. 
 nnoremap <leader>s <Esc>:write<CR>
@@ -75,7 +81,9 @@ imap <C-s> <ESC>:write<CR>
 
 " Maps Ctrl+z to undo.
 map <C-z> u
-inoremap <C-z> <esc>u
+inoremap <C-z> <esc>
+
+nmap <F8>:echo "here!"<CR>
 
 set number
 
@@ -86,7 +94,6 @@ set ignorecase
 noremap <leader>a :set rnu!<CR>
 
 set shiftwidth=4
-
 " Use tab / shift tab when in visual mode to indent code.
 vmap <TAB> >
 vmap <S-TAB> <
@@ -122,7 +129,9 @@ map <leader>c ciw<C-r>0<esc>
 " Open the active document in the browser.
 map <F8> :!google-chrome %:p<CR><CR>
 
-map <F9> :!pandoc -V colorlinks=true -V linkcolor=blue -V urlcolor=blue -V toccolor=gray % -o junk.pdf && evince junk.pdf<CR><CR>
+map <F9> :!pandoc -V colorlinks=true -V linkcolor=blue -V urlcolor=blue -V toccolor=gray % -o junk.pdf -f markdown+implicit_figures  && evince junk.pdf<CR><CR>
+
+map <F10> :!make %
 
 " F2 sources the vimcrc,
 map <F2> :source $MYVIMRC<CR>
@@ -145,6 +154,8 @@ map <leader>n :execute "noh"<cr>
 " The name of the buffer where search results are printed.
 let g:SEARCH_BUFF_NAME = "_search_buffer"
     
+
+
 function! FindMatches(text_to_find)
     " Finds all the matches for the passed in text.
     " 
@@ -255,6 +266,7 @@ function! AddRockportQA()
     r ~/.vim/mytemplates/rockport-qa-template
 endfunction
 
+let python_highlight_all=1
 syntax on
 set t_Co=256
 set cursorline
@@ -326,11 +338,16 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
+" The following is a candiate for a debuger within vim
+" Plugin 'puremourning/vimspector'
+
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
 "
 Plugin 'Valloric/YouCompleteMe'
-
+Plugin 'vim-syntastic/syntastic'
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
 " ...
 
 " All of your Plugins must be added before the following line
@@ -347,6 +364,140 @@ let g:ycm_python_binary_path='/usr/bin/python3'
 
 python3 << endpython
 
+def GetLineNumber(s):
+    import re
+    regex_pattern = r"break\s.*\.py:(\d+)"
+    match = re.search(regex_pattern, s)
+    if match:
+        return int(match.group(1))
+    else:
+        raise ValueError
+
+def GetFilename(s):
+    s = s.strip()
+    if not s.startswith('break'):
+        raise ValueError
+    import re
+    regex_pattern = r'break\s+([\S\/]+\.\w+):\d'
+    match = re.search(regex_pattern, s)
+    if match:
+        return match.group(1)
+    else:
+        raise ValueError
+
+def PaintDebugLines(home_dir, filename):
+    import os
+    import vim
+    vim.eval("""clearmatches()""")
+    filename = filename.strip()
+    line_numbers = []
+    pdbrc_filepath= os.path.join(home_dir, ".pdbrc")
+    try:
+        with open(pdbrc_filepath) as fin:
+            for line in fin:
+                line = line.strip()
+                try:
+                    file = GetFilename(line)
+                    if file.strip() != filename:
+                        continue
+                    line_numbers.append(GetLineNumber(line))
+                except ValueError:
+                    pass
+    except FileNotFoundError:
+        pass
+
+    x = line_numbers
+    y, x = x[:8], x[8:]
+
+    while y:
+        command = f'matchaddpos("Debug", {y})'
+        vim.eval(command)
+        y, x = x[:8], x[8:]
+
+
+def ClearAllDebugDataPoints(home_dir, fullpath):
+    """Clears all debug data points by removing the .pdbrc.
+
+    If the .pdbrc file does not exit then it will be created and the 
+    default aliases needed from pdb will also be added to it.  
+
+    If the .pdbrc already exist then all the break points, meaning lines
+    that start with the 'break' token will be removed. 
+
+    Args:
+        home_dir (str): The path to the home directory where the .pdbrc file is
+        located.
+    """   
+    import os
+    pdbrc_filepath= os.path.join(home_dir, ".pdbrc")
+    if not os.path.isfile(pdbrc_filepath):
+        alias_ = (
+                f'alias bs with open("{pdbrc_filepath}", "a") as pdbrc: ' 
+                'pdbrc.write("break " + __file__ + ":%1\\n")\n'
+        )
+        with open(pdbrc_filepath, "w") as fout:
+            fout.write(alias_)
+    else:
+        lines = []
+        with open(pdbrc_filepath) as fin:
+            for line in fin:
+                line = line.strip()
+                if not line.startswith("break "):
+                    lines.append(line)
+        with open(pdbrc_filepath, "w") as fout:
+            for line in lines:
+                fout.write(f"{line}\n")
+                
+    PaintDebugLines(home_dir, fullpath)
+
+
+def UpdateDebugBreakpoints(home_dir, fullpath, linenum):
+    """Update breakpoints in .pdbrc file.
+
+    If the .pdbrc file does not exist it will be created.
+
+    The .pdbrc file is a user-specific configuration file used by the
+    Python debugger (PDB) to store settings and commands that are executed
+    automatically when the debugger starts.
+    
+    If the corresponding to the fullpath and the linenum already exists
+    it the .pdbrc file then it will be removed otherwise it will be added.
+
+    Parameters:
+    - home_dir (str): The home directory path where the .pdbrc file is
+      located.
+    - fullpath (str): The full path of the file for which the breakpoint
+      needs to be added or removed.
+    - linenum (int): The line number of the breakpoint.
+
+    Returns: None
+    """
+    import os
+
+    pdbrc_filepath= os.path.join(home_dir, ".pdbrc")
+    lines = []
+
+    try:
+        with open(pdbrc_filepath) as fin:
+            for line in fin:
+                lines.append(line.strip())
+    except FileNotFoundError:
+        pass
+
+   
+    line_to_add = f'break {fullpath}:{linenum}'
+
+    if line_to_add in lines:
+        lines.remove(line_to_add)
+    else:
+        lines.append(line_to_add)
+
+
+    with open(pdbrc_filepath, "w") as fout:
+        for line in lines:
+            fout.write(f"{line}\n")
+    
+    PaintDebugLines(home_dir, fullpath)
 
 def LinesToTable(lines):
     """Converts the passed in array of lines to a table.
@@ -399,6 +550,37 @@ def LinesToTable(lines):
 
 endpython
 
+
+function! AddToDebug()
+python3 << endpython
+import vim
+home_dir = vim.eval("""expand("$HOME")""")
+fullpath = vim.eval("""expand("%:p")""")
+linenum = int(vim.eval("""line(".")""")) 
+print(linenum)
+UpdateDebugBreakpoints(home_dir, fullpath, linenum)
+endpython
+endfunction
+
+function! ClearDebug()
+python3 << endpython
+import vim
+home_dir = vim.eval("""expand("$HOME")""")
+fullpath = vim.eval("""expand("%:p")""")
+ClearAllDebugDataPoints(home_dir, fullpath)   
+endpython
+endfunction
+
+function! MoveToLine(filepath, linenum)
+    let active_fullpath = expand("%:p")
+    if active_fullpath != a:filepath
+        exec 'split '. a:filepath
+        wincmd l
+    endif     
+    call cursor(a:linenum, 1)
+endfunction
+
+
 function! Tablerize()
 python3 << endpython
 import vim
@@ -416,5 +598,13 @@ endfunction
 command! TT call Tablerize()
 
 
-source $HOME/.vim/mswin.vim
+" source $HOME/.vim/mswin.vim
 
+nnoremap <C-F8> <Esc>:call AddToDebug()<CR>
+nnoremap <C-F7> <Esc>:call ClearDebug()<CR>
+
+
+ab mai if __name__ == '__main__':
+
+" This line highlight will be used for debug lines.
+highlight Debug ctermbg=Red

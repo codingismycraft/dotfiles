@@ -50,6 +50,9 @@ esac
 # should be on the output of commands, not on the prompt
 #force_color_prompt=yes
 
+# JP: Used in conjuction with the W var of the PS1 to short the working dir.
+PROMPT_DIRTRIM=2
+
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
     # We have color support; assume it's compliant with Ecma-48
@@ -62,9 +65,11 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1="\e[0;97m\w\$ \e[m "
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1="\e[0;97m\w\$ \e[m "
+    #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -76,6 +81,7 @@ xterm*|rxvt*)
 *)
     ;;
 esac
+
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -98,6 +104,7 @@ alias gs='git status'
 alias gb='git branch'
 alias gl='source ~/gl.sh'
 alias glp='source ~/git-log-personal.sh'
+alias t='tmux'
 
 alias v='sudo openvpn --config new_client.ovpn --auth-user-pass --auth-retry interact'
 
@@ -132,14 +139,13 @@ PATH=$PATH:~/myscripts
 alias ..='cd ..;pwd'
 alias cd..='cd ..;pwd'
 alias cd~='cd ~'
-alias e='gvim'
+alias e='vim'
 alias f='find . -name'
 alias p='psql -U postgres'
 
 DEVELOPMENT_ROOT=~/development
 export DEVELOPMENT_ROOT
-
-PS1='>'
+export EDITOR=vim
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -147,4 +153,29 @@ stty -ixon
 
 export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+
+export PYTHONPATH="${PYTHONPATH}:/home/john/repos/oasismodel:/home/john/repos/predictdementia"
+
+#export PATH=/home/john/anaconda3/bin:$PATH
+
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/john/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/john/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/john/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/john/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+alias cppsample=~/repos/dotfiles/cppsample.sh
+
+alias s='ssh -Y default'
 
