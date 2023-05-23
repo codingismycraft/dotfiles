@@ -191,6 +191,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'codingismycraft/pdbnavigate'
 Plugin 'codingismycraft/VimCommentator'
 Plugin 'codingismycraft/VimStatusLine'
+Plugin 'tpope/vim-fugitive'
 call vundle#end()            
 filetype plugin indent on    
 
@@ -304,3 +305,6 @@ nnoremap <leader>f :Ex<CR>
 " Replace visually selected text with yanked text.
 vnoremap p "0p
 
+" Enable folding
+"set foldmethod=indent
+"
