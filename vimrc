@@ -50,7 +50,7 @@ set clipboard^=unnamed,unnamedplus
 
 " You can uncomment the following line to get windows bindings.
 " source $VIMRUNTIME/mswin.vim
-source $HOME/.vim/mswin.vim
+" source $HOME/.vim/mswin.vim
 
 
 " Working directory is always the same as the file you are editing.
@@ -74,23 +74,13 @@ set number
 set ignorecase
 
 set shiftwidth=4
-" Use tab / shift tab when in visual mode to indent code.
-vmap <TAB> >
-vmap <S-TAB> <
 
-" gvim only: Map Control Tab and Control Shift Tab to switch buffers. 
-map <C-TAB> :bn<CR>
-map <C-S-TAB> :bp<CR>
-
-" Same as above but for command mode. 
-map <tab> :bn<CR>
-map <S-tab> :bp<CR>  
 
 " Mimic the arrow keys when in command mode.
-cmap <C-k> <Up>
-cmap <C-j> <Down>
-cmap <C-l> <Right>
-cmap <C-h> <Left>
+cnoremap <C-k> <Up>
+cnoremap <C-j> <Down>
+cnoremap <C-l> <Right>
+cnoremap <C-h> <Left>
 
 " Maps CTRL-j and CTRL-k to move by 20 lines.
 " Yes, could be controversial to a vim purist but makes my life easier!
@@ -127,10 +117,10 @@ endfunction
 
 " To address this issue I am adding the followin shortcut
 " moves when in insert mode using <Ctrl> hjkl.
-inoremap <C-J> <Down>
-inoremap <C-K> <Up>
-inoremap <C-H> <Left>
-inoremap <C-L> <Right>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
 
 " Hide the menu and the scroll bars. (gvim only)
 set guioptions-=m  "menu bar
@@ -185,7 +175,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-syntastic/syntastic'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'codingismycraft/pdbnavigate'
@@ -197,14 +186,17 @@ filetype plugin indent on
 
 nnoremap <C-p> :<C-u>FZF<CR> 
 
-" Map Ctrl + ] to go to definition.
-nnoremap <C-]> <Esc>:YcmCompleter GoToDefinition<CR>
+" For python code map Ctrl + ] to go to definition using youcompleteme.
+autocmd FileType python nnoremap <C-]> <Esc>:YcmCompleter GoToDefinition<CR>
 
 " YouCompleteMe
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+" let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
 let g:ycm_python_binary_path='/usr/bin/python3'
 
+" Disable the preview window.
+set completeopt-=preview
 
 python3 << endpython
 def LinesToTable(lines):
@@ -268,6 +260,7 @@ selection[start:end] = new_lines
 endpython
 endfunction
 
+
 " Presss F5 to save and run the active python script.
 " TODO: Generalize for other file types (cpp etc)
 map <F5> <ESC>:write<CR> <ESC>:!python3.10 %<CR>
@@ -302,9 +295,15 @@ nnoremap <leader>w <C-w><C-w><cr>
 " List the current directory 
 nnoremap <leader>f :Ex<CR>
 
-" Replace visually selected text with yanked text.
+nnoremap <tab> :bn<CR>
+nnoremap <C-tab> :bp<CR>  
+
+" Replace visually selected text with yanked text(in reg 0).
 vnoremap p "0p
 
+" Replace word under cursor with yanked text(in reg 0).
+nnoremap <leader>p viw"0p
+
 " Enable folding
-"set foldmethod=indent
+set foldmethod=indent
 "

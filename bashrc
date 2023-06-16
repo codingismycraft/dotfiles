@@ -44,9 +44,6 @@ fi
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -62,21 +59,8 @@ alias gb='git branch'
 alias gl='source ~/gl.sh'
 alias glp='source ~/git-log-personal.sh'
 alias t='tmux'
-
 alias v='sudo openvpn --config new_client.ovpn --auth-user-pass --auth-retry interact'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+alias pt='python3 -m pytest --cov-config=$HOME/.coveragerc --cov=. --cov-report term-missing'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -99,14 +83,16 @@ alias p='psql -U postgres'
 export EDITOR=vim
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_DEFAULT_OPTS="--preview 'batcat --color=always {}'"
+alias dd='cd $(find * -type d | fzf)'
 
 stty -ixon
 
 export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
-export PYTHONPATH="${PYTHONPATH}:/home/john/repos/oasismodel:/home/john/repos/predictdementia"
-export PYTHONPATH="${PYTHONPATH}:/home/john/repos"
+# export PYTHONPATH="${PYTHONPATH}:/home/john/repos/oasismodel:/home/john/repos/predictdementia"
+export PYTHONPATH="/home/john/repos/oasismodel:/home/john/repos/predictdementia:/home/john/samples:/home/john/repos"
 
 #export PATH=/home/john/anaconda3/bin:$PATH
 
@@ -128,6 +114,7 @@ export PYTHONPATH="${PYTHONPATH}:/home/john/repos"
 alias cppsample=~/repos/dotfiles/cppsample.sh
 
 alias s='ssh -Y default'
+alias clearpyc='find . | grep -E __pycache__ | xargs rm -rf'
 
 # Allow vi keybindinds. 
 set -o vi

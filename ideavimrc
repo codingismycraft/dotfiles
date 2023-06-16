@@ -29,6 +29,12 @@ nmap <leader>T :action ActivateTerminalToolWindow<cr>
 " Jump to declaration of variable.
 nmap <C-]>:action GotoImplementation<CR>
 
+" When in normal leader + p will replace current word with 0 register.
+nnoremap <leader>p viw"0p
+
+" When in virtual mode p will replace selection with 0 register.
+vnoremap p "0p
+
 " To be able to navigate using CTRL hjkl like arrow keys in normal mode.
 " In pycharm menu use File|Settings|KeyMap and map the Ctrl + hjkl to
 " the corresponding moves so when you will be interacting with pycharm
