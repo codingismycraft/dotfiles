@@ -111,6 +111,12 @@ nmap <S-Ins> "+P
 "
 " See also https://stackoverflow.com/questions/21711551/using-phpstorm-ideavim-i-cant-use-shiftarrow-keys-to-select-words
 
+" Maps CTRL-j and CTRL-k to move by 20 lines.
+" Yes, could be controversial to a vim purist but makes my life easier!
+noremap <C-j> 20j
+noremap <C-k> 20k
+noremap <C-h> 20h
+noremap <C-l> 20l
 
 nmap <S-Up> v<Up>
 nmap <S-Down> v<Down>
