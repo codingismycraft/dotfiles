@@ -33,6 +33,9 @@ function create_soft_link {
     ln -s  $DOT_FILE $DEST_FILE
 }
 
+# Creates the autostart directory if it does not exist.
+mkdir -p $HOME_DIR/.config/autostart/
+
 # Specify how the soft links will be created.
 # Filenames do not start with a  dot; this happens to keep
 # things simpler and make the directory cleaner to understand.
