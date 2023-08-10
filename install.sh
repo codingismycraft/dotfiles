@@ -44,3 +44,8 @@ create_soft_link $SCRIPT_DIR/git-log-personal.sh $HOME_DIR/git-log-personal.sh
 create_soft_link $SCRIPT_DIR/conkyrc $HOME_DIR/.conkyrc
 create_soft_link $SCRIPT_DIR/cppsample.sh $HOME_DIR/cppsample.sh
 create_soft_link $SCRIPT_DIR/pylintrc $HOME_DIR/.pylintrc
+create_soft_link $SCRIPT_DIR/conky.desktop $HOME_DIR/.config/autostart/conky.desktop
+
+
+
+
