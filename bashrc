@@ -79,6 +79,7 @@ alias cd~='cd ~'
 alias e='vim'
 alias f='find . -name'
 alias p='psql -U postgres'
+alias k='kubectl'
 
 export EDITOR=vim
 
@@ -94,27 +95,11 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 # export PYTHONPATH="${PYTHONPATH}:/home/john/repos/oasismodel:/home/john/repos/predictdementia"
 export PYTHONPATH="/home/john/repos/oasismodel:/home/john/repos/predictdementia:/home/john/samples:/home/john/repos"
 
-#export PATH=/home/john/anaconda3/bin:$PATH
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/home/john/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "/home/john/anaconda3/etc/profile.d/conda.sh" ]; then
-#        . "/home/john/anaconda3/etc/profile.d/conda.sh"
-#    else
-#        export PATH="/home/john/anaconda3/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
-# <<< conda initialize <<<
-
 alias cppsample=~/repos/dotfiles/cppsample.sh
 
 alias s='ssh -Y default'
 alias clearpyc='find . | grep -E __pycache__ | xargs rm -rf'
+alias rename_image_files='python3.10 ~/samples/rename_image_files.py'
 
 # Allow vi keybindinds. 
 set -o vi
@@ -142,4 +127,22 @@ reset=$(tput sgr0)
 PS1='\[$gray\] \w \$\[$reset\] '
 
 neofetch
+
+set -o vi
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/john/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/john/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/john/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/john/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
