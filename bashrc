@@ -81,6 +81,9 @@ alias f='find . -name'
 alias p='psql -U postgres'
 alias k='kubectl'
 
+# Allow for kubectl autocompletion.
+source <(kubectl completion bash | sed s/kubectl/k/g)
+
 export EDITOR=vim
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
