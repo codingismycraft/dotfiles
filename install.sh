@@ -41,6 +41,7 @@ mkdir -p $HOME_DIR/.config/autostart/
 # things simpler and make the directory cleaner to understand.
 create_soft_link $SCRIPT_DIR/bashrc $HOME_DIR/.bashrc
 create_soft_link $SCRIPT_DIR/vimrc $HOME_DIR/.vimrc
+create_soft_link $SCRIPT_DIR/tmux.conf $HOME_DIR/.tmux.conf
 create_soft_link $SCRIPT_DIR/ideavimrc $HOME_DIR/.ideavimrc
 create_soft_link $SCRIPT_DIR/gl.sh $HOME_DIR/gl.sh
 create_soft_link $SCRIPT_DIR/git-log-personal.sh $HOME_DIR/git-log-personal.sh
