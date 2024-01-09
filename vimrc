@@ -27,6 +27,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set nocompatible
+set autoread
 filetype off
 " Used gnome-tweaks to map Caps to Esc.
 " Follow this: Additional Layout Options -> Caps Lock behavior 
@@ -181,6 +182,8 @@ Plugin 'codingismycraft/pdbnavigate'
 Plugin 'codingismycraft/VimCommentator'
 Plugin 'codingismycraft/VimStatusLine'
 Plugin 'tpope/vim-fugitive'
+Plugin 'preservim/vimux'
+Plugin 'codingismycraft/vimdemux'
 call vundle#end()            
 filetype plugin indent on    
 
@@ -261,11 +264,27 @@ endpython
 endfunction
 
 
-" Presss F5 to save and run the active python script.
-" TODO: Generalize for other file types (cpp etc)
-map <F5> <ESC>:write<CR> <ESC>:!python3.10 %<CR>
+function! SaveCliboard()
+    let @z=@+
+endfunction
 
-nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR>
+function! PasteZBuffer()
+    norm viwy
+    if len(@") > 1
+        norm diwh"zp
+    else
+        norm x 
+        norm "zp
+    endif
+endfunction
+
+" leader+z copies the value from the system clipboard to register z.
+nnoremap <leader>z :call SaveCliboard()<CR><esc>
+
+" Replace word under cursor with yanked text(in reg 0).
+nnoremap <leader>p :call PasteZBuffer()<CR><esc>
+
+nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
 
 ab __m if __name__ == '__main__':
 
@@ -301,9 +320,14 @@ nnoremap <C-tab> :bp<CR>
 " Replace visually selected text with yanked text(in reg 0).
 vnoremap p "0p
 
-" Replace word under cursor with yanked text(in reg 0).
-nnoremap <leader>p viw"0p
-
 " Enable folding
 set foldmethod=indent
-"
+
+function! GetAlertLogs()
+    let x = @+
+    :new
+    execute ": r !get_alert_logs.py " . x
+endfunction
+
+nnoremap <leader>m :call GetAlertLogs()<CR>
+
