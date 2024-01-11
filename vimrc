@@ -44,6 +44,13 @@ set tags=tags;
 " Allow mouse movements, resise, file selection in Nerd etc.
 set mouse=a
 
+" Allows mouse split resize inside tmux.
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
+
 colorscheme glacier
 
 " set clipboard=unnamed
@@ -57,7 +64,6 @@ set clipboard^=unnamed,unnamedplus
 " Working directory is always the same as the file you are editing.
 set autochdir
 
-" Map the ss to save when in normal mode. 
 
 " Allow to change buffer even if current buffer has unsaved changes.
 set hidden
@@ -285,6 +291,9 @@ nnoremap <leader>z :call SaveCliboard()<CR><esc>
 nnoremap <leader>p :call PasteZBuffer()<CR><esc>
 
 nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
+
+" Map the ss to save when in normal mode. 
+nnoremap <leader>s   <ESC>:write<CR>
 
 ab __m if __name__ == '__main__':
 
