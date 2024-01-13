@@ -64,16 +64,8 @@ set clipboard^=unnamed,unnamedplus
 " Working directory is always the same as the file you are editing.
 set autochdir
 
-
 " Allow to change buffer even if current buffer has unsaved changes.
 set hidden
-
-" Save file using <Ctrl S>
-inoremap <C-s> <ESC>:write<CR>
-
-" Maps Ctrl+z to undo.
-map <C-z> u
-inoremap <C-z> <esc>
 
 set number
 
@@ -81,7 +73,6 @@ set number
 set ignorecase
 
 set shiftwidth=4
-
 
 " Mimic the arrow keys when in command mode.
 cnoremap <C-k> <Up>
@@ -315,7 +306,9 @@ nnoremap <leader>c diw"0P<esc>
 
 " Count words.
 nnoremap <leader>q :echo "Total number of words:" wordcount().words<CR>
-" Maps the leader - n to cancel search highlight,
+
+" Quit / Delete the buffer (removing it from the memory).
+nnoremap <leader>q :bd<CR>
 
 " Change active window.
 nnoremap <leader>w <C-w><C-w><cr>
@@ -325,6 +318,9 @@ nnoremap <leader>f :Ex<CR>
 
 nnoremap <tab> :bn<CR>
 nnoremap <C-tab> :bp<CR>  
+
+nnoremap<C-t> <Esc>:tabn<CR>
+nnoremap<C-r> <Esc>:tabp<CR>
 
 " Replace visually selected text with yanked text(in reg 0).
 vnoremap p "0p
@@ -339,4 +335,15 @@ function! GetAlertLogs()
 endfunction
 
 nnoremap <leader>m :call GetAlertLogs()<CR>
+
+
+function! GetGitUrls()
+    let fullpath = expand("%:p")
+    execute ":new "
+    execute ":silent r !remote_git_urls.py " . fullpath
+    execute ":setlocal nomodifiable"
+    execute ":call setbufvar(bufnr('%'), '&modified', 0)"
+endfunction
+
+
 
