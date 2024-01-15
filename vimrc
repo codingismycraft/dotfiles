@@ -345,5 +345,15 @@ function! GetGitUrls()
     execute ":call setbufvar(bufnr('%'), '&modified', 0)"
 endfunction
 
+function! MakeDocStr()
+    let fullpath = expand("%:p")
+    execute ":new "
+    execute ":silent r !make_docstr.py " . fullpath
+    execute ":call setbufvar(bufnr('%'), '&modified', 0)"
+endfunction
 
-
+function! PrintMenu()
+  echo "Menu:"
+  echo "1. Option 1 - press \\1"
+  echo "2. Option 2 - press \\2"
+endfunction
