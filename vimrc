@@ -356,7 +356,7 @@ endfunction
 function! MakeUnitTest()
     let fullpath = expand("%:p")
     execute ":new "
-    execute ":silent r !make_unit_test.py" . fullpath
+    execute ":silent r !make_unit_test.py " . fullpath
     execute ":call setbufvar(bufnr('%'), '&modified', 0)"
 endfunction
 

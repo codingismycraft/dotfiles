@@ -101,8 +101,7 @@ _WRITE_UNIT_TESTS = "Generate ready-to-run python unit tests " \
                         "write the tests for. Do not write anything else"
 
 def write_unit_tests():
-    """
-    Generate a docstring for a Python function.
+    """Generate a docstring for a Python function.
 
     Function code is provided via the clipboard.
 
