@@ -51,6 +51,4 @@ create_soft_link $SCRIPT_DIR/pylintrc $HOME_DIR/.pylintrc
 create_soft_link $SCRIPT_DIR/conky.desktop $HOME_DIR/.config/autostart/conky.desktop
 create_soft_link $SCRIPT_DIR/scripts/remote_git_urls.py /usr/local/bin/remote_git_urls.py 
 create_soft_link $SCRIPT_DIR/scripts/make_docstr.py /usr/local/bin/make_docstr.py 
-
-
-
+create_soft_link $SCRIPT_DIR/scripts/make_unit_test.py /usr/local/bin/make_unit_test.py
