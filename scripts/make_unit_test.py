@@ -130,6 +130,11 @@ def write_unit_tests():
         matches = pattern.findall(script)
         for match in matches:
             script =match
+    elif "```Python" in script:
+            pattern = re.compile(r'```Python(.*?)```', re.DOTALL)
+            matches = pattern.findall(script)
+            for match in matches:
+                script = match
 
     return script
 
