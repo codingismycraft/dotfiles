@@ -155,6 +155,7 @@ set cursorline
 
 
 " Enable fsz for quick file discovery.
+" https://www.linode.com/docs/guides/how-to-use-fzf/
 set rtp+=~/.fzf 
 
 " Open fzf on the bottom on the screen.
@@ -319,8 +320,8 @@ nnoremap <leader>f :Ex<CR>
 nnoremap <tab> :bn<CR>
 nnoremap <C-tab> :bp<CR>  
 
-nnoremap<C-t> <Esc>:tabn<CR>
-nnoremap<C-r> <Esc>:tabp<CR>
+nnoremap<C-'> <Esc>:tabn<CR>
+nnoremap<C-;> <Esc>:tabp<CR>
 
 " Replace visually selected text with yanked text(in reg 0).
 vnoremap p "0p
@@ -352,8 +353,19 @@ function! MakeDocStr()
     execute ":call setbufvar(bufnr('%'), '&modified', 0)"
 endfunction
 
+function! MakeUnitTest()
+    let fullpath = expand("%:p")
+    execute ":new "
+    execute ":silent r !make_unit_test.py" . fullpath
+    execute ":call setbufvar(bufnr('%'), '&modified', 0)"
+endfunction
+
 function! PrintMenu()
   echo "Menu:"
   echo "1. Option 1 - press \\1"
   echo "2. Option 2 - press \\2"
+endfunction
+
+function! RemoveTrailingSpaces()
+    execute(":%s/\s\+$//e")
 endfunction
