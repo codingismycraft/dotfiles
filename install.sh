@@ -52,3 +52,12 @@ create_soft_link $SCRIPT_DIR/conky.desktop $HOME_DIR/.config/autostart/conky.des
 create_soft_link $SCRIPT_DIR/scripts/remote_git_urls.py /usr/local/bin/remote_git_urls.py 
 create_soft_link $SCRIPT_DIR/scripts/make_docstr.py /usr/local/bin/make_docstr.py 
 create_soft_link $SCRIPT_DIR/scripts/make_unit_test.py /usr/local/bin/make_unit_test.py
+
+# Copy the termitor config. Firstly create the directory if needed and then
+# create the soft link.
+TERMINATOR_CONF_DIR=$HOME_DIR/.config/terminator
+mkdir -p $TERMINATOR_CONF_DIR
+create_soft_link $SCRIPT_DIR/terminator-config $TERMINATOR_CONF_DIR/config
+
+
+
