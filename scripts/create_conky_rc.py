@@ -42,7 +42,8 @@ def main():
             if not line.startswith("__ADD_CPUS_HERE__"):
                 lines.append(line)
             else:
-                lines.extend(cpu_description)
+                for line1 in cpu_description:
+                    lines.append(line1)
 
     with open(_CONKEYRC_FILEPATH, "w") as fout:
         for line in lines:
