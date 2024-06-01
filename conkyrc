@@ -50,18 +50,7 @@ ${font sans-serif:bold:size=10}CPU ${hr 2}
 ${font sans-serif:normal:size=8}${execi 1000 grep model /proc/cpuinfo | cut -d : -f2 | tail -1 | sed 's/\s//'}
 ${font sans-serif:normal:size=8}${cpugraph cpu1}
 
-CPU -  1: ${cpu cpu1 }% ${cpubar cpu1 }
-CPU -  2: ${cpu cpu2 }% ${cpubar cpu2 }
-CPU -  3: ${cpu cpu3 }% ${cpubar cpu3 }
-CPU -  4: ${cpu cpu4 }% ${cpubar cpu4 }
-CPU -  5: ${cpu cpu5 }% ${cpubar cpu5 }
-CPU -  6: ${cpu cpu6 }% ${cpubar cpu6 }
-CPU -  7: ${cpu cpu7 }% ${cpubar cpu7 }
-CPU -  8: ${cpu cpu8 }% ${cpubar cpu8 }
-CPU -  9: ${cpu cpu9 }% ${cpubar cpu9 }
-CPU - 10: ${cpu cpu10 }% ${cpubar cpu10 }
-CPU - 11: ${cpu cpu11 }% ${cpubar cpu11 }
-CPU - 12: ${cpu cpu12 }% ${cpubar cpu12 }
+__ADD_CPUS_HERE__
 
 CPU Temp ${hwmon 1 temp 1}°C
 GPU Temp ${execi 60 nvidia-settings -query [gpu:0]/GPUCoreTemp -t}°C
