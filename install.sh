@@ -54,7 +54,7 @@ create_soft_link $SCRIPT_DIR/scripts/make_docstr.py /usr/local/bin/make_docstr.p
 create_soft_link $SCRIPT_DIR/scripts/make_unit_test.py /usr/local/bin/make_unit_test.py
 
 # Create the conkyrc file.
-$SCRIPT_DIR/scripts/create_conkyrc.py
+$SCRIPT_DIR/scripts/create_conky_rc.py
 
 # Copy the termitor config. Firstly create the directory if needed and then
 # create the soft link.
