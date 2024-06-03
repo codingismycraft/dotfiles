@@ -1,6 +1,6 @@
 conky.config = {
 
-update_interval = 1,
+update_interval = 5,
 cpu_avg_samples = 2,
 net_avg_samples = 2,
 out_to_console = false,
