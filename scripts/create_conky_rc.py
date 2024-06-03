@@ -51,6 +51,7 @@ def make_gpu_content():
     :rtype: list
     """
     lines = [
+        "${image ./nvidia-logo.png -p 2, 25}" 
         "GPU Temp ${execi 60 nvidia-settings -query [gpu:0]/GPUCoreTemp -t}°C",
         "${color FFA300}GPU:$color${font}${exec nvidia-smi -L | cut -c 6-30}${color FFA300} Freq:$color${nvidia gpufreq} Mhz $color${color FFA300}Temperature $color${nvidia temp} C",
         "${color FFA300}Watt:$color${font}${exec nvidia-smi -i 0 -q -d POWER |grep 'Draw' | cut -c 45-49}${color FFA300} Used:$color${font}${exec nvidia-smi -i 0 -q -d MEMORY |grep 'Used' | cut -c 45-55 | head -1}"

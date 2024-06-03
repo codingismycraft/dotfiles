@@ -62,6 +62,7 @@ then
 NVIDIA_INSTALLED=0
 else
 NVIDIA_INSTALLED=1
+cp $SCRIPT_DIR/nvidia-logo.png $HOME_DIR
 fi
 
 # Create the conkyrc file.
