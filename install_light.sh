@@ -2,13 +2,6 @@
 
 username=$(whoami)  # Get the current username
 
-echo -n "Continue create the links under your home directory? (y/n)"
-read -r user_selection
-
-if [ "$user_selection" != "y" ]; then
-    exit 1
-fi
-
 # Retrieve the dot file directories.
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && (pwd -W 2> /dev/null || pwd))
 
