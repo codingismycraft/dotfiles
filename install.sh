@@ -1,5 +1,12 @@
 #!/bin/bash
 
+username=$(whoami)  # Get the current username
+
+if [ "$username" == "vagrant" ]; then
+    ./install_light.sh  # Execute the install_light.sh script
+    exit 0
+fi
+
 echo -n "Continue create the links under your home directory? (y/n)"
 read -r user_selection
 
