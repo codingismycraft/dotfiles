@@ -59,3 +59,10 @@ if ! command -v cmake &> /dev/null; then
     sudo apt-get install -y cmake
 fi
 
+if ! command -v fzf &> /dev/null; then
+    echo "Installing cmake..."
+    sudo apt-get update
+    sudo apt-get install -y fzf
+fi
+
+
