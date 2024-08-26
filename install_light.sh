@@ -5,8 +5,15 @@ username=$(whoami)  # Get the current username
 # Retrieve the dot file directories.
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && (pwd -W 2> /dev/null || pwd))
 
-# Specify the home directory where the dot files will copied.
-HOME_DIR=/home/$USER
+# Specify the home directory where the dot files will copied,
+# the user can passed it in the command line or by default
+# the home dir of the currently executing user will be used.
+
+if [ $# -gt 0 ]; then
+  HOME_DIR=$1
+else
+    HOME_DIR=/home/$USER
+fi
 
 # Install vundle if needed..
 VUNDLE_DIR=$HOME_DIR/.vim/bundle/Vundle.vim
