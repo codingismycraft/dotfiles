@@ -38,7 +38,6 @@ set bs=indent,eol,start
 
 " ctags optimization
 " see also https://stackoverflow.com/questions/5542675/how-to-get-ctags-working-inside-vim
-set autochdir
 set tags=tags;
 
 " Allow mouse movements, resise, file selection in Nerd etc.
@@ -62,7 +61,7 @@ set clipboard^=unnamed,unnamedplus
 
 
 " Working directory is always the same as the file you are editing.
-set autochdir
+" set autochdir
 
 " Allow to change buffer even if current buffer has unsaved changes.
 set hidden
@@ -369,3 +368,21 @@ endfunction
 function! RemoveTrailingSpaces()
     execute(":%s/\s\+$//e")
 endfunction
+
+
+" Shift + End : Select to the end of the line
+nmap <S-End> v$
+
+" Ctrl + Shift + Right Arrow: Select world
+nmap <C-S-Right> viw
+
+
+" In the following two mappings note the use of execute which is
+" needed since the double quote symbol used for register 0 will be
+" considered the begining of a comment and be ignored without it.
+
+" Map Ctrl + Insert to paste the 0 register (avoiding last delete)
+execute 'nmap <C-Ins> "0p'
+
+" Map Shift + p to paste the 0 register (avoiding last delete)
+execute 'nmap <S-p> "0p'
