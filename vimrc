@@ -87,7 +87,8 @@ noremap <C-h> 20h
 noremap <C-l> 20l
 
 " Open the active document in the browser.
-map <F8> :!google-chrome %:p<CR><CR>
+" Using firefox and assumes that the Markdown Viewer Webext extension.
+map <F8> :!firefox %:p<CR><CR>
 
 " Open the active document as pdf.
 nnoremap <F9> :!pandoc -V colorlinks=true -V linkcolor=blue -V urlcolor=blue -V toccolor=gray % -o junk.pdf -f markdown+implicit_figures  && evince junk.pdf<CR><CR>
