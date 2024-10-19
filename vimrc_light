@@ -131,6 +131,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'tpope/vim-fugitive'
 Plugin 'codingismycraft/VimCommentator'
 Plugin 'codingismycraft/VimStatusLine'
+Plugin 'dense-analysis/ale'
 call vundle#end()            
 filetype plugin indent on    
 
@@ -179,3 +180,5 @@ vnoremap p "0p
 " Enable folding
 set foldmethod=indent
 
+nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
+let g:ale_python_flake8_options = '--ignore=F401'

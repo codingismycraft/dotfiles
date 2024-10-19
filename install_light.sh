@@ -43,6 +43,7 @@ function create_soft_link {
 # things simpler and make the directory cleaner to understand.
 create_soft_link $SCRIPT_DIR/bashrc_light $HOME_DIR/.bashrc
 create_soft_link $SCRIPT_DIR/vimrc_light $HOME_DIR/.vimrc
+create_soft_link $SCRIPT_DIR/pylintrc $HOME_DIR/.pylintrc
 
 # Copy the color scheme to the vim colors directory.
 VIM_COLOR_SCHEME_DIR=$HOME_DIR/.vim/colors
