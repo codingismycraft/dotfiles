@@ -87,3 +87,5 @@ create_soft_link $SCRIPT_DIR/terminator-config $TERMINATOR_CONF_DIR/config
 VIM_COLOR_SCHEME_DIR=$HOME_DIR/.vim/colors
 mkdir -p $VIM_COLOR_SCHEME_DIR
 cp $SCRIPT_DIR/glacier.vim $VIM_COLOR_SCHEME_DIR
+cp $SCRIPT_DIR/zenburn.vim $VIM_COLOR_SCHEME_DIR
+
