@@ -182,6 +182,7 @@ Plugin 'codingismycraft/VimStatusLine'
 Plugin 'tpope/vim-fugitive'
 Plugin 'preservim/vimux'
 Plugin 'codingismycraft/vimdemux'
+Plugin 'dense-analysis/ale'
 call vundle#end()            
 filetype plugin indent on    
 
