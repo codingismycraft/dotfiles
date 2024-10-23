@@ -195,3 +195,8 @@ nnoremap D "_D
 vnoremap d "_d
 vnoremap x "_x
 
+" Keeps the visual selection active after yanking; this means that after
+" yanking the selected visual block it will still remain selected until you hit
+" escape.  Doing so allows you to follow by a deletion that will not affect the
+" default register based in using the black hole register for deletions.
+vnoremap y ygv
