@@ -175,13 +175,10 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'codingismycraft/pdbnavigate'
 Plugin 'codingismycraft/VimCommentator'
 Plugin 'codingismycraft/VimStatusLine'
+Plugin 'codingismycraft/VimMyTools'
 Plugin 'tpope/vim-fugitive'
-Plugin 'preservim/vimux'
-Plugin 'codingismycraft/vimdemux'
 Plugin 'dense-analysis/ale'
 call vundle#end()            
 filetype plugin indent on    
@@ -300,17 +297,6 @@ nnoremap<leader>s <Esc>:wall<CR>
 " Change the relative number.
 noremap <leader>a :set rnu!<CR>
 
-" Run the current python program. 
-noremap <leader>r :!python3 %<CR>
-
-" Cut - Paste the contents of the 0 register.
-nnoremap <leader>c diw"0P<esc>
-
-" Count words.
-nnoremap <leader>q :echo "Total number of words:" wordcount().words<CR>
-
-" Quit / Delete the buffer (removing it from the memory).
-nnoremap <leader>q :bd<CR>
 
 " Change active window.
 nnoremap <leader>w <C-w><C-w><cr>
