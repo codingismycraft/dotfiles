@@ -363,16 +363,6 @@ nmap <S-End> v$
 nmap <C-S-Right> viw
 
 
-" In the following two mappings note the use of execute which is needed since
-" the double quote symbol used for register 0 will be considered the begining
-" of a comment and be ignored without it.
-
-" Map Ctrl + Insert to paste the 0 register (avoiding last delete)
-execute 'nmap <C-Ins> "0p'
-
-" Map Shift + p to paste the 0 register (avoiding last delete)
-execute 'nmap <S-p> "0p'
-
 " Preventing Deletions from Overwriting Registers
 "
 " The following settings stop deleted text from going into the default
