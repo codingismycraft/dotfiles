@@ -55,18 +55,13 @@ colorscheme glacier
 " set clipboard=unnamed
 set clipboard^=unnamed,unnamedplus
 
-" You can uncomment the following line to get windows bindings.
-" source $VIMRUNTIME/mswin.vim
-" source $HOME/.vim/mswin.vim
-
-
 " Working directory is always the same as the file you are editing.
 " set autochdir
 
 " Allow to change buffer even if current buffer has unsaved changes.
 set hidden
 
-set number
+set relativenumber
 
 " Ignore case in searches.
 set ignorecase
@@ -94,15 +89,6 @@ map <F8> :!firefox %:p<CR><CR>
 nnoremap <F9> :!pandoc -V colorlinks=true -V linkcolor=blue -V urlcolor=blue -V toccolor=gray % -o junk.pdf -f markdown+implicit_figures  && evince junk.pdf<CR><CR>
 
 
-function! ClearRegisters()
-    " Clears all registers.
-    "
-    " See also: https://stackoverflow.com/questions/19430200/how-to-clear-vim-registers-effectively
-    let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
-    for r in regs
-      call setreg(r, [])
-    endfor
-endfunction
 
 " While in insert mode it is awkward to move the cursor and the most common way
 " is to get in normal mode and use the movement keys and then press i again to
@@ -195,89 +181,6 @@ let g:ycm_python_binary_path='/usr/bin/python3'
 " Disable the preview window.
 set completeopt-=preview
 
-python3 << endpython
-def LinesToTable(lines):
-    """Converts the passed in array of lines to a table.
-
-    :param list[str] lines: The list of lines to convert to a table.
-
-    yields: The lines of the generated table.
-    """
-    import re
-
-    pipe = "|"
-    dash = "-"
-    space = " "
-    comma = ","
-
-    lines = [
-        l.replace(pipe, comma)
-        for l in lines if re.search(r"[^|^-]", l)
-    ]
-
-    wl = []
-    words = []
-    for line_index, line in enumerate(lines):
-        if not line:
-            continue
-        if line and line[0] == comma:
-            line = line[1:]
-        if line and line[-1] == comma:
-            line = line[:-1]
-        words.append([])
-        for i, word in enumerate(line.split(",")):
-            word = word.strip()
-            if i >= len(wl):
-                wl.append(0)
-            wl[i] = max(wl[i], len(word) + 1)
-            words[line_index].append(word)
-    for line_index, w in enumerate(words):
-        line = pipe
-        underline = pipe
-        for i in range(len(wl)):
-            underline += dash * (wl[i] + 1) + pipe
-            if i >= len(w):
-                line += space * (wl[i] + 1) + pipe
-            else:
-                line += space + w[i] + space * (wl[i] - len(w[i])) + pipe
-        yield line
-        if line_index == 0:
-            yield underline
-endpython
-
-function! Tablerize()
-python3 << endpython
-import vim
-start = int(vim.eval("""line("'<")""")) -1 
-end = int(vim.eval("""line("'>")"""))
-selection = vim.current.buffer
-lines = selection[start: end]
-new_lines = list(LinesToTable(lines))
-selection[start:end] = new_lines
-endpython
-endfunction
-
-
-function! SaveCliboard()
-    let @z=@+
-endfunction
-
-function! PasteZBuffer()
-    norm viwy
-    if len(@") > 1
-        norm diwh"zp
-    else
-        norm x 
-        norm "zp
-    endif
-endfunction
-
-" leader+z copies the value from the system clipboard to register z.
-nnoremap <leader>z :call SaveCliboard()<CR><esc>
-
-" Replace word under cursor with yanked text(in reg 0).
-nnoremap <leader>p :call PasteZBuffer()<CR><esc>
-
 nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
 
 " Map the ss to save when in normal mode. 
@@ -314,14 +217,16 @@ vnoremap p "0p
 " Enable folding
 set foldmethod=indent
 
-function! GetAlertLogs()
-    let x = @+
-    :new
-    execute ": r !get_alert_logs.py " . x
+
+function! ClearRegisters()
+    " Clears all registers.
+    "
+    " See also: https://stackoverflow.com/questions/19430200/how-to-clear-vim-registers-effectively
+    let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+    for r in regs
+      call setreg(r, [])
+    endfor
 endfunction
-
-nnoremap <leader>m :call GetAlertLogs()<CR>
-
 
 function! GetGitUrls()
     let fullpath = expand("%:p")
@@ -377,3 +282,8 @@ vnoremap d "_d
 vnoremap x "_x
 
 
+" Keeps the visual selection active after yanking; this means that after
+" yanking the selected visual block it will still remain selected until you hit
+" escape.  Doing so allows you to follow by a deletion that will not affect the
+" default register based in using the black hole register for deletions.
+vnoremap y ygv
