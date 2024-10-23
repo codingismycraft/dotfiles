@@ -104,17 +104,15 @@ function! ClearRegisters()
     endfor
 endfunction
 
-" While in insert mode it is awkward to move the cursor
-" and the most common way is to get in normal mode and
-" use the movement keys and then press i again to rerurn
-" to input mode. 
+" While in insert mode it is awkward to move the cursor and the most common way
+" is to get in normal mode and use the movement keys and then press i again to
+" rerurn to input mode. 
 "
-" An alternative way to move the cursor while in insert 
-" mode would be to use the arrow keys but this would move
-" our fingers from the home row. 
+" An alternative way to move the cursor while in insert mode would be to use
+" the arrow keys but this would move our fingers from the home row. 
 
-" To address this issue I am adding the followin shortcut
-" moves when in insert mode using <Ctrl> hjkl.
+" To address this issue I am adding the followin shortcut moves when in insert
+" mode using <Ctrl> hjkl.
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
@@ -365,12 +363,27 @@ nmap <S-End> v$
 nmap <C-S-Right> viw
 
 
-" In the following two mappings note the use of execute which is
-" needed since the double quote symbol used for register 0 will be
-" considered the begining of a comment and be ignored without it.
+" In the following two mappings note the use of execute which is needed since
+" the double quote symbol used for register 0 will be considered the begining
+" of a comment and be ignored without it.
 
 " Map Ctrl + Insert to paste the 0 register (avoiding last delete)
 execute 'nmap <C-Ins> "0p'
 
 " Map Shift + p to paste the 0 register (avoiding last delete)
 execute 'nmap <S-p> "0p'
+
+" Preventing Deletions from Overwriting Registers
+"
+" The following settings stop deleted text from going into the default
+" register. By default, `d`, `D`, and `x` are mapped to the black hole register
+" (`_`). This means deleted text is discarded and doesn't replace clipboard or
+" register contents. This is helpful if you want to keep clipboard data safe
+" while deleting text frequently.
+"
+nnoremap d "_d
+nnoremap D "_D
+vnoremap d "_d
+vnoremap x "_x
+
+
