@@ -64,6 +64,7 @@ create_soft_link $SCRIPT_DIR/scripts/make_docstr.py /usr/local/bin/make_docstr.p
 create_soft_link $SCRIPT_DIR/scripts/make_unit_test.py /usr/local/bin/make_unit_test.py
 create_soft_link $SCRIPT_DIR/konsolerc $HOME_DIR/.config/konsolerc
 create_soft_link $SCRIPT_DIR/konsolerc.kmessagebox $HOME_DIR/.config/konsolerc.kmessagebox
+create_soft_link $SCRIPT_DIR/coding-is-my-craft.profile $HOME_DIR/.local/share/konsole
 
 # Check if nvidia-smi is installed.
 if ! command -v nvidia-smi /dev/null
