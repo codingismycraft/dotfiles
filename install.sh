@@ -51,7 +51,6 @@ mkdir -p $HOME_DIR/.config/autostart/
 # Specify how the soft links will be created.
 # Filenames do not start with a  dot; this happens to keep
 # things simpler and make the directory cleaner to understand.
-create_soft_link $SCRIPT_DIR/bashrc $HOME_DIR/.bashrc
 create_soft_link $SCRIPT_DIR/vimrc $HOME_DIR/.vimrc
 create_soft_link $SCRIPT_DIR/pylintrc $HOME_DIR/.pylintrc
 
@@ -93,6 +92,36 @@ if [[ "$RUNNING_LOCALLY" -eq 1 ]]; then
 fi
 
 
+###################   Update the bashrc  ####################################
+#
+# Inject the bashrc that is defined in this project to the .bashrc
+#
+# Overview:
+# - The injected section will be enclosed within the following markers:
+#   - # DotFiles changes start here; do not change!
+#   - # DotFiles changes end here.
+# - If these markers already exist in the .bashrc, the script will replace the current
+#   section within these markers with the new content.
+# - If the markers do not exist in the .bashrc, the script will append the new section
+#   and markers to the end of the file.
+#
+# Define the markers for the injected content
+START_MARKER="# DotFiles changes start here; do not change!"
+END_MARKER="# DotFiles changes end here."
 
+# Check if A.sh already contains the injected section
+if grep -q "$START_MARKER" "$SCRIPT_DIR/bashrc"; then
+    # If the section exists, replace it
+    sed -i.bak -e "/$START_MARKER/,/$END_MARKER/{/$START_MARKER/{p; r $HOME_DIR/.bashrc
+        }; /$END_MARKER/p; d}" "$SCRIPT_DIR/bashrc"
+else
+    # If the section doesn't exist, append the new section to the end of the file
+    INJECTED_CONTENT=$(< "$HOME_DIR/.bashrc")
+    {
+        echo "$START_MARKER"
+        echo "$INJECTED_CONTENT"
+        echo "$END_MARKER"
+    } >> "$SCRIPT_DIR/bashrc"
+fi
 
 

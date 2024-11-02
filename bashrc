@@ -47,16 +47,33 @@ alias l='ls -CF'
 alias h='history'
 alias gs='git status'
 alias gb='git branch'
-alias gl='source ~/gl.sh'
-alias glp='source ~/git-log-personal.sh'
-alias t='tmux'
-alias v='sudo openvpn --config new_client.ovpn --auth-user-pass --auth-retry interact'
-alias pt='python3 -m pytest --cov-config=$HOME/.coveragerc --cov=. --cov-report term-missing'
 alias c='clear'
 alias ..='cd ..;pwd'
 alias cd..='cd ..;pwd'
 alias e='vim'
-alias f='find . -name'
+
+PROMPT_DIRTRIM=2
+
+if [ -z "$SSH_CONNECTION" ]; then
+    #  Running locally..
+    alias gl='source ~/gl.sh'
+    alias glp='source ~/git-log-personal.sh'
+    alias t='tmux'
+
+    # If you have a file holding secrets source it..
+    SECRETS_HOME="$HOME/.secrets"
+    if [ -f $SECRETS_HOME ]
+    then
+        source $SECRETS_HOME
+    fi
+
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@$HOSTNAME\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    #  Running over SSH
+    echo "Running over SSH"
+fi
+
+
 
 # Enable programmable completion features.
 if ! shopt -oq posix; then
@@ -90,23 +107,9 @@ stty -ixon
 # magenta=5
 # cyan=6
 # white=7
-PROMPT_DIRTRIM=2
 green=$(tput setaf 2)
 gray=$(tput setaf 8)
 reset=$(tput sgr0)
-
-
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@$HOSTNAME\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
-# neofetch
-
-# If you have a file holding secrets source it..
-SECRETS_HOME="$HOME/.secrets" 
-
-if [ -f $SECRETS_HOME ]
-then
-    source $SECRETS_HOME
-fi
-
-export MALLOC_TRACE=/tmp/t
 

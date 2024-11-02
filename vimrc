@@ -126,7 +126,6 @@ set expandtab
 
 " Sets the default text width.
 set tw=79
-
 set nowrap
 set laststatus=2 " Show status line always.
 set nobackup
