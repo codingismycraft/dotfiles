@@ -168,12 +168,8 @@ if __name__ == '__main__':
     fn = args.filename
     fn = get_file_path(fn)
 
-    print("Full path to the local Filename\n")
-    print(fn)
-    print("\n")
-    print("Links to github\n")
     for url in _get_remote_servers(fn, linenum):
         print(url)
-        print("\n")
-
+        # Only print one link.
+        break
 
