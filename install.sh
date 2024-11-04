@@ -109,19 +109,15 @@ fi
 START_MARKER="# DotFiles changes start here; do not change!"
 END_MARKER="# DotFiles changes end here."
 
-# Check if A.sh already contains the injected section
-if grep -q "$START_MARKER" "$SCRIPT_DIR/bashrc"; then
-    # If the section exists, replace it
-    sed -i.bak -e "/$START_MARKER/,/$END_MARKER/{/$START_MARKER/{p; r $HOME_DIR/.bashrc
-        }; /$END_MARKER/p; d}" "$SCRIPT_DIR/bashrc"
-else
-    # If the section doesn't exist, append the new section to the end of the file
-    INJECTED_CONTENT=$(< "$HOME_DIR/.bashrc")
-    {
-        echo "$START_MARKER"
-        echo "$INJECTED_CONTENT"
-        echo "$END_MARKER"
-    } >> "$SCRIPT_DIR/bashrc"
+python3 $SCRIPT_DIR/scripts/code_injector.py -b "$START_MARKER" -e "$END_MARKER" -t ~/.bashrc -s $SCRIPT_DIR/bashrc
+
+####  Install fuzzy finder if needed (it will prompt the user)
+if [ ! -d "~/.fzf" ]; then
+    echo -n "Do you want to install the fuzzy finder? (y/n)"
+    read -r user_selection
+    if [ "$user_selection" == "y" ]; then
+        cd ~
+        git clone https://github.com/junegunn/fzf.git ~/.fzf
+        ~/.fzf/install
+    fi
 fi
-
-
