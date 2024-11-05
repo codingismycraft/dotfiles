@@ -100,6 +100,7 @@ noremap <C-k> 20k
 noremap <C-h> 20h
 noremap <C-l> 20l
 
+
 "Use `<Ctrl>` + `hjkl` in insert mode for arrow key movement, staying on home row."
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
@@ -216,6 +217,13 @@ nnoremap <leader>f :Ex<CR>
 
 " Use tab to activate the next buffer.
 nnoremap <tab> :bn<CR>
+
+" Use 7 to copy the last yanked text.
+nnoremap 7 "0p
+
+" Use 8 to replace existing word with last yanked text.
+nnoremap 8 viw"0p
+
 
 " Replace visually selected text with yanked text(in reg 0).
 vnoremap p "0p
