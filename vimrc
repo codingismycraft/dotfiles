@@ -219,10 +219,10 @@ nnoremap <leader>f :Ex<CR>
 nnoremap <tab> :bn<CR>
 
 " Use 7 to copy the last yanked text.
-nnoremap 7 "0p
+nnoremap <S-y> "0p
 
 " Use 8 to replace existing word with last yanked text.
-nnoremap 8 viw"0p
+nnoremap <S-u> viw"0p
 
 
 " Replace visually selected text with yanked text(in reg 0).
