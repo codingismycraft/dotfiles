@@ -220,7 +220,6 @@ nnoremap <tab> :bn<CR>
 
 " Use SHIFT 7 (or &) to copy the last yanked text.
 nnoremap & "0p
-vnoremap & "0p
 
 " Use SHIFT 8 (or *) to replace existing word with last yanked text.
 nnoremap * viw"0p
