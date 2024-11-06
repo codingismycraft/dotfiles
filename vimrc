@@ -225,7 +225,7 @@ set foldmethod=indent
 set number
 
 " Run autopep when F2 is pressed.
-autocmd! BufEnter nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
+nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
 
 " Remove training spaces before save.
 autocmd! BufWritePre * :%s/\s\+$//e
