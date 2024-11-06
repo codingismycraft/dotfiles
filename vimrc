@@ -218,11 +218,15 @@ nnoremap <leader>f :Ex<CR>
 " Use tab to activate the next buffer.
 nnoremap <tab> :bn<CR>
 
-" Use SHIFT 7 (or &) to copy the last yanked text.
-nnoremap & "0p
 
-" Use SHIFT 8 (or *) to replace existing word with last yanked text.
-nnoremap * viw"0p
+" The following two mappings are useful when we have yanked a text and then
+" deleted some other text to use the yanked.
+
+" Use leader p to copy the last yanked text.
+nnoremap <leader>p "0p
+
+" Use leader q to replace existing word with last yanked text.
+nnoremap <leader>q  viw"0p
 
 
 " Replace visually selected text with yanked text(in reg 0).
