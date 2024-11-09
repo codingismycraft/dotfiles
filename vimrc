@@ -242,3 +242,4 @@ nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
 " Remove training spaces before save.
 autocmd! BufWritePre * :%s/\s\+$//e
 
+ab __main if __name__ == '__main__':
