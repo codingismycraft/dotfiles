@@ -91,6 +91,15 @@ if [[ "$RUNNING_LOCALLY" -eq 1 ]]; then
     create_soft_link $SCRIPT_DIR/terminator-config $TERMINATOR_CONF_DIR/config
 fi
 
+##################  Add pre-commit hook mechanism for git  ##############################
+#
+# Copy the check_breakpoints.py script to a shared directory so it will be
+# executed from any directory.
+#
+# This script is added both for local and ssh based installations.
+#
+create_soft_link $SCRIPT_DIR/scripts/check_breakpoints.py /usr/local/bin/check_breakpoints.py
+create_soft_link $SCRIPT_DIR/scripts/install-precommit-hook.sh /usr/local/bin/install-precommit-hook.sh
 
 ###################   Update the bashrc  ####################################
 #
@@ -121,3 +130,5 @@ if [ ! -d "~/.fzf" ]; then
         ~/.fzf/install
     fi
 fi
+
+
