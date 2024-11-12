@@ -224,6 +224,7 @@ nnoremap <tab> :bn<CR>
 
 " Use leader p to copy the last yanked text.
 nnoremap <leader>p "0p
+vnoremap <leader>p "0p
 
 " Use leader q to replace existing word with last yanked text.
 nnoremap <leader>q  viw"0p
