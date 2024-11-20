@@ -216,7 +216,9 @@ nnoremap <leader>w <C-w><C-w><cr>
 nnoremap <leader>f :Ex<CR>
 
 " Use tab to activate the next buffer.
-nnoremap <tab> :bn<CR>
+nnoremap 1 :bnext<CR>
+nnoremap 2 :bprevious<CR>
+nnoremap 3 :bdelete<CR>
 
 
 " The following two mappings are useful when we have yanked a text and then
