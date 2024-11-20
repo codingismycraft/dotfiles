@@ -205,6 +205,7 @@ let mapleader=" "
 
 " Save all changes.
 nnoremap<leader>s <Esc>:wall<CR>
+map<C-s> <Esc>:wall<CR>
 
 " Change the relative number.
 noremap <leader>a :set rnu!<CR>
@@ -243,6 +244,6 @@ set number
 nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
 
 " Remove training spaces before save.
-autocmd! BufWritePre * :%s/\s\+$//e
+autocmd! BufWritePre * :%s/\s*$//e
 
 ab __main if __name__ == '__main__':
