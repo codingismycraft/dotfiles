@@ -243,7 +243,25 @@ set number
 " Run autopep when F2 is pressed.
 nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+" When set to 0 the cursor won't jump automatically
+" see here https://stackoverflow.com/questions/35390415/cursor-jump-in-vim-after-save
+" When the autocmd is executed to remove trailing spaces before saving
+" use the following to keep the cursor from jumping to the last change
+" and loose the current location..
+"
 " Remove training spaces before save.
-autocmd! BufWritePre * :%s/\s*$//e
+function! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd! BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+let g:syntastic_auto_jump = 0
+"""""""""""""""""""""""""""""""""""""""""""""""""
 
 ab __main if __name__ == '__main__':
+
