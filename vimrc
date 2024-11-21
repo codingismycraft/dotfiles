@@ -216,12 +216,6 @@ nnoremap <leader>w <C-w><C-w><cr>
 " List the current directory
 nnoremap <leader>f :Ex<CR>
 
-" Use tab to activate the next buffer.
-nnoremap 1 :bnext<CR>
-nnoremap 2 :bprevious<CR>
-nnoremap 3 :bdelete<CR>
-
-
 " The following two mappings are useful when we have yanked a text and then
 " deleted some other text to use the yanked.
 
