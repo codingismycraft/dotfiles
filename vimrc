@@ -48,6 +48,19 @@ function! OpenInGitHub()
     execute ":!firefox ". trim(l:output)
 endfunction
 
+function! Scratch()
+let name="scratch-pad"
+let windowNr = bufwinnr(name)
+if windowNr > 0
+    execute windowNr 'wincmd w'
+else
+    execute "sp ". name
+    setlocal buftype=nofile
+    setlocal bufhidden=hide
+    setlocal noswapfile
+endif
+endfunction
+
 """"""""""""""""""""""  vim settings """""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 set autoread
@@ -225,6 +238,7 @@ vnoremap <leader>p "0p
 
 " Use leader q to replace existing word with last yanked text.
 nnoremap <leader>q  viw"0p
+nnoremap <silent><leader>n :call Scratch()<cr>
 
 
 " Replace visually selected text with yanked text(in reg 0).
