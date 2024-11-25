@@ -238,7 +238,6 @@ vnoremap <leader>p "0p
 
 " Use leader q to replace existing word with last yanked text.
 nnoremap <leader>q  viw"0p
-nnoremap <silent><leader>n :call Scratch()<cr>
 
 
 " Replace visually selected text with yanked text(in reg 0).
@@ -251,6 +250,11 @@ set number
 " Run autopep when F2 is pressed.
 nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
 
+" Maps the ; to : to avoid the need to press shift
+nnoremap ; :
+
+" Open scratch window.
+nnoremap <silent>' :call Scratch()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " When set to 0 the cursor won't jump automatically
