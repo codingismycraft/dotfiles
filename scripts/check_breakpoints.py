@@ -53,6 +53,8 @@ if __name__ == "__main__":
     for relative_paths in sys.argv[2:]:
         for relative_path in relative_paths.split('\n'):
             fullpath = os.path.join(git_root, relative_path)
+            if not fullpath.endswith(".py"):
+                continue
             if os.path.isfile(fullpath):
                 if not check_for_breakpoints(fullpath):
                     print(f"Fix file and try again: {fullpath}")
