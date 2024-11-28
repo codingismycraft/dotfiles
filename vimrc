@@ -250,11 +250,8 @@ set number
 " Run autopep when F2 is pressed.
 nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
 
-" Maps the ; to : to avoid the need to press shift
-nnoremap ; :
-
 " Open scratch window.
-nnoremap <silent>' :call Scratch()<cr>
+command Scratch execute "call Scratch()"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " When set to 0 the cursor won't jump automatically
