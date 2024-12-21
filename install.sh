@@ -11,9 +11,10 @@ fi
 
 # The intallation varies between local, SSH, or Vagrant environments."
 if [[ -n "$SSH_CONNECTION" ]]; then
-    RUNNING_LOCALLY=1
-else
     RUNNING_LOCALLY=0
+else
+    echo "**********  RUNNING REMOTELY ********************"
+    RUNNING_LOCALLY=1
 fi
 
 # Retrieve the dot file directories.
