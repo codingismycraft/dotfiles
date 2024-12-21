@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"/"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 "                               John Pazarzis
 "
@@ -65,6 +65,9 @@ endfunction
 set nocompatible
 set autoread
 filetype off
+
+" Do not automcatilly add a new line in the end of file.
+set nofixeol
 
 " Allow backspace to work as expected..
 map! <C-h> <BS>
