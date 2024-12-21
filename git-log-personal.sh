@@ -17,6 +17,7 @@ else
     REPO_NAME="personal"
 fi
 
-ssh-add ~/.ssh/${REPO_NAME} &>/dev/null
+# ssh-add ~/.ssh/${REPO_NAME} &>/dev/null
+ssh-add ~/.ssh/${REPO_NAME}
 
 
