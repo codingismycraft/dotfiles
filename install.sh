@@ -11,9 +11,9 @@ fi
 
 # The intallation varies between local, SSH, or Vagrant environments."
 if [[ -n "$SSH_CONNECTION" ]]; then
-    RUNNING_LOCALLY=1
-else
     RUNNING_LOCALLY=0
+else
+    RUNNING_LOCALLY=1
 fi
 
 # Retrieve the dot file directories.
@@ -71,6 +71,7 @@ if [[ "$RUNNING_LOCALLY" -eq 1 ]]; then
     create_soft_link $SCRIPT_DIR/coding-is-my-craft.profile $HOME_DIR/.local/share/konsole
     create_soft_link $SCRIPT_DIR/conky.desktop $HOME_DIR/.config/autostart/conky.desktop
     create_soft_link $SCRIPT_DIR/scripts/remote_git_urls.py /usr/local/bin/remote_git_urls.py
+    create_soft_link $SCRIPT_DIR/scripts/check_openai_key.py /usr/local/bin/check_openai_key.py
 
     # Check if nvidia-smi is installed.
     if ! command -v nvidia-smi /dev/null

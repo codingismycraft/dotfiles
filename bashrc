@@ -73,6 +73,7 @@ if [ -z "$SSH_CONNECTION" ]; then
 alias gl='source ~/gl.sh'
 alias glp='source ~/git-log-personal.sh'
 alias t='tmux'
+alias check_openai_key="python3 /usr/local/bin/check_openai_key.py"
 
 # If you have a file holding secrets source it..
 SECRETS_HOME="$HOME/.secrets"
