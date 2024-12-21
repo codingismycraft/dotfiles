@@ -13,7 +13,6 @@ fi
 if [[ -n "$SSH_CONNECTION" ]]; then
     RUNNING_LOCALLY=0
 else
-    echo "**********  RUNNING REMOTELY ********************"
     RUNNING_LOCALLY=1
 fi
 

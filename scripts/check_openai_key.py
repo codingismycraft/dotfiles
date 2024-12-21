@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verifies the passed in the command line in OpenAI key."""
+"""Verifies the OpenAI key that is passed in the command line."""
 
 import sys
 
