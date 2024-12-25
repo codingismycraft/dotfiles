@@ -48,19 +48,6 @@ function! OpenInGitHub()
     execute ":!firefox ". trim(l:output)
 endfunction
 
-function! Scratch()
-let name="scratch-pad"
-let windowNr = bufwinnr(name)
-if windowNr > 0
-    execute windowNr 'wincmd w'
-else
-    execute "sp ". name
-    setlocal buftype=nofile
-    setlocal bufhidden=hide
-    setlocal noswapfile
-endif
-endfunction
-
 """"""""""""""""""""""  vim settings """""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 set autoread
@@ -252,9 +239,6 @@ set number
 
 " Run autopep when F2 is pressed.
 nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
-
-" Open scratch window.
-command Scratch execute "call Scratch()"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " When set to 0 the cursor won't jump automatically
