@@ -47,7 +47,6 @@ function! OpenInGitHub()
     endif
     execute ":!firefox ". trim(l:output)
 endfunction
-endfunction
 
 """"""""""""""""""""""  vim settings """""""""""""""""""""""""""""""""""""""""""
 set nocompatible
