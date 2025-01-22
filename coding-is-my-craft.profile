@@ -12,5 +12,8 @@ Parent=FALLBACK/
 TerminalCenter=false
 TerminalMargin=7
 
+[Keyboard]
+KeyBindings=linux
+
 [Terminal Features]
 VerticalLine=false
