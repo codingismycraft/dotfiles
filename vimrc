@@ -264,5 +264,5 @@ ab __main if __name__ == '__main__':
 " Fixing slow Esc key
 " https://vi.stackexchange.com/questions/16148/slow-vim-escape-from-insert-mode
 set noesckeys
-
+set ttimeoutlen=50
 
