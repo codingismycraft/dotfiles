@@ -1,8 +1,8 @@
 [Appearance]
-ColorScheme=Breeze
+ColorScheme=BlackOnWhite
 DimmValue=138
-Font=Monospace,12,-1,5,50,0,0,0,0,0
-LineSpacing=3
+Font=Source Code Pro,11,-1,5,50,0,0,0,0,0
+LineSpacing=4
 UseFontLineChararacters=false
 
 [General]
@@ -10,7 +10,7 @@ DimWhenInactive=false
 Name=coding-is-my-craft
 Parent=FALLBACK/
 TerminalCenter=false
-TerminalMargin=7
+TerminalMargin=4
 
 [Keyboard]
 KeyBindings=linux
