@@ -219,6 +219,9 @@ nnoremap <leader>w <C-w><C-w><cr>
 " List the current directory
 nnoremap <leader>f :Ex<CR>
 
+" Enter the current date.
+nnoremap <leader>d :r !date<CR>
+
 " The following two mappings are useful when we have yanked a text and then
 " deleted some other text to use the yanked.
 
