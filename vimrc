@@ -269,4 +269,8 @@ ab __main if __name__ == '__main__':
 set noesckeys
 set ttimeoutlen=50
 
+" Disable the bell.
+set belloff=all
+
 let g:NERDTreeShowLineNumbers=1
+
