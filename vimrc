@@ -155,6 +155,22 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 " Ctrl P runs fzf.
 nnoremap <C-p> :<C-u>FZF<CR>
 
+
+" =============================  Plugins  =============================
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/nerdtree'
+Plugin 'codingismycraft/VimCommentator'
+Plugin 'codingismycraft/VimStatusLine'
+Plugin 'codingismycraft/VimMyTools'
+Plugin 'tpope/vim-fugitive'
+Plugin 'dense-analysis/ale'
+Plugin 'NLKNguyen/papercolor-theme'
+call vundle#end()
+filetype plugin indent on
+
 " ==================  Set behavior for local / remote host  =================
 if $SSH_CONNECTION == ""
     " Vim is running locally thus it has access to X11.
@@ -170,26 +186,15 @@ if $SSH_CONNECTION == ""
     nnoremap <F7> :call OpenInGitHub()<CR><CR>
 
     " Set the color scheme for local host.
-    colorscheme glacier
+    " colorscheme glacier
+    set t_Co=256
+    colorscheme PaperColor
 else
     " Vim is running remotely.
     " Set the color scheme for SSH host.
     colorscheme zenburn
 endif
 
-" =============================  Plugins  =============================
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/nerdtree'
-Plugin 'codingismycraft/VimCommentator'
-Plugin 'codingismycraft/VimStatusLine'
-Plugin 'codingismycraft/VimMyTools'
-Plugin 'tpope/vim-fugitive'
-Plugin 'dense-analysis/ale'
-call vundle#end()
-filetype plugin indent on
 
 " =======================  YouCompleteMe Settings  ================================
 "
