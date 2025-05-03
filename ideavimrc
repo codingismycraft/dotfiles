@@ -1,5 +1,5 @@
 " " My ideavimrc settings
-" 
+"
 set nocompatible
 set number
 filetype plugin on
@@ -10,13 +10,13 @@ set cursorline
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
-" Map the escape key to jj. 
+" Map the escape key to jj.
 " inoremap jj <Esc>
 
 " Allow to change buffer even if current buffer has unsaved changes.
 set hidden
 set NERDTree
-  
+
 " Map the Nerd tree.
 map <leader>nn :NERDTree<CR>
 
@@ -29,11 +29,19 @@ nmap <leader>T :action ActivateTerminalToolWindow<cr>
 " Jump to declaration of variable.
 nmap <C-]>:action GotoImplementation<CR>
 
-" When in normal leader + p will replace current word with 0 register.
-nnoremap <leader>p viw"0p
+" The following two mappings are useful when we have yanked a text and then
+" deleted some other text to use the yanked.
 
-" When in virtual mode p will replace selection with 0 register.
+" Use leader p to copy the last yanked text.
+nnoremap <leader>p "0p
+vnoremap <leader>p "0p
+
+" Use leader q to replace existing word with last yanked text.
+nnoremap <leader>q  viw"0p
+
+" Replace visually selected text with yanked text(in reg 0).
 vnoremap p "0p
+
 
 " To be able to navigate using CTRL hjkl like arrow keys in normal mode.
 " In pycharm menu use File|Settings|KeyMap and map the Ctrl + hjkl to
