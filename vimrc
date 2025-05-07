@@ -86,6 +86,9 @@ set hidden
 
 set relativenumber
 
+
+set termguicolors
+
 " Ignore case in searches.
 set ignorecase
 
@@ -135,6 +138,9 @@ set laststatus=2 " Show status line always.
 set nobackup
 set noswapfile
 set nofoldenable
+
+" Do not show the horizontal line for the current cursor position.
+set nocursorline
 
 let python_highlight_all=1
 syntax on
@@ -187,8 +193,13 @@ if $SSH_CONNECTION == ""
 
     " Set the color scheme for local host.
     " colorscheme glacier
-    set t_Co=256
+    " set t_Co=256
     colorscheme PaperColor
+    hi clear
+    highlight Normal ctermbg=white
+    set nocursorline
+    highlight StatusLine ctermfg=blue ctermbg=cyan guifg=navy guibg=cyan
+    highlight String ctermfg=darkgreen guifg=#004000
 else
     " Vim is running remotely.
     " Set the color scheme for SSH host.
@@ -278,4 +289,10 @@ set ttimeoutlen=50
 set belloff=all
 
 let g:NERDTreeShowLineNumbers=1
-
+hi clear
+highlight Normal ctermbg=white
+highlight StatusLine ctermfg=blue ctermbg=cyan guifg=navy guibg=cyan
+set nocursorline
+highlight String ctermfg=darkgreen guifg=#004000
+highlight Comment ctermfg=darkgray guifg=darkgray
+highlight LineNr ctermfg=gray guifg=gray
