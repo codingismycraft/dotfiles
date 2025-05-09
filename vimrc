@@ -278,4 +278,5 @@ set ttimeoutlen=50
 set belloff=all
 
 let g:NERDTreeShowLineNumbers=1
-
+highlight Normal ctermbg=white
+set nocursorline
