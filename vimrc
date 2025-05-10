@@ -68,10 +68,13 @@ set tags=tags;
 set mouse=a
 
 " Allows mouse split resize inside tmux.
-if has("mouse_sgr")
-    set ttymouse=sgr
-else
-    set ttymouse=xterm2
+"
+if !has('nvim')
+    if has("mouse_sgr")
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    end
 end
 
 " set clipboard=unnamed
@@ -188,6 +191,8 @@ if $SSH_CONNECTION == ""
     " Set the color scheme for local host.
     " colorscheme glacier
     set t_Co=256
+    " colorscheme PaperColor
+    set background=dark
     colorscheme PaperColor
 else
     " Vim is running remotely.
@@ -271,7 +276,10 @@ ab __main if __name__ == '__main__':
 
 " Fixing slow Esc key
 " https://vi.stackexchange.com/questions/16148/slow-vim-escape-from-insert-mode
-set noesckeys
+
+if !has('nvim')
+    set noesckeys
+endif
 set ttimeoutlen=50
 
 " Disable the bell.
