@@ -190,14 +190,14 @@ if $SSH_CONNECTION == ""
 
     " Set the color scheme for local host.
     " colorscheme glacier
-    set t_Co=256
+    " set t_Co=256
     " colorscheme PaperColor
-    set background=dark
-    colorscheme PaperColor
+    " set background=dark
+    " colorscheme PaperColor
 else
     " Vim is running remotely.
     " Set the color scheme for SSH host.
-    colorscheme zenburn
+    " colorscheme zenburn
 endif
 
 
@@ -286,5 +286,9 @@ set ttimeoutlen=50
 set belloff=all
 
 let g:NERDTreeShowLineNumbers=1
-highlight Normal ctermbg=white
+
+set t_Co=256
+set background=dark
+colorscheme PaperColor
+" highlight Normal ctermbg=white
 set nocursorline
