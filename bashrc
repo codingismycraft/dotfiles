@@ -34,8 +34,7 @@ if [ -z "$SSH_CONNECTION" ]; then
     alias gl='source ~/gl.sh'
     alias glp='source ~/git-log-personal.sh'
     alias t='tmux'
-
-    PS1='\n\[\e[38;5;245;48;5;231;1m\]\u\[\e[38;5;243m\]@\h\[\e[22;39m\] \[\e[38;5;244;1m\]\w\[\e[22;96m\] \[\e[38;5;243;1m\]\\$\[\e[22;39m\] \[\e[0m\] '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[1;38;5;214m\]\u@$HOSTNAME\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\[\033[1;38;5;214m\](ssh)\u@$HOSTNAME\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 fi
