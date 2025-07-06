@@ -18,6 +18,11 @@ alias c='clear'
 alias ..='cd ..;pwd'
 alias e='vim'
 
+# Docker aliases
+#
+# remove all stopped (exited) containers.
+alias drme='docker rm $(docker ps -aq -f status=exited)'
+
 PROMPT_DIRTRIM=2
 
 #################################################
@@ -49,4 +54,16 @@ fi
 
 stty -ixon
 
-
+_makefile_targets()
+{
+    # get list of targets in the current Makefile
+    local cur prev targets
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    targets=$(make -pRrq -f Makefile : 2>/dev/null | \
+        awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {print $1}' | \
+        sort | uniq)
+    COMPREPLY=( $(compgen -W "${targets}" -- "$cur") )
+    return 0
+}
+complete -F _makefile_targets make
