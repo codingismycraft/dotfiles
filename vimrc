@@ -48,10 +48,46 @@ function! OpenInGitHub()
     execute ":!firefox ". trim(l:output)
 endfunction
 
+
+function! JoinParagraphs()
+  let lnum = 1
+  let last = line('$')
+  while lnum <= last
+    " Skip blank lines
+    if getline(lnum) =~ '^\s*$'
+      let lnum += 1
+      continue
+    endif
+    " While the next line exists and is not blank, join it
+    while lnum < line('$') && getline(lnum+1) !~ '^\s*$'
+      execute lnum . 'join'
+      let last = line('$') " Buffer shrinks as we join
+    endwhile
+    let lnum += 1
+  endwhile
+endfunction
+
+" Find the project root directory by looking for .git or tags file.
+function! FindProjectRoot()
+  let l:dir = expand('%:p:h')
+  while !isdirectory(l:dir . '/.git') && !filereadable(l:dir . '/tags')
+    let l:parent = fnamemodify(l:dir, ':h')
+    if l:parent == l:dir
+      return getcwd()
+    endif
+    let l:dir = l:parent
+  endwhile
+  return l:dir
+endfunction
+
+" Update the tags file in the project root directory.
+autocmd BufWritePost * silent! execute '!ctags --update -f ' . FindProjectRoot() . '/tags %' | redraw!
+
 """"""""""""""""""""""  vim settings """""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 set autoread
 filetype off
+set encoding=utf-8
 
 " Do not automcatilly add a new line in the end of file.
 set nofixeol
@@ -171,6 +207,7 @@ Plugin 'codingismycraft/VimMyTools'
 Plugin 'tpope/vim-fugitive'
 Plugin 'dense-analysis/ale'
 Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'github/copilot.vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -251,7 +288,8 @@ set foldmethod=indent
 set number
 
 " Run autopep when F2 is pressed.
-nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
+" nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
+" nnoremap <F2> :!black %<CR><CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " When set to 0 the cursor won't jump automatically
@@ -286,9 +324,15 @@ set ttimeoutlen=50
 set belloff=all
 
 let g:NERDTreeShowLineNumbers=1
-
 set t_Co=256
 set background=dark
 colorscheme PaperColor
 " highlight Normal ctermbg=white
 set nocursorline
+
+let g:python_interpreter = "python3"
+
+set tags=./tags,tags;
+
+
+command! -nargs=1 Ggrep cexpr system('git grep -n <args>') | copen
