@@ -72,6 +72,7 @@ if [[ "$RUNNING_LOCALLY" -eq 1 ]]; then
     create_soft_link $SCRIPT_DIR/conky.desktop $HOME_DIR/.config/autostart/conky.desktop
     create_soft_link $SCRIPT_DIR/scripts/remote_git_urls.py /usr/local/bin/remote_git_urls.py
     create_soft_link $SCRIPT_DIR/scripts/check_openai_key.py /usr/local/bin/check_openai_key.py
+    create_soft_link $SCRIPT_DIR/scripts/remove_leftovers.sh  /usr/local/bin/remove_leftovers.sh
 
     # Check if nvidia-smi is installed.
     if ! command -v nvidia-smi /dev/null
