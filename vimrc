@@ -323,7 +323,8 @@ set belloff=all
 
 let g:NERDTreeShowLineNumbers=1
 set t_Co=256
-set background=dark
+" set background=dark
+set background=light
 colorscheme PaperColor
 " highlight Normal ctermbg=white
 set nocursorline
