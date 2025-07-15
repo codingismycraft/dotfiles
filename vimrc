@@ -191,8 +191,6 @@ autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-" Ctrl P runs fzf.
-nnoremap <C-p> :<C-u>FZF<CR>
 
 
 " =============================  Plugins  =============================
@@ -336,3 +334,15 @@ set tags=./tags,tags;
 
 
 command! -nargs=1 Ggrep cexpr system('git grep -n <args>') | copen
+
+" Enable autochdir if desired.
+set autochdir
+
+let g:initial_cwd = getcwd()
+
+" Ctrl P runs fzf.
+" nnoremap <C-p> :<C-u>FZF<CR>
+" Set the original working directory as the initial directory for fzf.
+" This means that when you press Ctrl-P it will start searching from the
+" directory where you first opened Vim.
+nnoremap <C-p> :<C-u>execute 'FZF ' . g:initial_cwd<CR>
