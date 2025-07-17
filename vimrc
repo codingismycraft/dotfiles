@@ -81,7 +81,7 @@ function! FindProjectRoot()
 endfunction
 
 " Update the tags file in the project root directory.
-autocmd BufWritePost * silent! execute '!ctags --update -f ' . FindProjectRoot() . '/tags %' | redraw!
+" autocmd BufWritePost * silent! execute '!ctags --update -f ' . FindProjectRoot() . '/tags %' | redraw!
 
 """"""""""""""""""""""  vim settings """""""""""""""""""""""""""""""""""""""""""
 set nocompatible
@@ -347,3 +347,21 @@ let g:initial_cwd = getcwd()
 " This means that when you press Ctrl-P it will start searching from the
 " directory where you first opened Vim.
 nnoremap <C-p> :<C-u>execute 'FZF ' . g:initial_cwd<CR>
+
+
+" Function to format a Python file with isort and black
+function! FormatPython()
+    let l:filename = expand('%:p')
+    " Run isort and black silently and suppress all output
+    silent! execute ':!isort ' . shellescape(l:filename) . ' > /dev/null 2>&1'
+    silent! execute ':!black ' . shellescape(l:filename) . ' > /dev/null 2>&1'
+    " Reload the file
+    edit!
+endfunction
+
+" Create an autocommand group to avoid duplicate autocommands
+augroup format_on_save
+    autocmd!
+    " When saving a Python file, run the formatter
+    autocmd BufWritePost *.py call FormatPython()
+augroup END
