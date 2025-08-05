@@ -365,3 +365,14 @@ augroup format_on_save
     " When saving a Python file, run the formatter
     autocmd BufWritePost *.py call FormatPython()
 augroup END
+
+
+nnoremap <leader>l :call ToggleBackground()<CR>
+
+function! ToggleBackground()
+  if &background ==# 'dark'
+    set background=light
+  else
+    set background=dark
+  endif
+endfunction

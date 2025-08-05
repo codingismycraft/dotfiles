@@ -11,7 +11,13 @@ State=AAAA/wAAAAD9AAAAAQAAAAAAAAAAAAAAAPwCAAAAAfsAAAAcAFMAUwBIAE0AYQBuAGEAZwBlAH
 [Desktop Entry]
 DefaultProfile=coding-is-my-craft.profile
 
+[General]
+ConfigVersion=1
+
 [MainWindow]
+3 screens: Height=931
+3 screens: Width=2539
+3 screens: Window-Maximized=true
 DP-4 DP-0 DP-2 Height 1920x1080=918
 DP-4 DP-0 DP-2 Height 2560x1440=824
 DP-4 DP-0 DP-2 Width 1920x1080=948
@@ -64,4 +70,4 @@ State=AAAA/wAAAAD9AAAAAQAAAAAAAAAAAAAAAPwCAAAAAfsAAAAcAFMAUwBIAE0AYQBuAGEAZwBlAH
 ToolBarsMovable=Disabled
 
 [UiSettings]
-ColorScheme=Default
+ColorScheme=
