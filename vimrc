@@ -206,8 +206,12 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'dense-analysis/ale'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'github/copilot.vim'
+Plugin 'junegunn/fzf.vim'
 call vundle#end()
 filetype plugin indent on
+
+" Disable the fzf preview window to make filenames more readable.
+let g:fzf_preview_window = []
 
 " ==================  Set behavior for local / remote host  =================
 if $SSH_CONNECTION == ""
