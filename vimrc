@@ -271,15 +271,6 @@ nnoremap <leader>f :Ex<CR>
 " Start the debugger.
 nnoremap <leader>d :Termdebug<CR>
 
-" Map the next tab
-nnoremap \ gt
-
-" Map the next buffer
-nnoremap <silent> ` :bnext<CR>
-
-" Map the previous buffer
-nnoremap <silent> ~ :bprevious<CR>
-
 " The following two mappings are useful when we have yanked a text and then
 " deleted some other text to use the yanked.
 
