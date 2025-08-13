@@ -189,11 +189,9 @@ let g:fzf_layout = { 'down': '30%' }
 " Disable status line for fzf window.
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+autocmd BufLeave * if &filetype ==# 'fzf' | set laststatus=2 showmode ruler | endif
 
 
-" map the <leader> tab to open fzf buffers.
-nnoremap <leader><Tab> :Buffers<CR>
 
 " =============================  Plugins  =============================
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -257,9 +255,11 @@ set completeopt-=preview
 " leader prefixed keybindings.
 let mapleader=" "
 
-" Save all changes.
-nnoremap<leader>s <Esc>:wall<CR>
-map<C-s> <Esc>:wall<CR>
+" Normal mode: save file with Ctrl+S
+nnoremap <C-s> :w<CR>
+
+" Insert mode: save file with Ctrl+S (returns to normal mode, saves, then back to insert)
+inoremap <C-s> <Esc>:w<CR>a
 
 " Change the relative number.
 noremap <leader>a :set rnu!<CR>
@@ -283,6 +283,8 @@ vnoremap <leader>p "0p
 " Use leader q to replace existing word with last yanked text.
 nnoremap <leader>q  viw"0p
 
+" map the <leader> tab to open fzf buffers.
+nnoremap <leader><Tab> :Buffers<CR>
 
 " Replace visually selected text with yanked text(in reg 0).
 vnoremap p "0p
