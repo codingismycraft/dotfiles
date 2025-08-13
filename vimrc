@@ -192,6 +192,8 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 
+" map the <leader> tab to open fzf buffers.
+nnoremap <leader><Tab> :Buffers<CR>
 
 " =============================  Plugins  =============================
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -383,3 +385,5 @@ endfunction
 
 " Enable termdebug plugin for debugging.
 packadd! termdebug
+
+
