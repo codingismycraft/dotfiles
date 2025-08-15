@@ -143,11 +143,6 @@ noremap <C-h> 20h
 noremap <C-l> 20l
 
 
-"Use `<Ctrl>` + `hjkl` in insert mode for arrow key movement, staying on home row."
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
 
 " Hide the menu and the scroll bars. (gvim only)
 set guioptions-=m  "menu bar
@@ -388,4 +383,12 @@ endfunction
 " Enable termdebug plugin for debugging.
 packadd! termdebug
 
+" Substitute the build-in grep with git grep.
+let &grepprg = "git --no-pager grep --no-color -n $*"
 
+" When grep is completed open automatically the quickfix window.
+autocmd QuickFixCmdPost grep copen
+
+"Use `<Ctrl>` + `lk` to move up-down the quickfix list.
+nnoremap <C-j> :cn<CR>
+nnoremap <C-k> :cp<CR>
