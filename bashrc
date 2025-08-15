@@ -67,3 +67,8 @@ _makefile_targets()
     return 0
 }
 complete -F _makefile_targets make
+
+# ct: Alias to create ctags for Python and C/C++ files recursively for the
+# current directory.
+alias ct='ctags --languages=Python,C,C++ -R . --exclude=*.pyc --exclude=*.log'
+
