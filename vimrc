@@ -192,13 +192,13 @@ autocmd BufLeave * if &filetype ==# 'fzf' | set laststatus=2 showmode ruler | en
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'codingismycraft/VimCommentator'
 Plugin 'codingismycraft/VimStatusLine'
 Plugin 'codingismycraft/VimMyTools'
 Plugin 'tpope/vim-fugitive'
-Plugin 'dense-analysis/ale'
+" Plugin 'dense-analysis/ale'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'github/copilot.vim'
 Plugin 'junegunn/fzf.vim'
@@ -392,3 +392,10 @@ autocmd QuickFixCmdPost grep copen
 "Use `<Ctrl>` + `lk` to move up-down the quickfix list.
 nnoremap <C-j> :cn<CR>
 nnoremap <C-k> :cp<CR>
+
+function! MyGrep()
+    silent! exec "cd $PWD"
+    execute 'grep! ' . input('Grep for: ')
+endfunction
+
+nnoremap mg :call MyGrep()<CR>
