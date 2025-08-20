@@ -96,9 +96,6 @@ set nofixeol
 map! <C-h> <BS>
 set bs=indent,eol,start
 
-" ctags optimization
-" see also https://stackoverflow.com/questions/5542675/how-to-get-ctags-working-inside-vim
-set tags=tags;
 
 " Allow mouse movements, resise, file selection in Nerd etc.
 set mouse=a
@@ -192,13 +189,12 @@ autocmd BufLeave * if &filetype ==# 'fzf' | set laststatus=2 showmode ruler | en
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'codingismycraft/VimCommentator'
 Plugin 'codingismycraft/VimStatusLine'
 Plugin 'codingismycraft/VimMyTools'
 Plugin 'tpope/vim-fugitive'
-" Plugin 'dense-analysis/ale'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'github/copilot.vim'
 Plugin 'junegunn/fzf.vim'
@@ -234,15 +230,6 @@ else
     " colorscheme zenburn
 endif
 
-
-" =======================  YouCompleteMe Settings  ================================
-"
-" For python code map Ctrl + ] to go to definition using youcompleteme.
-autocmd FileType python nnoremap <C-]> <Esc>:YcmCompleter GoToDefinition<CR>
-let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf=0
-let g:ycm_python_binary_path='/usr/bin/python3'
-"=================================================================================
 
 " Disable the preview window.
 set completeopt-=preview
@@ -334,9 +321,6 @@ set nocursorline
 
 let g:python_interpreter = "python3"
 
-set tags=./tags,tags;
-
-
 command! -nargs=1 Ggrep cexpr system('git grep -n <args>') | copen
 
 " Enable autochdir if desired.
@@ -399,3 +383,44 @@ function! MyGrep()
 endfunction
 
 nnoremap mg :call MyGrep()<CR>
+
+" -------------------------------------------------------------------------------
+" The following are needed for autocomplete using YouCompleteMe. and
+" omnicompletion.
+"
+" For python code map Ctrl + ] to go to definition using youcompleteme.
+" autocmd FileType python nnoremap <C-]> <Esc>:YcmCompleter GoToDefinition<CR>
+" let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+" let g:ycm_confirm_extra_conf=0
+" let g:ycm_python_binary_path='/usr/bin/python3'
+
+" Under your project's root directory create the tags as follows:
+" ctags --languages=Python,C,C++ -R -f tagsall . /usr/include /usr/local/include
+set tags=./tagsall;
+
+" The following will allow YouCompleteMe to not freeze when requesting
+" autocomplete with many matching candidates.
+let g:ycm_max_num_candidates = 20
+filetype plugin indent on
+set omnifunc=syntaxcomplete#Complete
+let g:ycm_filetype_whitelist = { 'cpp': 0 }
+
+" The following are needed to load the project level .vimrc where
+" you can set the headers path and other project specific settings.
+set exrc      " Allow project-specific Vim configs
+set secure    " Prevent unsafe commands in local configs
+
+" Under your project's root directory create the .vimrc following this format:
+" set path=.,/usr/local/include,/usr/include,../headers
+"
+"
+" Map j k to move up and down the omnicompletion list.
+"
+" Move down in popup (omnicompletion) menu with j
+inoremap <expr> j pumvisible() ? "\<C-n>" : "j"
+
+" Move up in popup (omnicompletion) menu with k
+inoremap <expr> k pumvisible() ? "\<C-p>" : "k"
+
+" Select current item in popup menu with Enter
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
