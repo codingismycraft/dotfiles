@@ -424,3 +424,6 @@ inoremap <expr> k pumvisible() ? "\<C-p>" : "k"
 
 " Select current item in popup menu with Enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+
+" Automatically run clang-format on C/C++ files before saving
+autocmd BufWritePre *.c,*.cpp,*.h,*.hpp,*.cu silent! execute ':!clang-format -i %' | silent! edit

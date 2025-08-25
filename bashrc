@@ -72,3 +72,5 @@ complete -F _makefile_targets make
 # current directory.
 alias ct='ctags --languages=Python,C,C++ -R . --exclude=*.pyc --exclude=*.log'
 
+# cf: Alias to format all C/C++ files recursively for the current directory.
+alias cf='find . -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.cu" \) -exec clang-format -i {} +'
