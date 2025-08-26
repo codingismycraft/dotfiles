@@ -401,6 +401,9 @@ set tags=./tagsall;
 " The following will allow YouCompleteMe to not freeze when requesting
 " autocomplete with many matching candidates.
 let g:ycm_max_num_candidates = 20
+
+" Don't automatically trigger the autocomplete.
+let g:ycm_auto_trigger = 0
 filetype plugin indent on
 set omnifunc=syntaxcomplete#Complete
 let g:ycm_filetype_whitelist = { 'cpp': 0 }
@@ -424,6 +427,3 @@ inoremap <expr> k pumvisible() ? "\<C-p>" : "k"
 
 " Select current item in popup menu with Enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-
-" Automatically run clang-format on C/C++ files before saving
-autocmd BufWritePre *.c,*.cpp,*.h,*.hpp,*.cu silent! execute ':!clang-format -i %' | silent! edit
