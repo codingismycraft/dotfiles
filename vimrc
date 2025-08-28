@@ -427,3 +427,10 @@ inoremap <expr> k pumvisible() ? "\<C-p>" : "k"
 
 " Select current item in popup menu with Enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+
+inoremap <C-j> <C-o>j
+inoremap <C-k> <C-o>k
+inoremap <C-l> <C-o>l
+inoremap <C-h> <C-o>h
+inoremap <C-b> <C-o>b
+inoremap <C-w> <C-o>w
