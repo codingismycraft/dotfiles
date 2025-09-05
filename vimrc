@@ -434,3 +434,6 @@ inoremap <C-l> <C-o>l
 inoremap <C-h> <C-o>h
 inoremap <C-b> <C-o>b
 inoremap <C-w> <C-o>w
+
+" In C++ disable the auto insertion of comment leader when pressing Enter.
+autocmd FileType cpp setlocal formatoptions-=r
