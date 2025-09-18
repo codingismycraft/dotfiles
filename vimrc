@@ -389,10 +389,12 @@ nnoremap mg :call MyGrep()<CR>
 " omnicompletion.
 "
 " For python code map Ctrl + ] to go to definition using youcompleteme.
-" autocmd FileType python nnoremap <C-]> <Esc>:YcmCompleter GoToDefinition<CR>
-" let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
-" let g:ycm_confirm_extra_conf=0
-" let g:ycm_python_binary_path='/usr/bin/python3'
+autocmd FileType python nnoremap <C-]> <Esc>:YcmCompleter GoToDefinition<CR>
+let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf=0
+let g:ycm_python_binary_path='/usr/bin/python3'
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_show_diagnostics_ui = 0
 
 " Under your project's root directory create the tags as follows:
 " ctags --languages=Python,C,C++ -R -f tagsall . /usr/include /usr/local/include
@@ -403,10 +405,8 @@ set tags=./tagsall;
 let g:ycm_max_num_candidates = 20
 
 " Don't automatically trigger the autocomplete.
-let g:ycm_auto_trigger = 0
 filetype plugin indent on
 set omnifunc=syntaxcomplete#Complete
-let g:ycm_filetype_whitelist = { 'cpp': 0 }
 
 " The following are needed to load the project level .vimrc where
 " you can set the headers path and other project specific settings.
@@ -437,3 +437,4 @@ inoremap <C-w> <C-o>w
 
 " Disable the auto insertion of comment leader when pressing Enter.
 autocmd FileType * set formatoptions-=ro
+
