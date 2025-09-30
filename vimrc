@@ -250,7 +250,7 @@ noremap <leader>a :set rnu!<CR>
 nnoremap <leader>w <C-w><C-w><cr>
 
 " List the current directory
-nnoremap <leader>f :Vex<CR>
+nnoremap <leader>f :Ex<CR>
 
 " Start the debugger.
 nnoremap <leader>d :Termdebug<CR>
