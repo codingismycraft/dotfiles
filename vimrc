@@ -250,7 +250,7 @@ noremap <leader>a :set rnu!<CR>
 nnoremap <leader>w <C-w><C-w><cr>
 
 " List the current directory
-nnoremap <leader>f :Ex<CR>
+nnoremap <leader>f :Vex<CR>
 
 " Start the debugger.
 nnoremap <leader>d :Termdebug<CR>
@@ -437,4 +437,6 @@ inoremap <C-w> <C-o>w
 
 " Disable the auto insertion of comment leader when pressing Enter.
 autocmd FileType * set formatoptions-=ro
+
+set foldmethod=indent
 
