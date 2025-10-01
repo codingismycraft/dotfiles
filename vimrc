@@ -440,3 +440,77 @@ autocmd FileType * set formatoptions-=ro
 
 set foldmethod=indent
 
+" ======================= Save/Load Session per project =======================
+
+" Vimscript function to save/load session in ~/vim-sessions
+function! s:GetSessionDir() abort
+    return expand('~/vim-sessions')
+endfunction
+
+function! s:EnsureSessionDir() abort
+    if !isdirectory(s:GetSessionDir())
+        call mkdir(s:GetSessionDir(), 'p')
+    endif
+endfunction
+
+function! s:GetProjectRoot() abort
+    " Try to find git root
+    let l:git_cmd = 'git rev-parse --show-toplevel'
+    let l:root = system(l:git_cmd)
+    if v:shell_error == 0
+        return substitute(l:root, '\n\+$', '', '') " Remove trailing newline
+    else
+        return getcwd()
+    endif
+endfunction
+
+function! s:GetSessionFile() abort
+    let l:root = fnamemodify(s:GetProjectRoot(), ':t')
+    let l:session_dir = s:GetSessionDir()
+    return l:session_dir . '/' . l:root . '.vim'
+endfunction
+
+" Save session
+function! SaveProjectSession() abort
+    call s:EnsureSessionDir()
+    execute 'mksession! ' . fnameescape(s:GetSessionFile())
+    echo 'Session saved to ' . s:GetSessionFile()
+endfunction
+
+" Load session
+function! LoadProjectSession() abort
+    call s:EnsureSessionDir()
+    let l:session_file = s:GetSessionFile()
+    if filereadable(l:session_file)
+        execute 'source ' . fnameescape(l:session_file)
+        echo 'Session loaded from ' . l:session_file
+    else
+        echohl ErrorMsg | echo 'No session file found for this project.' | echohl None
+    endif
+endfunction
+
+" Optional: Add handy commands
+command! SaveProjectSession call SaveProjectSession()
+command! LoadProjectSession call LoadProjectSession()
+
+" =================  End Save/Load Session per project " =====================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
