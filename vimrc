@@ -395,6 +395,7 @@ let g:ycm_confirm_extra_conf=0
 let g:ycm_python_binary_path='/usr/bin/python3'
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_show_diagnostics_ui = 0
+let g:ycm_auto_trigger = 0
 
 " Under your project's root directory create the tags as follows:
 " ctags --languages=Python,C,C++ -R -f tagsall . /usr/include /usr/local/include
@@ -495,22 +496,5 @@ command! LoadProjectSession call LoadProjectSession()
 
 " =================  End Save/Load Session per project " =====================
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+autocmd VimLeave * call writefile([getreg('a')], '/tmp/vim_clip')
+autocmd VimLeave * call system('xclip -selection clipboard -i /tmp/vim_clip')
