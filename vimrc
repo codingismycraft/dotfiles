@@ -498,3 +498,7 @@ command! LoadProjectSession call LoadProjectSession()
 
 autocmd VimLeave * call writefile([getreg('a')], '/tmp/vim_clip')
 autocmd VimLeave * call system('xclip -selection clipboard -i /tmp/vim_clip')
+
+
+set autoread
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI,WinEnter * checktime
