@@ -501,3 +501,6 @@ autocmd VimLeave * call system('xclip -selection clipboard -i /tmp/vim_clip')
 
 set colorcolumn=81
 autocmd BufWinEnter * setlocal colorcolumn=81
+
+set autoread
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI,WinEnter * checktime
