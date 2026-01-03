@@ -498,3 +498,6 @@ command! LoadProjectSession call LoadProjectSession()
 
 autocmd VimLeave * call writefile([getreg('a')], '/tmp/vim_clip')
 autocmd VimLeave * call system('xclip -selection clipboard -i /tmp/vim_clip')
+
+set colorcolumn=81
+autocmd BufWinEnter * setlocal colorcolumn=81
