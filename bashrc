@@ -76,3 +76,17 @@ alias ct='ctags --languages=Python,C,C++ -R . --exclude=*.pyc --exclude=*.log'
 alias cf='find . -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.cu" \) -exec clang-format -i {} +'
 
 alias m='make'
+
+# Create a directory to hold my programs and scripts.
+export MY_PROGS_DIR="$HOME/my_progs"
+mkdir -p $MY_PROGS_DIR
+
+# Add ~/my_progs to PATH if not already there.
+case ":$PATH:" in
+    *":$MY_PROGS_DIR:"*) ;;
+    *) PATH="$MY_PROGS_DIR:$PATH" ;;
+esac
+
+
+
+
