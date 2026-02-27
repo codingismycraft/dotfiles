@@ -399,7 +399,7 @@ let g:ycm_auto_trigger = 0
 
 " Under your project's root directory create the tags as follows:
 " ctags --languages=Python,C,C++ -R -f tagsall . /usr/include /usr/local/include
-set tags=./tagsall;
+set tags=./tags;/
 
 " The following will allow YouCompleteMe to not freeze when requesting
 " autocomplete with many matching candidates.
@@ -504,3 +504,8 @@ autocmd BufWinEnter * setlocal colorcolumn=81
 
 set autoread
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI,WinEnter * checktime
+
+" Skip for vimgrep.
+set wildignore+=*/myenv/*,*/build/*,*.tmp
+
+
