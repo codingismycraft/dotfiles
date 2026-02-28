@@ -189,7 +189,6 @@ autocmd BufLeave * if &filetype ==# 'fzf' | set laststatus=2 showmode ruler | en
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'codingismycraft/VimCommentator'
 Plugin 'codingismycraft/VimStatusLine'
