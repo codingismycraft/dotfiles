@@ -45,6 +45,9 @@ else
 fi
 
 
+alias pp='cd ~/myprojects/personal_projects'
+
+
 # If you have a file holding secrets source it..
 SECRETS_HOME="$HOME/.secrets"
 if [ -f $SECRETS_HOME ]
