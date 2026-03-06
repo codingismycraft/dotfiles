@@ -433,7 +433,6 @@ inoremap <C-k> <C-o>k
 inoremap <C-l> <C-o>l
 inoremap <C-h> <C-o>h
 inoremap <C-b> <C-o>b
-inoremap <C-w> <C-o>w
 
 " Disable the auto insertion of comment leader when pressing Enter.
 autocmd FileType * set formatoptions-=ro
