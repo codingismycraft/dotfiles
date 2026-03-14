@@ -356,7 +356,11 @@ augroup END
 
 nnoremap <leader>l :call ToggleBackground()<CR>
 
-let g:my_colorschemes = ["torte", "slate", "zenburn", "zellner", "peachpuff", "retrobox", "ron"]
+let g:my_colorschemes = [
+            \ "torte", "slate", "zenburn", "zellner",
+            \ "peachpuff", "retrobox", "ron"
+            \]
+
 let g:colors_idx = 0
 
 function! ToggleBackground()
