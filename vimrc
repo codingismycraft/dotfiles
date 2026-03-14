@@ -197,6 +197,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'github/copilot.vim'
 Plugin 'junegunn/fzf.vim'
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 call vundle#end()
 filetype plugin indent on
 
@@ -355,12 +356,28 @@ augroup END
 
 nnoremap <leader>l :call ToggleBackground()<CR>
 
+let g:my_colorschemes = ["torte", "slate", "zenburn", "zellner", "peachpuff", "retrobox", "ron"]
+let g:colors_idx = 0
+
 function! ToggleBackground()
-    if &background ==# 'dark'
-        set background=light
-    else
-        set background=dark
-    endif
+    " Move to the next index, wrap around to 0 if at the end
+    let g:colors_idx = (g:colors_idx + 1) % len(g:my_colorschemes)
+
+    " Get the name from the list
+    let l:theme = g:my_colorschemes[g:colors_idx]
+
+    " Apply the colorscheme
+    execute 'colorscheme ' . l:theme
+
+    " Print a message so you know which one is active
+    redraw
+    echo "Colorscheme: " . l:theme
+
+    " if &background ==# 'dark'
+    "     set background=light
+    " else
+    "     set background=dark
+    " endif
 endfunction
 
 " Enable termdebug plugin for debugging.
@@ -388,13 +405,13 @@ nnoremap mg :call MyGrep()<CR>
 " omnicompletion.
 "
 " For python code map Ctrl + ] to go to definition using youcompleteme.
-autocmd FileType python nnoremap <C-]> <Esc>:YcmCompleter GoToDefinition<CR>
-let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf=0
-let g:ycm_python_binary_path='/usr/bin/python3'
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_auto_trigger = 0
+" autocmd FileType python nnoremap <C-]> <Esc>:YcmCompleter GoToDefinition<CR>
+" let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+" let g:ycm_confirm_extra_conf=0
+" let g:ycm_python_binary_path='/usr/bin/python3'
+" let g:ycm_collect_identifiers_from_tags_files = 1
+" let g:ycm_show_diagnostics_ui = 0
+" let g:ycm_auto_trigger = 0
 
 " Under your project's root directory create the tags as follows:
 " ctags --languages=Python,C,C++ -R -f tagsall . /usr/include /usr/local/include
@@ -402,7 +419,7 @@ set tags=./tags;/
 
 " The following will allow YouCompleteMe to not freeze when requesting
 " autocomplete with many matching candidates.
-let g:ycm_max_num_candidates = 20
+" let g:ycm_max_num_candidates = 20
 
 " Don't automatically trigger the autocomplete.
 filetype plugin indent on
@@ -505,5 +522,19 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI,WinEnter * checktime
 
 " Skip for vimgrep.
 set wildignore+=*/myenv/*,*/build/*,*.tmp
+
+" Set the grep program to git grep
+" To use just grep the text you need.
+set grepprg=git\ grep\ -n\ --column
+
+" Favorite color schemes:
+" torte
+" slate
+" zenburn
+" zellner
+" peachpuff
+" retrobox
+" ron
+
 
 

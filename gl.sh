@@ -6,6 +6,6 @@
 # the ssh credentials to establish a connection.
 ##########################################################
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa &>/dev/null
+ssh-add ~/.ssh/id_jp &>/dev/null
 
 
