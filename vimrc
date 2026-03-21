@@ -356,6 +356,7 @@ augroup END
 
 nnoremap <leader>l :call ToggleBackground()<CR>
 
+" Favorite color schemes:
 let g:my_colorschemes = [
             \ "torte", "slate", "zenburn", "zellner",
             \ "peachpuff", "retrobox", "ron"
@@ -393,9 +394,9 @@ let &grepprg = "git --no-pager grep --no-color -n $*"
 " When grep is completed open automatically the quickfix window.
 autocmd QuickFixCmdPost grep copen
 
-"Use `<Ctrl>` + `lk` to move up-down the quickfix list.
-nnoremap <C-j> :cn<CR>
-nnoremap <C-k> :cp<CR>
+"Use `<leader>` + `lk` to move up-down the quickfix list.
+nnoremap <leader>n :cn<CR>
+nnoremap <leader>k :cp<CR>
 
 function! MyGrep()
     silent! exec "cd $PWD"
@@ -530,15 +531,4 @@ set wildignore+=*/myenv/*,*/build/*,*.tmp
 " Set the grep program to git grep
 " To use just grep the text you need.
 set grepprg=git\ grep\ -n\ --column
-
-" Favorite color schemes:
-" torte
-" slate
-" zenburn
-" zellner
-" peachpuff
-" retrobox
-" ron
-
-
 
