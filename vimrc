@@ -273,7 +273,7 @@ vnoremap p "0p
 
 " Enable folding
 set foldmethod=indent
-set number
+et number
 
 " Run autopep when F2 is pressed.
 " nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
@@ -360,7 +360,7 @@ nnoremap <leader>l :call ToggleBackground()<CR>
 let g:my_colorschemes = [
             \ "torte", "slate", "zenburn", "zellner",
             \ "peachpuff", "retrobox", "ron", "blue",
-            \ "zaibatsu", "evening", "papercolor", "hablamax",
+            \ "zaibatsu", "evening", "PaperColor", "hablamax",
             \ "darkblue", "shine", "morning", "desert"
             \]
 
