@@ -273,7 +273,7 @@ vnoremap p "0p
 
 " Enable folding
 set foldmethod=indent
-et number
+set number
 
 " Run autopep when F2 is pressed.
 " nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
