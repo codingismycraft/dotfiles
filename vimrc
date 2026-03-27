@@ -358,10 +358,8 @@ nnoremap <leader>l :call ToggleBackground()<CR>
 
 " Favorite color schemes:
 let g:my_colorschemes = [
-            \ "torte", "slate", "zenburn", "zellner",
-            \ "peachpuff", "retrobox", "ron", "blue",
-            \ "zaibatsu", "evening", "PaperColor", "hablamax",
-            \ "darkblue", "shine", "morning", "desert"
+            \ "torte", "zenburn", "retrobox", "ron",
+            \ "evening", "PaperColor", "hablamax", "desert"
             \]
 
 let g:colors_idx = 0
