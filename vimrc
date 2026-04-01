@@ -217,17 +217,6 @@ if $SSH_CONNECTION == ""
 
     " If exists open the file under github.
     nnoremap <F7> :call OpenInGitHub()<CR><CR>
-
-    " Set the color scheme for local host.
-    " colorscheme glacier
-    " set t_Co=256
-    " colorscheme PaperColor
-    " set background=dark
-    " colorscheme PaperColor
-else
-    " Vim is running remotely.
-    " Set the color scheme for SSH host.
-    " colorscheme zenburn
 endif
 
 
@@ -313,9 +302,8 @@ set belloff=all
 
 let g:NERDTreeShowLineNumbers=1
 set t_Co=256
-" set background=dark
-set background=light
-colorscheme PaperColor
+set background=dark
+colorscheme retrobox
 " highlight Normal ctermbg=white
 set nocursorline
 
