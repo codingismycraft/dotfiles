@@ -36,14 +36,14 @@ PROMPT_DIRTRIM=2
 
 if [ -z "$SSH_CONNECTION" ]; then
     #  Running locally..
-    alias gl='source ~/gl.sh'
     alias glp='source ~/git-log-personal.sh'
-    alias t='tmux'
     PS1='${debian_chroot:+($debian_chroot)}\[\033[1;38;5;214m\]\u@$HOSTNAME\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\[\033[1;38;5;214m\](ssh)\u@$HOSTNAME\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 fi
 
+alias t='tmux'
+alias gl='source ~/gl.sh'
 
 alias pp='cd ~/myprojects/personal_projects'
 
