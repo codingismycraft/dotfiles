@@ -60,12 +60,13 @@ mkdir -p $VIM_COLOR_SCHEME_DIR
 cp $SCRIPT_DIR/glacier.vim $VIM_COLOR_SCHEME_DIR
 cp $SCRIPT_DIR/zenburn.vim $VIM_COLOR_SCHEME_DIR
 
+create_soft_link $SCRIPT_DIR/tmux.conf $HOME_DIR/.tmux.conf
+create_soft_link $SCRIPT_DIR/ideavimrc $HOME_DIR/.ideavimrc
+create_soft_link $SCRIPT_DIR/konsolerc $HOME_DIR/.config/konsolerc
+create_soft_link $SCRIPT_DIR/gl.sh $HOME_DIR/gl.sh
+
 if [[ "$RUNNING_LOCALLY" -eq 1 ]]; then
 
-    create_soft_link $SCRIPT_DIR/tmux.conf $HOME_DIR/.tmux.conf
-    create_soft_link $SCRIPT_DIR/ideavimrc $HOME_DIR/.ideavimrc
-    create_soft_link $SCRIPT_DIR/konsolerc $HOME_DIR/.config/konsolerc
-    create_soft_link $SCRIPT_DIR/gl.sh $HOME_DIR/gl.sh
     create_soft_link $SCRIPT_DIR/git-log-personal.sh $HOME_DIR/git-log-personal.sh
     create_soft_link $SCRIPT_DIR/konsolerc.kmessagebox $HOME_DIR/.config/konsolerc.kmessagebox
     create_soft_link $SCRIPT_DIR/coding-is-my-craft.profile $HOME_DIR/.local/share/konsole
