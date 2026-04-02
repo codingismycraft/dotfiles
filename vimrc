@@ -197,7 +197,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'github/copilot.vim'
 Plugin 'junegunn/fzf.vim'
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 call vundle#end()
 filetype plugin indent on
 
