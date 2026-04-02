@@ -67,6 +67,7 @@ function! JoinParagraphs()
   endwhile
 endfunction
 
+
 " Find the project root directory by looking for .git or tags file.
 function! FindProjectRoot()
   let l:dir = expand('%:p:h')
