@@ -112,7 +112,10 @@ if !has('nvim')
 end
 
 " set clipboard=unnamed
-set clipboard^=unnamed,unnamedplus
+set clipboard=unnamedplus
+
+" Replace inner word with system clipboard and make it repeatable
+nnoremap <leader>r "_ciw<C-r>+<Esc>
 
 " Uncomment the following for Working directory to always be the same as the
 " file you are editing.
