@@ -523,3 +523,20 @@ set wildignore+=*/myenv/*,*/build/*,*.tmp
 " To use just grep the text you need.
 set grepprg=git\ grep\ -n\ --column
 
+" -----------------------------------------------------------------------------
+" Auto-Project Path: Dynamically adds the project root to the search path.
+"
+" This function searches upward from the current file's directory to find
+" a .git folder. If found, it recursively appends that root directory to
+" the 'path' variable. This allows commands like 'gf' (go to file) and
+" ':find' to locate headers or modules anywhere within the project tree
+" (e.g., in headers/, src/, or tests/) regardless of where Vim was launched.
+" -----------------------------------------------------------------------------
+function! AddProjectToPath()
+    let l:project_root = finddir('.git/..', expand('%:p:h') . ';')
+    if l:project_root != ''
+        execute 'setlocal path+=' . l:project_root . '/**'
+    endif
+endfunction
+
+autocmd BufRead,BufNewFile * call AddProjectToPath()
