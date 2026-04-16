@@ -314,8 +314,6 @@ let g:python_interpreter = "python3"
 
 command! -nargs=1 Ggrep cexpr system('git grep -n <args>') | copen
 
-" Enable autochdir if desired.
-set autochdir
 
 let g:initial_cwd = getcwd()
 
