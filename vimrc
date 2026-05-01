@@ -267,9 +267,6 @@ vnoremap p "0p
 set foldmethod=indent
 set number
 
-" Run autopep when F2 is pressed.
-" nnoremap <F2> :!autopep8 --in-place --aggressive --aggressive %<CR><CR>
-" nnoremap <F2> :!black %<CR><CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " When set to 0 the cursor won't jump automatically
@@ -324,23 +321,25 @@ let g:initial_cwd = getcwd()
 " directory where you first opened Vim.
 nnoremap <C-p> :<C-u>execute 'FZF ' . g:initial_cwd<CR>
 
+" Commenting out since it can cause issues with the cursor jumping to the end
+" of the file after save.
 
 " Function to format a Python file with isort and black
-function! FormatPython()
-    let l:filename = expand('%:p')
-    " Run isort and black silently and suppress all output
-    silent! execute ':!isort ' . shellescape(l:filename) . ' > /dev/null 2>&1'
-    silent! execute ':!black ' . shellescape(l:filename) . ' > /dev/null 2>&1'
-    " Reload the file
-    edit!
-endfunction
+" function! FormatPython()
+"     let l:filename = expand('%:p')
+"     " Run isort and black silently and suppress all output
+"     silent! execute ':!isort ' . shellescape(l:filename) . ' > /dev/null 2>&1'
+"     silent! execute ':!black ' . shellescape(l:filename) . ' > /dev/null 2>&1'
+"     " Reload the file
+"     edit!
+" endfunction
 
 " Create an autocommand group to avoid duplicate autocommands
-augroup format_on_save
-    autocmd!
-    " When saving a Python file, run the formatter
-    autocmd BufWritePost *.py call FormatPython()
-augroup END
+" augroup format_on_save
+"     autocmd!
+"     " When saving a Python file, run the formatter
+"     autocmd BufWritePost *.py call FormatPython()
+" augroup END
 
 
 nnoremap <leader>l :call ToggleBackground()<CR>
