@@ -37,11 +37,9 @@ PROMPT_DIRTRIM=2
 if [ -z "$SSH_CONNECTION" ]; then
     #  Running locally..
     alias glp='source ~/git-log-personal.sh'
-    # PS1='${debian_chroot:+($debian_chroot)}\[\033[1;38;5;214m\]\u@$HOSTNAME\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1="\[\e[44;37m\] \D{%Y-%m-%d} \t \[\e[42;30m\] \u@\h \[\e[43;30m\] \w \[\e[0m\] "
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[1;38;5;214m\]\u@$HOSTNAME\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    # PS1='${debian_chroot:+($debian_chroot)}\[\033[1;38;5;214m\](ssh)\u@$HOSTNAME\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1="\[\e[44;37m\] \D{%Y-%m-%d} \t \[\e[42;30m\] \u@\h \[\e[43;30m\] \w \[\e[0m\] "
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[1;38;5;214m\](ssh)\u@$HOSTNAME\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 fi
 
 alias t='tmux'
