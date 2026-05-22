@@ -111,8 +111,7 @@ if !has('nvim')
     end
 end
 
-" set clipboard=unnamed
-set clipboard=unnamedplus
+set clipboard=unnamed,unnamedplus
 
 " Replace inner word with system clipboard and make it repeatable
 nnoremap <leader>r "_ciw<C-r>+<Esc>
@@ -199,8 +198,8 @@ Plugin 'codingismycraft/VimStatusLine'
 Plugin 'codingismycraft/VimMyTools'
 Plugin 'tpope/vim-fugitive'
 Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'github/copilot.vim'
 Plugin 'junegunn/fzf.vim'
+Plugin 'ggml-org/llama.vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -537,3 +536,36 @@ function! AddProjectToPath()
 endfunction
 
 autocmd BufRead,BufNewFile * call AddProjectToPath()
+
+" --- llama.vim Configuration ---
+" Initialize the global configuration dictionary
+
+" To install ollama:
+" curl -fsSL https://ollama.com/install.sh | sh
+" ollama run qwen2.5-coder:1.5b
+
+" To check nvidia  gpu usage:
+" watch -n 0.5 nvidia-smi
+
+" To check ollama usage:
+" sudo systemctl  status ollama -l
+" sudo systemctl  start ollama -l
+" sudo systemctl  stop ollama -l
+
+
+
+
+
+
+
+let g:llama_config = {}
+
+" Point it to Ollama's OpenAI-compatible completions endpoint
+let g:llama_config.endpoint_fim = 'http://127.0.0.1:11434/v1/completions'
+let g:llama_config.model_fim = 'qwen2.5-coder:1.5b'
+
+
+" Global keymap controls
+let g:llama_config.show_info = v:true             " Shows generation speed and context token usage stats
+let g:llama_config.keymap_fim_accept_full = '<Tab>' " Press Tab to accept the suggestion
+let g:llama_config.keymap_fim_accept_line = '<S-Tab>' " Shift+Tab to accept just the next line
