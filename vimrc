@@ -537,3 +537,7 @@ function! AddProjectToPath()
 endfunction
 
 autocmd BufRead,BufNewFile * call AddProjectToPath()
+
+
+" Open / Close Nerd tree
+nnoremap <C-n> :NERDTreeToggle<CR>
