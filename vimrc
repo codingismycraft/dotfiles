@@ -199,8 +199,8 @@ Plugin 'codingismycraft/VimStatusLine'
 Plugin 'codingismycraft/VimMyTools'
 Plugin 'tpope/vim-fugitive'
 Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'github/copilot.vim'
 Plugin 'junegunn/fzf.vim'
+Plugin 'Exafunction/codeium.vim'
 call vundle#end()
 filetype plugin indent on
 
