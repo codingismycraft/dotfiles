@@ -196,7 +196,6 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'codingismycraft/VimCommentator'
 Plugin 'codingismycraft/VimStatusLine'
-Plugin 'codingismycraft/VimMyTools'
 Plugin 'tpope/vim-fugitive'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'junegunn/fzf.vim'
@@ -541,3 +540,69 @@ autocmd BufRead,BufNewFile * call AddProjectToPath()
 
 " Open / Close Nerd tree
 nnoremap <C-n> :NERDTreeToggle<CR>
+
+
+python3 << EOF
+"""Defines the run_selection function."""
+
+import vim
+import os
+import re
+
+def run_selection():
+    """Runs the current selection in the current buffer."""
+
+    filepath = vim.current.buffer.name
+    if not filepath:
+        print("No file name associated with buffer.")
+        return
+
+    filename = os.path.basename(filepath)
+
+    if not filename.endswith('.py'):
+        print(filename, "Can only run python files.")
+        return
+
+    if not filename.startswith('test'):
+        # It is a python file, if not a test file just run it.
+        cmd = 'execute "!python3 %"'
+        vim.command(cmd)
+        return
+
+    # Is a test file, if the cursor is on a test function, run it
+    # otherwise run all tests.
+
+    row, col = vim.current.window.cursor
+    lines = vim.current.buffer
+    current_line = lines[row-1]
+
+    test_func_name = None
+    match = re.match(r"^def\s+(test_\w+)", current_line)
+    if match:
+        test_func_name = match.group(1)
+
+    if test_func_name:
+        vim.command( f'execute "!pytest %::{test_func_name}"')
+    else:
+        vim.command( 'execute "!pytest %"')
+
+EOF
+
+" Map to <leader>r
+nnoremap <leader>r :python3 run_selection()<CR>
+
+
+
+function! ScratchPad()
+" Open a scratch window
+let name="scratch-pad"
+let windowNr = bufwinnr(name)
+if windowNr > 0
+    execute windowNr 'wincmd w'
+else
+    execute "sp ". name
+    setlocal buftype=nofile
+    setlocal bufhidden=hide
+    setlocal noswapfile
+endif
+endfunction
