@@ -131,8 +131,6 @@ set ignorecase
 
 set shiftwidth=4
 
-" Highlight search terms <leader> h
-nnoremap <silent> <leader>h :set hlsearch!<CR>
 
 " Mimic the arrow keys when in command mode.
 cnoremap <C-k> <Up>
@@ -609,3 +607,7 @@ else
     setlocal noswapfile
 endif
 endfunction
+
+
+" Highlight search terms <leader> h
+nnoremap <silent> <leader>h :set hlsearch!<CR>
