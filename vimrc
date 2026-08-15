@@ -131,6 +131,9 @@ set ignorecase
 
 set shiftwidth=4
 
+" Highlight search terms
+set hls
+
 " Mimic the arrow keys when in command mode.
 cnoremap <C-k> <Up>
 cnoremap <C-j> <Down>
@@ -582,9 +585,9 @@ def run_selection():
         test_func_name = match.group(1)
 
     if test_func_name:
-        vim.command( f'execute "!pytest %::{test_func_name}"')
+        vim.command( f'execute "!pytest %::{test_func_name} -s"')
     else:
-        vim.command( 'execute "!pytest %"')
+        vim.command( 'execute "!pytest % -s"')
 
 EOF
 
