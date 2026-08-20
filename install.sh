@@ -60,6 +60,7 @@ mkdir -p $VIM_COLOR_SCHEME_DIR
 cp $SCRIPT_DIR/glacier.vim $VIM_COLOR_SCHEME_DIR
 cp $SCRIPT_DIR/zenburn.vim $VIM_COLOR_SCHEME_DIR
 
+create_soft_link $SCRIPT_DIR/psqlrc $HOME_DIR/.psqlrc
 create_soft_link $SCRIPT_DIR/tmux.conf $HOME_DIR/.tmux.conf
 create_soft_link $SCRIPT_DIR/ideavimrc $HOME_DIR/.ideavimrc
 create_soft_link $SCRIPT_DIR/konsolerc $HOME_DIR/.config/konsolerc

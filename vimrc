@@ -241,9 +241,6 @@ noremap <leader>a :set rnu!<CR>
 " Change active window.
 nnoremap <leader>w <C-w><C-w><cr>
 
-" List the current directory
-nnoremap <leader>f :Ex<CR>
-
 " Start the debugger.
 nnoremap <leader>d :Termdebug<CR>
 
@@ -592,6 +589,41 @@ EOF
 " Map to <leader>r
 nnoremap <leader>r :python3 run_selection()<CR>
 
+
+"""""""""""" Adds the reformat functionality """""""""""""""""
+
+python3 << EOF
+"""Reformat the current python file."""
+import os
+import shutil
+import vim
+
+def reformat_file():
+    """Reformat current python file."""
+    filepath = vim.current.buffer.name
+    if not filepath:
+        print("No file name associated with buffer.")
+        return
+
+    filename = os.path.basename(filepath)
+
+    if not filename.endswith('.py'):
+        print(filename, "Can only reformat python files.")
+        return
+
+    # Check if black is installed and available in PATH
+    if not shutil.which('black'):
+        print("Error: 'black' formatter is not installed or not in PATH.")
+        return
+
+    cmd = 'execute "!black %"'
+    vim.command(cmd)
+EOF
+
+" Map to <leader>f
+nnoremap <leader>f :python3 reformat_file()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 function! ScratchPad()
