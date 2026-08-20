@@ -625,7 +625,7 @@ nnoremap <leader>f :python3 reformat_file()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
+""""""""""""""""  Scratch Pad  """""""""""""""""""""""""""""
 function! ScratchPad()
 " Open a scratch window
 let name="scratch-pad"
@@ -640,6 +640,9 @@ else
 endif
 endfunction
 
+nnoremap <silent> <leader>s :call ScratchPad()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Highlight search terms <leader> h
 nnoremap <silent> <leader>h :set hlsearch!<CR>
