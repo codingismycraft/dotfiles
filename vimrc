@@ -618,6 +618,7 @@ def reformat_file():
 
     cmd = 'execute "!black %"'
     vim.command(cmd)
+    vim.command('e!')
 EOF
 
 " Map to <leader>f
@@ -646,3 +647,14 @@ nnoremap <silent> <leader>s :call ScratchPad()<CR>
 
 " Highlight search terms <leader> h
 nnoremap <silent> <leader>h :set hlsearch!<CR>
+
+" Use Tab to change to next buffer
+nnoremap <Tab> :bn<CR>
+
+" Use <leader>Tab to change to previous buffer
+nnoremap <leader><Tab> :bp<CR>
+
+
+
+
+
