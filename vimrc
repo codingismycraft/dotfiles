@@ -654,7 +654,4 @@ nnoremap <Tab> :bn<CR>
 " Use <leader>Tab to change to previous buffer
 nnoremap <leader><Tab> :bp<CR>
 
-
-
-
-
+set diffopt+=vertical
