@@ -111,8 +111,6 @@ if !has('nvim')
     end
 end
 
-" set clipboard=unnamed
-set clipboard=unnamedplus
 
 " Replace inner word with system clipboard and make it repeatable
 nnoremap <leader>r "_ciw<C-r>+<Esc>
@@ -648,10 +646,16 @@ nnoremap <silent> <leader>s :call ScratchPad()<CR>
 " Highlight search terms <leader> h
 nnoremap <silent> <leader>h :set hlsearch!<CR>
 
-" Use Tab to change to next buffer
-nnoremap <Tab> :bn<CR>
-
-" Use <leader>Tab to change to previous buffer
-nnoremap <leader><Tab> :bp<CR>
-
+" In fugive, open diff in vertical split
 set diffopt+=vertical
+
+
+" Clipbooard settings.
+set clipboard+=unnamed,unnamedplus
+
+" Use the system clipboard when copying.
+nnoremap p "*p
+nnoremap P "*P
+vnoremap p "*p
+vnoremap P "*P
+
