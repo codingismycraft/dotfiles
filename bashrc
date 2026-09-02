@@ -90,6 +90,12 @@ case ":$PATH:" in
     *) PATH="$MY_PROGS_DIR:$PATH" ;;
 esac
 
+# Force psql to store up to 50,000 historical command strings
+export HISTSIZE=50000
+export HISTFILESIZE=50000
+
+# Prevent duplicate consecutive commands from filling up your file
+export HISTCONTROL=ignoredups
 
 
 
