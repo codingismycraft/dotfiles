@@ -309,7 +309,8 @@ set t_Co=256
 set background=light
 " colorscheme zenburn
 " colorscheme elflord
-colorscheme PaperColor
+" colorscheme PaperColor
+colorscheme desert
 " highlight Normal ctermbg=white
 set nocursorline
 
@@ -352,9 +353,28 @@ nnoremap <leader>l :call ToggleBackground()<CR>
 
 " Favorite color schemes:
 let g:my_colorschemes = [
-            \ "torte", "zenburn", "retrobox", "ron",
-            \ "evening", "PaperColor", "hablamax", "desert"
-            \]
+            \ "PaperColor",
+            \ "blue",
+            \ "darkblue",
+            \ "default",
+            \ "desert",
+            \ "elflord",
+            \ "evening",
+            \ "habamax",
+            \ "industry",
+            \ "koehler",
+            \ "morning",
+            \ "murphy",
+            \ "pablo",
+            \ "peachpuff",
+            \ "retrobox",
+            \ "slate",
+            \ "sorbet",
+            \ "torte",
+            \ "wildcharm",
+            \ "zenburn"
+           \]
+
 
 let g:colors_idx = 0
 
@@ -680,3 +700,28 @@ set incsearch
 " with a bright red background.
 highlight markdownItalicDelimiter ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
 highlight markdownError ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
+
+" Open the corresponding test file for the current buffer.
+"
+" Description:
+"   Locates and opens a test file following the convention:
+"   parent_dir/tests/test_<filename>.py
+"   If the file does not exist, an error message is echoed to the command line.
+
+function! OpenTestFile()
+    let curr_file = expand('%:p')
+    if empty(curr_file)
+        echo "No file open."
+        return
+    endif
+    let dir = expand('%:p:h')
+    let filename = expand('%:t')
+    let test_file = dir . '/tests/test_' . filename
+    if filereadable(test_file)
+        execute 'edit ' . fnameescape(test_file)
+    else
+        echo "Test file not found: " . test_file
+    endif
+endfunction
+
+nnoremap <leader>t :call OpenTestFile()<CR>
