@@ -694,13 +694,6 @@ set diffopt+=vertical
 set clipboard=unnamed,unnamedplus
 set incsearch
 
-" Markdown highlighting
-" Remove bright red background highlights from underscores in Markdown files
-" Used for some color schemes like elflord where the underscore is highlighted
-" with a bright red background.
-highlight markdownItalicDelimiter ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
-highlight markdownError ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
-
 " Open the corresponding test file for the current buffer.
 "
 " Description:
@@ -725,3 +718,11 @@ function! OpenTestFile()
 endfunction
 
 nnoremap <leader>t :call OpenTestFile()<CR>
+
+
+" Markdown highlighting
+" Remove bright red background highlights from underscores in Markdown files
+" Used for some color schemes like elflord where the underscore is highlighted
+" with a bright red background.
+highlight markdownItalicDelimiter ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
+highlight markdownError ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
