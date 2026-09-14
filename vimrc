@@ -124,8 +124,8 @@ set hidden
 
 set relativenumber
 
-" Ignore case in searches.
-set ignorecase
+"  Make searches case insensitive.
+set noignorecase
 
 set shiftwidth=4
 
@@ -227,14 +227,15 @@ set completeopt-=preview
 " leader prefixed keybindings.
 let mapleader=" "
 
-" Normal mode: save file with Ctrl+S
 nnoremap <C-s> :w<CR>
 
-" Insert mode: save file with Ctrl+S (returns to normal mode, saves, then back to insert)
+" Insert mode: save file with Ctrl+S (returns to normal mode, saves, then back
+" to insert)
 inoremap <C-s> <Esc>:w<CR>a
 
 " Change the relative number.
 noremap <leader>a :set rnu!<CR>
+
 
 " Change active window.
 nnoremap <leader>w <C-w><C-w><cr>
@@ -249,11 +250,19 @@ nnoremap <leader>d :Termdebug<CR>
 nnoremap <leader>p "0p
 vnoremap <leader>p "0p
 
+" nnoremap <leader><Space> :bnext<CR>
+
 " Use leader q to replace existing word with last yanked text.
 nnoremap <leader>q  viw"0p
 
 " map the <leader> tab to open fzf buffers.
-nnoremap <leader><Tab> :Buffers<CR>
+" nnoremap <leader><Tab> :Buffers<CR>
+
+" Next buffer mapped to <leader><Tab>
+nnoremap <leader><Tab> :bn<CR>
+
+" Previous buffer mapped to <leader><`>
+nnoremap <leader>` :bp<CR>
 
 " Replace visually selected text with yanked text(in reg 0).
 vnoremap p "0p
@@ -298,6 +307,8 @@ set belloff=all
 let g:NERDTreeShowLineNumbers=1
 set t_Co=256
 set background=light
+" colorscheme zenburn
+" colorscheme elflord
 colorscheme PaperColor
 " highlight Normal ctermbg=white
 set nocursorline
@@ -548,6 +559,9 @@ import re
 def run_selection():
     """Runs the current selection in the current buffer."""
 
+    # Save the current buffer before running
+    vim.command('update')
+
     filepath = vim.current.buffer.name
     if not filepath:
         print("No file name associated with buffer.")
@@ -558,6 +572,9 @@ def run_selection():
     if not filename.endswith('.py'):
         print(filename, "Can only run python files.")
         return
+
+    # Save all modified buffers before formatting
+    vim.command('wa')
 
     if not filename.startswith('test'):
         # It is a python file, if not a test file just run it.
@@ -609,6 +626,9 @@ def reformat_file():
         print(filename, "Can only reformat python files.")
         return
 
+    # Save all modified buffers before formatting
+    vim.command('wa')
+
     # Check if black is installed and available in PATH
     if not shutil.which('black'):
         print("Error: 'black' formatter is not installed or not in PATH.")
@@ -651,11 +671,12 @@ set diffopt+=vertical
 
 
 " Clipbooard settings.
-set clipboard+=unnamed,unnamedplus
+set clipboard=unnamed,unnamedplus
+set incsearch
 
-" Use the system clipboard when copying.
-nnoremap p "*p
-nnoremap P "*P
-vnoremap p "*p
-vnoremap P "*P
-
+" Markdown highlighting
+" Remove bright red background highlights from underscores in Markdown files
+" Used for some color schemes like elflord where the underscore is highlighted
+" with a bright red background.
+highlight markdownItalicDelimiter ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
+highlight markdownError ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
