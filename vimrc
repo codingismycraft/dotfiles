@@ -256,13 +256,9 @@ vnoremap <leader>p "0p
 nnoremap <leader>q  viw"0p
 
 " map the <leader> tab to open fzf buffers.
-" nnoremap <leader><Tab> :Buffers<CR>
+nnoremap <leader><Tab> :Buffers<CR>
 
-" Next buffer mapped to <leader><Tab>
-nnoremap <leader><Tab> :bn<CR>
 
-" Previous buffer mapped to <leader><`>
-nnoremap <leader>` :bp<CR>
 
 " Replace visually selected text with yanked text(in reg 0).
 vnoremap p "0p
@@ -309,8 +305,9 @@ set t_Co=256
 set background=light
 " colorscheme zenburn
 " colorscheme elflord
-" colorscheme PaperColor
-colorscheme desert
+" colorscheme desert
+
+colorscheme PaperColor
 " highlight Normal ctermbg=white
 set nocursorline
 
@@ -694,30 +691,41 @@ set diffopt+=vertical
 set clipboard=unnamed,unnamedplus
 set incsearch
 
-" Open the corresponding test file for the current buffer.
+" Toggle between a source file and its corresponding test file.
 "
 " Description:
-"   Locates and opens a test file following the convention:
-"   parent_dir/tests/test_<filename>.py
-"   If the file does not exist, an error message is echoed to the command line.
-
-function! OpenTestFile()
+"   If called on a source file (e.g., parent/myprog.py), it opens
+"   parent/tests/test_myprog.py. If called on a test file
+"   (e.g., parent/tests/test_myprog.py), it navigates back to parent/myprog.py.
+"   If the target file does not exist, an error message is displayed.
+function! ToggleTestFile()
     let curr_file = expand('%:p')
     if empty(curr_file)
         echo "No file open."
         return
     endif
-    let dir = expand('%:p:h')
+
     let filename = expand('%:t')
-    let test_file = dir . '/tests/test_' . filename
-    if filereadable(test_file)
-        execute 'edit ' . fnameescape(test_file)
+    let dir = expand('%:p:h')
+
+    if filename =~ '^test_'
+        " Currently in a test file, locate the corresponding source file
+        let src_filename = substitute(filename, '^test_', '', '')
+        let parent_dir = fnamemodify(dir, ':h')
+        let target_file = parent_dir . '/' . src_filename
     else
-        echo "Test file not found: " . test_file
+        " Currently in a source file, locate the corresponding test file
+        let target_file = dir . '/tests/test_' . filename
+    endif
+
+    if filereadable(target_file)
+        execute 'edit ' . fnameescape(target_file)
+    else
+        echo "Target file not found: " . target_file
     endif
 endfunction
 
-nnoremap <leader>t :call OpenTestFile()<CR>
+nnoremap <leader>t :call ToggleTestFile()<CR>
 
 
 " Markdown highlighting
@@ -726,3 +734,10 @@ nnoremap <leader>t :call OpenTestFile()<CR>
 " with a bright red background.
 highlight markdownItalicDelimiter ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
 highlight markdownError ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
+
+
+" Map Q to repeat the last command-line command (much faster than @:)
+" Note: This replaces 'Ex Mode' (which is rarely used and often entered by accident)
+nnoremap Q @:
+
+
