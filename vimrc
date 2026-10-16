@@ -726,7 +726,7 @@ function! ToggleTestFile()
 endfunction
 
 nnoremap <leader>t :call ToggleTestFile()<CR>
-
+nnoremap <leader>v <C-w>v
 
 " Markdown highlighting
 " Remove bright red background highlights from underscores in Markdown files
