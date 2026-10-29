@@ -784,7 +784,12 @@ function! ToggleTestFile()
 endfunction
 
 nnoremap <leader>t :call ToggleTestFile()<CR>
+
+" Split window vertically
 nnoremap <leader>v <C-w>v
+
+" Close the current window
+nnoremap <leader>c :q<CR>
 
 " Markdown highlighting
 " Remove bright red background highlights from underscores in Markdown files
