@@ -562,8 +562,6 @@ endfunction
 autocmd BufRead,BufNewFile * call AddProjectToPath()
 
 
-" Open / Close Nerd tree
-nnoremap <C-n> :NERDTreeToggle<CR>
 
 
 python3 << EOF
@@ -573,7 +571,7 @@ import vim
 import os
 import re
 
-def run_selection():
+def run_selection_old():
     """Runs the current selection in the current buffer."""
 
     # Save the current buffer before running
@@ -618,8 +616,64 @@ def run_selection():
 
 EOF
 
+
+python3 << EOF
+"""Defines the run_selection function."""
+
+import vim
+import os
+import re
+
+def run_selection():
+    """Configures the workspace and build configurations for the current buffer."""
+
+    # Save the current buffer before running
+    vim.command('update')
+
+    filepath = vim.current.buffer.name
+    if not filepath:
+        print("No file name associated with buffer.")
+        return
+
+    filename = os.path.basename(filepath)
+
+    if not filename.endswith('.py'):
+        print(filename, "Can only run python files.")
+        return
+
+    # Save all modified buffers before formatting
+    vim.command('wa')
+
+    # Force the quickfix engine to treat ALL lines as plain output text.
+    vim.command('setlocal errorformat=%m')
+
+    if not filename.startswith('test'):
+        vim.command(r'setlocal makeprg=python3\ %')
+        return
+
+    # Is a test file, if the cursor is on a test function, configure it
+    row, col = vim.current.window.cursor
+    lines = vim.current.buffer
+    current_line = lines[row-1]
+
+    test_func_name = None
+    match = re.match(r"^def\s+(test_\w+)", current_line)
+    if match:
+        test_func_name = match.group(1)
+
+    if test_func_name:
+        vim.command(fr'setlocal makeprg=pytest\ %\::{test_func_name}\ -s')
+    else:
+        vim.command(r'setlocal makeprg=pytest\ %\ -s')
+
+EOF
+
 " Map to <leader>r
-nnoremap <leader>r :python3 run_selection()<CR>
+
+nnoremap <leader>r :python3 run_selection()<CR>:silent make<CR>:copen<CR>:cbottom<CR>:redraw!<CR>
+
+" Map leader c to close the quickfix window.
+nnoremap <leader>c :cclose<CR>
 
 
 """""""""""" Adds the reformat functionality """""""""""""""""
@@ -736,8 +790,32 @@ highlight markdownItalicDelimiter ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NON
 highlight markdownError ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
 
 
-" Map Q to repeat the last command-line command (much faster than @:)
-" Note: This replaces 'Ex Mode' (which is rarely used and often entered by accident)
-nnoremap Q @:
+" Open / Close Nerd tree
+" nnoremap <C-n> :NERDTreeToggle<CR>
 
+"""""""""""""""""  Netrw   """""""""""""""""""""""""""""""
 
+" Toggle Netrw sidebar
+function! ToggleNetrw()
+  " Check if a Netrw window is currently open anywhere on the screen
+  let l:netrw_buf = bufnr('NetrwTreeListing')
+  let l:netrw_win = bufwinnr(l:netrw_buf)
+
+  if l:netrw_win != -1
+    " If open, switch to that window and close it
+    execute l:netrw_win . 'wincmd w'
+    q
+  else
+    " If closed, open it full height on the far left
+    topleft 30vnew | Explore
+  endif
+endfunction
+
+let g:netrw_bufsettings = 'nomodifiable nomodified byte nobuflisted ro nowrap number'
+
+autocmd FileType netrw setlocal numberwidth=3
+let g:netrw_banner = 0       " Hide the bloated top banner
+let g:netrw_browse_split = 4 " Open selected files in a previous window
+let g:netrw_winsize = 25     " Set the sidebar width to 25% of the screen
+
+nnoremap <silent> <C-n> :call ToggleNetrw()<CR>

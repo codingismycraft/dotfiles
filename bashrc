@@ -18,6 +18,7 @@ alias c='clear'
 alias ..='cd ..;pwd'
 alias e='vim'
 alias p='python3'
+alias cleanpy="find . \( -type d -name '__pycache__' -o -name '*.pyc' \) -exec rm -rf {} +"
 
 # Docker aliases
 #
