@@ -791,31 +791,5 @@ highlight markdownError ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
 
 
 " Open / Close Nerd tree
-" nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 
-"""""""""""""""""  Netrw   """""""""""""""""""""""""""""""
-
-" Toggle Netrw sidebar
-function! ToggleNetrw()
-  " Check if a Netrw window is currently open anywhere on the screen
-  let l:netrw_buf = bufnr('NetrwTreeListing')
-  let l:netrw_win = bufwinnr(l:netrw_buf)
-
-  if l:netrw_win != -1
-    " If open, switch to that window and close it
-    execute l:netrw_win . 'wincmd w'
-    q
-  else
-    " If closed, open it full height on the far left
-    topleft 30vnew | Explore
-  endif
-endfunction
-
-let g:netrw_bufsettings = 'nomodifiable nomodified byte nobuflisted ro nowrap number'
-
-autocmd FileType netrw setlocal numberwidth=3
-let g:netrw_banner = 0       " Hide the bloated top banner
-let g:netrw_browse_split = 4 " Open selected files in a previous window
-let g:netrw_winsize = 25     " Set the sidebar width to 25% of the screen
-
-nnoremap <silent> <C-n> :call ToggleNetrw()<CR>
