@@ -243,6 +243,10 @@ nnoremap <leader>w <C-w><C-w><cr>
 " Start the debugger.
 nnoremap <leader>d :Termdebug<CR>
 
+nnoremap <F1> :bn<CR>
+nnoremap <F2> :bp<CR>
+
+
 " The following two mappings are useful when we have yanked a text and then
 " deleted some other text to use the yanked.
 
