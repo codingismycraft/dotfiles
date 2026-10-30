@@ -14,7 +14,7 @@ eval "$(ssh-agent -s)"
 if [ -n "$1" ]; then
     REPO_NAME=$1
 else
-    REPO_NAME="personal"
+    REPO_NAME="codingismycraft"
 fi
 
 ssh-add ~/.ssh/${REPO_NAME}
