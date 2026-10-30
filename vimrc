@@ -805,3 +805,9 @@ highlight markdownError ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
 " Open / Close Nerd tree
 nnoremap <C-n> :NERDTreeToggle<CR>
 
+
+" Window navigation using Shift + hjkl
+nnoremap <S-h> <C-w>h
+nnoremap <S-j> <C-w>j
+nnoremap <S-k> <C-w>k
+nnoremap <S-l> <C-w>l
