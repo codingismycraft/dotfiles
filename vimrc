@@ -413,6 +413,9 @@ autocmd QuickFixCmdPost grep copen
 nnoremap <leader>n :cn<CR>
 nnoremap <leader>k :cp<CR>
 
+" Force the quickfix window to occupy the full width at the bottom
+autocmd FileType qf wincmd J
+
 function! MyGrep()
     silent! exec "cd $PWD"
     execute 'grep! ' . input('Grep for: ')
