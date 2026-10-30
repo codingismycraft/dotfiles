@@ -644,8 +644,14 @@ def run_selection():
 
     filename = os.path.basename(filepath)
 
+    if filename.endswith('.cu') or filename.endswith('.c'):
+        vim.command(r'setlocal makeprg=make\ %:r')
+        vim.command('setlocal errorformat&')
+        vim.command('make')
+        return
+
     if not filename.endswith('.py'):
-        print(filename, "Can only run python files.")
+        print(filename, "Can only run python, cuda or c files.")
         return
 
     # Save all modified buffers before formatting
