@@ -813,7 +813,8 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 
 
 " Window navigation using Shift + hjkl
-nnoremap <S-h> <C-w>h
-nnoremap <S-j> <C-w>j
-nnoremap <S-k> <C-w>k
-nnoremap <S-l> <C-w>l
+
+nnoremap <C-Up>    <C-w>k
+nnoremap <C-Down>  <C-w>j
+nnoremap <C-Left>  <C-w>h
+nnoremap <C-Right> <C-w>l
