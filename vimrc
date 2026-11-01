@@ -797,6 +797,9 @@ nnoremap <leader>t :call ToggleTestFile()<CR>
 " Split window vertically
 nnoremap <leader>v <C-w>v
 
+" Split window horizontally
+nnoremap <leader>h <C-w>s
+
 " Close the current window
 nnoremap <leader>c :q<CR>
 
