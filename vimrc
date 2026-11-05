@@ -198,7 +198,6 @@ Plugin 'codingismycraft/VimStatusLine'
 Plugin 'tpope/vim-fugitive'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'junegunn/fzf.vim'
-Plugin 'Exafunction/codeium.vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -237,8 +236,6 @@ inoremap <C-s> <Esc>:w<CR>a
 noremap <leader>a :set rnu!<CR>
 
 
-" Change active window.
-nnoremap <leader>w <C-w><C-w><cr>
 
 " Start the debugger.
 nnoremap <leader>d :Termdebug<CR>
@@ -798,7 +795,8 @@ nnoremap <leader>t :call ToggleTestFile()<CR>
 nnoremap <leader>v <C-w>v
 
 " Split window horizontally
-nnoremap <leader>h <C-w>s
+nnoremap <leader>w <C-w>s
+
 
 " Close the current window
 nnoremap <leader>c :q<CR>
