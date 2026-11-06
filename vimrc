@@ -198,6 +198,7 @@ Plugin 'codingismycraft/VimStatusLine'
 Plugin 'tpope/vim-fugitive'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'junegunn/fzf.vim'
+Plugin 'gergap/vim-ollama'
 call vundle#end()
 filetype plugin indent on
 
@@ -819,3 +820,20 @@ nnoremap <C-Up>    <C-w>k
 nnoremap <C-Down>  <C-w>j
 nnoremap <C-Left>  <C-w>h
 nnoremap <C-Right> <C-w>l
+
+" Configure Ollama running
+" If running on the server you need to change the address
+" on the ollama.service using
+"
+" Add the following lines Ollama config
+" localhost must be the address of the remote server where Ollama is running.
+
+" let g:ollama_use_venv = 1
+" let g:ollama_host = 'http://localhost:11434'
+" let g:ollama_model = 'qwen2.5-coder:1.5b'
+" let g:ollama_chat_model = 'qwen2.5-coder:1.5b'
+" let g:ollama_edit_model = 'qwen2.5-coder:1.5b'
+" let g:ollama_no_tab_map = 1
+" inoremap <script><silent><nowait><expr> <Tab> ollama#Accept("\<Tab>")
+" " 3. Map Ctrl+J to recursively execute the plugin's built-in Alt+Right function
+" imap <silent> <C-j> <M-Right>
