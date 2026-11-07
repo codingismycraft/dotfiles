@@ -821,19 +821,21 @@ nnoremap <C-Down>  <C-w>j
 nnoremap <C-Left>  <C-w>h
 nnoremap <C-Right> <C-w>l
 
-" Configure Ollama running
-" If running on the server you need to change the address
-" on the ollama.service using
-"
-" Add the following lines Ollama config
-" localhost must be the address of the remote server where Ollama is running.
+" --- Vim-Ollama Global Settings ---
+" If running remotely add the address of the machine having the ollama
+" to the .secrets file so bashrc will find it from there.
+" For example:
+" export OLLAMA_HOST="http://machine-name:11434"
 
-" let g:ollama_use_venv = 1
-" let g:ollama_host = 'http://localhost:11434'
-" let g:ollama_model = 'qwen2.5-coder:1.5b'
-" let g:ollama_chat_model = 'qwen2.5-coder:1.5b'
-" let g:ollama_edit_model = 'qwen2.5-coder:1.5b'
-" let g:ollama_no_tab_map = 1
-" imap <silent> <Tab> <M-Right><CR>
+let g:ollama_host = getenv('OLLAMA_HOST') ?? 'http://127.0.0.1:11434'
+let g:ollama_use_venv = 1
+let g:ollama_model = 'qwen2.5-coder:1.5b'
+let g:ollama_chat_model = 'qwen2.5-coder:1.5b'
+let g:ollama_edit_model = 'qwen2.5-coder:1.5b'
 
+" Disable default plugin Tab binding completely
+let g:ollama_no_tab_map = 1
+
+" Use Ctrl-J to accept single-line completion and clear ghost text
+imap <silent> <C-J> <M-Right><C-o>:call ollama#clear_suggestion()<CR>
 
