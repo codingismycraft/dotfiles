@@ -834,6 +834,6 @@ nnoremap <C-Right> <C-w>l
 " let g:ollama_chat_model = 'qwen2.5-coder:1.5b'
 " let g:ollama_edit_model = 'qwen2.5-coder:1.5b'
 " let g:ollama_no_tab_map = 1
-" inoremap <script><silent><nowait><expr> <Tab> ollama#Accept("\<Tab>")
-" " 3. Map Ctrl+J to recursively execute the plugin's built-in Alt+Right function
-" imap <silent> <C-j> <M-Right>
+" imap <silent> <Tab> <M-Right><CR>
+
+
