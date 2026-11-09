@@ -25,64 +25,6 @@
 
 """""""""""""""""""""""""""""" Global Functions """"""""""""""""""""""""""""""""""""""
 
-" Clears the contents of all Vim registers.
-function! ClearRegisters()
-    let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
-    for r in regs
-      call setreg(r, [])
-    endfor
-endfunction
-
-"Open the current file's GitHub repo in Firefox.
-function! OpenInGitHub()
-    " Opens the current file in github if it is under version control.
-    let l:current_file = expand('%:p')
-    let l:command = 'remote_git_urls.py ' . shellescape(l:current_file)
-    " Execute the command and capture its output
-    let l:output = system(l:command)
-    " If there were any execution issues, handle them
-    if v:shell_error
-        echoerr "Error running command: " . l:command
-        return
-    endif
-    execute ":!firefox ". trim(l:output)
-endfunction
-
-
-function! JoinParagraphs()
-  let lnum = 1
-  let last = line('$')
-  while lnum <= last
-    " Skip blank lines
-    if getline(lnum) =~ '^\s*$'
-      let lnum += 1
-      continue
-    endif
-    " While the next line exists and is not blank, join it
-    while lnum < line('$') && getline(lnum+1) !~ '^\s*$'
-      execute lnum . 'join'
-      let last = line('$') " Buffer shrinks as we join
-    endwhile
-    let lnum += 1
-  endwhile
-endfunction
-
-
-" Find the project root directory by looking for .git or tags file.
-function! FindProjectRoot()
-  let l:dir = expand('%:p:h')
-  while !isdirectory(l:dir . '/.git') && !filereadable(l:dir . '/tags')
-    let l:parent = fnamemodify(l:dir, ':h')
-    if l:parent == l:dir
-      return getcwd()
-    endif
-    let l:dir = l:parent
-  endwhile
-  return l:dir
-endfunction
-
-" Update the tags file in the project root directory.
-" autocmd BufWritePost * silent! execute '!ctags --update -f ' . FindProjectRoot() . '/tags %' | redraw!
 
 """"""""""""""""""""""  vim settings """""""""""""""""""""""""""""""""""""""""""
 set nocompatible
@@ -111,9 +53,6 @@ if !has('nvim')
     end
 end
 
-
-" Replace inner word with system clipboard and make it repeatable
-nnoremap <leader>r "_ciw<C-r>+<Esc>
 
 " Uncomment the following for Working directory to always be the same as the
 " file you are editing.
@@ -215,8 +154,6 @@ if $SSH_CONNECTION == ""
     " Open the active document as pdf.
     nnoremap <F9> :!pandoc -V colorlinks=true -V linkcolor=blue -V urlcolor=blue -V toccolor=gray % -o junk.pdf -f markdown+implicit_figures  && evince junk.pdf<CR><CR>
 
-    " If exists open the file under github.
-    nnoremap <F7> :call OpenInGitHub()<CR><CR>
 endif
 
 
@@ -226,16 +163,8 @@ set completeopt-=preview
 " leader prefixed keybindings.
 let mapleader=" "
 
-nnoremap <C-s> :w<CR>
-
-" Insert mode: save file with Ctrl+S (returns to normal mode, saves, then back
-" to insert)
-inoremap <C-s> <Esc>:w<CR>a
-
 " Change the relative number.
 noremap <leader>a :set rnu!<CR>
-
-
 
 " Start the debugger.
 nnoremap <leader>d :Termdebug<CR>
@@ -251,14 +180,12 @@ nnoremap <F2> :bp<CR>
 nnoremap <leader>p "0p
 vnoremap <leader>p "0p
 
-" nnoremap <leader><Space> :bnext<CR>
 
 " Use leader q to replace existing word with last yanked text.
 nnoremap <leader>q  viw"0p
 
 " map the <leader> tab to open fzf buffers.
 nnoremap <leader><Tab> :Buffers<CR>
-
 
 
 " Replace visually selected text with yanked text(in reg 0).
@@ -304,18 +231,11 @@ set belloff=all
 let g:NERDTreeShowLineNumbers=1
 set t_Co=256
 set background=light
-" colorscheme zenburn
-" colorscheme elflord
-" colorscheme desert
 
 colorscheme PaperColor
-" highlight Normal ctermbg=white
 set nocursorline
 
 let g:python_interpreter = "python3"
-
-command! -nargs=1 Ggrep cexpr system('git grep -n <args>') | copen
-
 
 let g:initial_cwd = getcwd()
 
@@ -325,26 +245,6 @@ let g:initial_cwd = getcwd()
 " This means that when you press Ctrl-P it will start searching from the
 " directory where you first opened Vim.
 nnoremap <C-p> :<C-u>execute 'FZF ' . g:initial_cwd<CR>
-
-" Commenting out since it can cause issues with the cursor jumping to the end
-" of the file after save.
-
-" Function to format a Python file with isort and black
-" function! FormatPython()
-"     let l:filename = expand('%:p')
-"     " Run isort and black silently and suppress all output
-"     silent! execute ':!isort ' . shellescape(l:filename) . ' > /dev/null 2>&1'
-"     silent! execute ':!black ' . shellescape(l:filename) . ' > /dev/null 2>&1'
-"     " Reload the file
-"     edit!
-" endfunction
-
-" Create an autocommand group to avoid duplicate autocommands
-" augroup format_on_save
-"     autocmd!
-"     " When saving a Python file, run the formatter
-"     autocmd BufWritePost *.py call FormatPython()
-" augroup END
 
 
 nnoremap <leader>l :call ToggleBackground()<CR>
@@ -420,26 +320,11 @@ endfunction
 
 nnoremap mg :call MyGrep()<CR>
 
-" -------------------------------------------------------------------------------
-" The following are needed for autocomplete using YouCompleteMe. and
-" omnicompletion.
-"
-" For python code map Ctrl + ] to go to definition using youcompleteme.
-" autocmd FileType python nnoremap <C-]> <Esc>:YcmCompleter GoToDefinition<CR>
-" let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
-" let g:ycm_confirm_extra_conf=0
-" let g:ycm_python_binary_path='/usr/bin/python3'
-" let g:ycm_collect_identifiers_from_tags_files = 1
-" let g:ycm_show_diagnostics_ui = 0
-" let g:ycm_auto_trigger = 0
 
 " Under your project's root directory create the tags as follows:
 " ctags --languages=Python,C,C++ -R -f tagsall . /usr/include /usr/local/include
 set tags=./tags;/
 
-" The following will allow YouCompleteMe to not freeze when requesting
-" autocomplete with many matching candidates.
-" let g:ycm_max_num_candidates = 20
 
 " Don't automatically trigger the autocomplete.
 filetype plugin indent on
