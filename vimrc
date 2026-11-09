@@ -88,7 +88,6 @@ set guioptions-=m  "menu bar
 set guioptions-=T  "toolbar
 set guioptions-=r  "scrollbar
 set guioptions-=L  "remove left-hand scroll bar
-set guioptions-=T
 
 " Sets the autoindent so when pressing enter the cursor is indended.
 set autoindent
@@ -198,7 +197,8 @@ set number
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 " When set to 0 the cursor won't jump automatically
-" see here https://stackoverflow.com/questions/35390415/cursor-jump-in-vim-after-save
+" see here:
+" https://stackoverflow.com/questions/35390415/cursor-jump-in-vim-after-save
 " When the autocmd is executed to remove trailing spaces before saving
 " use the following to keep the cursor from jumping to the last change
 " and loose the current location..
@@ -223,6 +223,7 @@ ab __main if __name__ == '__main__':
 if !has('nvim')
     set noesckeys
 endif
+
 set ttimeoutlen=50
 
 " Disable the bell.
@@ -359,71 +360,9 @@ inoremap <C-b> <C-o>b
 " Disable the auto insertion of comment leader when pressing Enter.
 autocmd FileType * set formatoptions-=ro
 
-set foldmethod=indent
-
-" ======================= Save/Load Session per project =======================
-
-" Vimscript function to save/load session in ~/vim-sessions
-function! s:GetSessionDir() abort
-    return expand('~/vim-sessions')
-endfunction
-
-function! s:EnsureSessionDir() abort
-    if !isdirectory(s:GetSessionDir())
-        call mkdir(s:GetSessionDir(), 'p')
-    endif
-endfunction
-
-function! s:GetProjectRoot() abort
-    " Try to find git root
-    let l:git_cmd = 'git rev-parse --show-toplevel'
-    let l:root = system(l:git_cmd)
-    if v:shell_error == 0
-        return substitute(l:root, '\n\+$', '', '') " Remove trailing newline
-    else
-        return getcwd()
-    endif
-endfunction
-
-function! s:GetSessionFile() abort
-    let l:root = fnamemodify(s:GetProjectRoot(), ':t')
-    let l:session_dir = s:GetSessionDir()
-    return l:session_dir . '/' . l:root . '.vim'
-endfunction
-
-" Save session
-function! SaveProjectSession() abort
-    call s:EnsureSessionDir()
-    execute 'mksession! ' . fnameescape(s:GetSessionFile())
-    echo 'Session saved to ' . s:GetSessionFile()
-endfunction
-
-" Load session
-function! LoadProjectSession() abort
-    call s:EnsureSessionDir()
-    let l:session_file = s:GetSessionFile()
-    if filereadable(l:session_file)
-        execute 'source ' . fnameescape(l:session_file)
-        echo 'Session loaded from ' . l:session_file
-    else
-        echohl ErrorMsg | echo 'No session file found for this project.' | echohl None
-    endif
-endfunction
-
-" Optional: Add handy commands
-command! SaveProjectSession call SaveProjectSession()
-command! LoadProjectSession call LoadProjectSession()
-
-" =================  End Save/Load Session per project " =====================
-
-autocmd VimLeave * call writefile([getreg('a')], '/tmp/vim_clip')
-autocmd VimLeave * call system('xclip -selection clipboard -i /tmp/vim_clip')
 
 set colorcolumn=81
 autocmd BufWinEnter * setlocal colorcolumn=81
-
-set autoread
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI,WinEnter * checktime
 
 " Skip for vimgrep.
 set wildignore+=*/myenv/*,*/build/*,*.tmp
@@ -450,9 +389,6 @@ endfunction
 
 autocmd BufRead,BufNewFile * call AddProjectToPath()
 
-
-
-
 python3 << EOF
 """Defines the run_selection function."""
 
@@ -460,7 +396,7 @@ import vim
 import os
 import re
 
-def run_selection_old():
+def run_selection_without_quick_fix():
     """Runs the current selection in the current buffer."""
 
     # Save the current buffer before running
@@ -514,7 +450,7 @@ import os
 import re
 
 def run_selection():
-    """Configures the workspace and build configurations for the current buffer."""
+    """Runs the selection and sends output to quickfix."""
 
     # Save the current buffer before running
     vim.command('update')
@@ -566,9 +502,6 @@ EOF
 " Map to <leader>r
 
 nnoremap <leader>r :python3 run_selection()<CR>:silent make<CR>:copen<CR>:cbottom<CR>:redraw!<CR>
-
-" Map leader c to close the quickfix window.
-nnoremap <leader>c :cclose<CR>
 
 
 """""""""""" Adds the reformat functionality """""""""""""""""
@@ -628,7 +561,8 @@ endfunction
 nnoremap <silent> <leader>s :call ScratchPad()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" By default start having search highlight on.
+set hlsearch
 " Highlight search terms <leader> h
 nnoremap <silent> <leader>h :set hlsearch!<CR>
 
@@ -637,7 +571,7 @@ set diffopt+=vertical
 
 
 " Clipbooard settings.
-set clipboard=unnamed,unnamedplus
+set clipboard=unnamedplus
 set incsearch
 
 " Toggle between a source file and its corresponding test file.
@@ -681,7 +615,6 @@ nnoremap <leader>v <C-w>v
 
 " Split window horizontally
 nnoremap <leader>w <C-w>s
-
 
 " Close the current window
 nnoremap <leader>c :q<CR>
