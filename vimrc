@@ -171,6 +171,9 @@ nnoremap <leader>d :Termdebug<CR>
 nnoremap <F1> :bn<CR>
 nnoremap <F2> :bp<CR>
 
+" Open / Close Nerd tree
+nnoremap <F3> :NERDTreeToggle<CR>
+
 
 " The following two mappings are useful when we have yanked a text and then
 " deleted some other text to use the yanked.
@@ -215,7 +218,8 @@ autocmd! BufWritePre * :call <SID>StripTrailingWhitespaces()
 let g:syntastic_auto_jump = 0
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-ab __main if __name__ == '__main__':
+
+inoreab __main if __name__ == '__main__':
 
 " Fixing slow Esc key
 " https://vi.stackexchange.com/questions/16148/slow-vim-escape-from-insert-mode
@@ -307,9 +311,6 @@ let &grepprg = "git --no-pager grep --no-color -n $*"
 " When grep is completed open automatically the quickfix window.
 autocmd QuickFixCmdPost grep copen
 
-"Use `<leader>` + `lk` to move up-down the quickfix list.
-nnoremap <leader>n :cn<CR>
-nnoremap <leader>k :cp<CR>
 
 " Force the quickfix window to occupy the full width at the bottom
 autocmd FileType qf wincmd J
@@ -625,10 +626,6 @@ nnoremap <leader>c :q<CR>
 " with a bright red background.
 highlight markdownItalicDelimiter ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
 highlight markdownError ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
-
-
-" Open / Close Nerd tree
-nnoremap <C-n> :NERDTreeToggle<CR>
 
 
 " Window navigation using Shift + hjkl
